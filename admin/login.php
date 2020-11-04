@@ -1,4 +1,5 @@
 <?php
+    // include "controllers/functions.php";
     include "inc/db_config.php";
     session_start();
 ?>
@@ -15,9 +16,9 @@
     <link href="vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="libs/css/style.css">
     <link rel="stylesheet" href="vendor/fonts/fontawesome/css/fontawesome-all.css">
+
+    <!-- SWEET ALERT 2 -->
     <link rel="stylesheet" href="plugins\\sweetalert2\\sweetalert2.css">
-
-
     <script src="plugins/sweetalert2/sweetalert2.min.js" type="text/javaScript"></script>
     
     <style>
@@ -54,7 +55,7 @@
                     </div>
                     <div class="form-group">
                         <label class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox"><span class="custom-control-label">Remember Me</span>
+                            <input class="custom-control-input" name="remember" type="checkbox"><span class="custom-control-label">Remember Me</span>
                         </label>
                     </div>
                     <input type="submit" name="submit" value="Sign in" class="btn btn-primary btn-lg btn-block">
@@ -62,9 +63,9 @@
             </div>
             <div class="card-footer bg-white p-0  ">
                 <div class="card-footer-item card-footer-item-bordered">
-                    <a href="#" class="footer-link">Create An Account</a></div>
+                    <a href="sign-up.php" class="footer-link">Create An Account</a></div>
                 <div class="card-footer-item card-footer-item-bordered">
-                    <a href="#" class="footer-link">Forgot Password</a>
+                    <a href="forgot-password.php" class="footer-link">Forgot Password</a>
                 </div>
             </div>
         </div>
@@ -75,9 +76,11 @@
             if($_SERVER['REQUEST_METHOD'] == "POST"){
                 $username = $_POST['username'];
                 $password = sha1($_POST['password']);
-                
+                $remember = $_POST['remember'];
+                // login($username, $password);
+
                 $sql = "SELECT * FROM `users` WHERE email = '$username' AND password = '$password'";
-                $result = mysqli_query($db,$sql);
+                $result = mysqli_query($db ,$sql);
 
                 if(mysqli_num_rows($result) > 0){
                     while($row = mysqli_fetch_assoc($result)){
@@ -93,16 +96,21 @@
                         $_SESSION['new_status'] = $row['new_status'];
                         $_SESSION['join_date'] = $row['join_date'];
 
-                        if($row['role'] == 1){
-                            $_SESSION['message'] = "LOGIN SUCCESS";
-                            $_SESSION['type'] = "success";
-                            header("location: dashboard.php");
-                            exit();
+                        if(isset($remember)){
+                            setcookie("username",$username,time() + (86400 * 30), "/");
+                        }
+                        else{
+                            if($row['role'] == 1){
+                                $_SESSION['message'] = "LOGIN SUCCESS";
+                                $_SESSION['type'] = "success";
+                                header("location: dashboard.php");
+                                exit();
+                            }
                         }
                     }
                 }
                 else {
-                    $_SESSION['message'] = "LOGIN FAILED";
+                    $_SESSION['message'] = "LOGIN FAILED" ;
                     $_SESSION['type'] = "error";
                     header("location: login.php?error");
                     exit();
@@ -120,26 +128,28 @@
     
     <script>
         <?php
-            if(isset($_SESSION['message'])){
-                if(isset($_SESSION['type']) && $_SESSION['type'] == "error"){
-                ?>
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: '<?=$_SESSION['message']?>!'
-                    })
-                <?php
-                }
-                else if(isset($_SESSION['type']) && $_SESSION['type'] == "success"){
+            if(isset($_GET['error'])){
+                if(isset($_SESSION['message'])){
+                    if(isset($_SESSION['type']) && $_SESSION['type'] == "error"){
                     ?>
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: 'Something went wrong!'
+                            text: '<?=$_SESSION['message']?>!'
                         })
                     <?php
+                    }
+                    else if(isset($_SESSION['type']) && $_SESSION['type'] == "success"){
+                        ?>
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!'
+                            })
+                        <?php
+                    }
+                    unset($_SESSION['message'],$_SESSION['type']);
                 }
-                unset($_SESSION['message'],$_SESSION['type']);
             }
         ?>
     </script>
