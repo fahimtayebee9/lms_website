@@ -46,7 +46,7 @@
         <div class="card ">
             <div class="card-header text-center"><a href="../index.html"><img class="logo-img pb-3" width="60%" src="img/website/logo.png" alt="logo"></a><span class="splash-description">Please enter your user information.</span></div>
             <div class="card-body">
-                <form action="login.php?action=Login" method="POST">
+                <form action="index.php?action=Login" method="POST">
                     <div class="form-group">
                         <input class="form-control form-control-lg" name="username" id="username" type="text" placeholder="Username" autocomplete="off">
                     </div>
@@ -112,7 +112,7 @@
                 else {
                     $_SESSION['message'] = "LOGIN FAILED" ;
                     $_SESSION['type'] = "error";
-                    header("location: login.php?error");
+                    header("location: index.php?error");
                     exit();
                 }
             }

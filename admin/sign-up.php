@@ -158,7 +158,7 @@
                     if($result){
                         $_SESSION['message'] = "Registration Success !!! \n Please Login to Continue!!";
                         $_SESSION['type'] = "success";
-                        header("location: login.php");
+                        header("location: index.php");
                         exit();
                     }
                     else{
