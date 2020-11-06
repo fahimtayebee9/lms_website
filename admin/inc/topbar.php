@@ -131,25 +131,36 @@
                                   </div>
                                   <div class="media-body">
                                       <div class="font-13">New user registered</div><small class="text-muted">2 hrs</small></div>
-                              </div>
-                          </a>
-                      </div>
-                  </li>
-              </ul>
-          </li>
-          <li class="dropdown dropdown-user">
-              <a class="nav-link dropdown-toggle link" data-toggle="dropdown">
-                  <img src="./assets/img/admin-avatar.png" />
-                  <span></span>Admin<i class="fa fa-angle-down m-l-5"></i></a>
-              <ul class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" href="profile.html"><i class="fa fa-user"></i>Profile</a>
-                  <a class="dropdown-item" href="profile.html"><i class="fa fa-cog"></i>Settings</a>
-                  <a class="dropdown-item" href="javascript:;"><i class="fa fa-support"></i>Support</a>
-                  <li class="dropdown-divider"></li>
-                  <a class="dropdown-item" href="login.html"><i class="fa fa-power-off"></i>Logout</a>
-              </ul>
-          </li>
-      </ul>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown dropdown-user">
+                <?php
+                    if ( !empty( $_SESSION['email'] ) || !empty( $_SESSION['password'] ) ){
+                        $sql = "SELECT * FROM users WHERE id = '{$_SESSION['user_id']}'";
+                        $res = mysqli_query($db,$sql);
+                        while($rw = mysqli_fetch_assoc($res)){
+                            $name = $rw['name'];
+                            $role = $rw['role'];
+                            $image = $rw['image'];
+                        }
+                    }
+                ?>
+                <a class="nav-link dropdown-toggle link" data-toggle="dropdown">
+                    <img src="./assets/img/admin-avatar.png" />
+                    <span></span><?php if($role == 1){echo "Super Admin";}else{echo "User";}?><i class="fa fa-angle-down m-l-5"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="profile.php"><i class="fa fa-user"></i>Profile</a>
+                    <a class="dropdown-item" href="profile.php"><i class="fa fa-cog"></i>Settings</a>
+                    <li class="dropdown-divider"></li>
+                    <a class="dropdown-item" href="logout.php"><i class="fa fa-power-off"></i>Logout</a>
+                </ul>
+            </li>
+        </ul>
       <!-- END TOP-RIGHT TOOLBAR-->
   </div>
 </header>
