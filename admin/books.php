@@ -35,7 +35,7 @@
                       $totalBooks = $db->query("SELECT * FROM books")->num_rows;
                       $totalBooksAvl = $db->query("SELECT * FROM books WHERE bk_status = 1")->num_rows;
                     ?>
-                    <p class="bg-light p-3 font-weight-normal" style="font-size: 16px;">Total Available Books <b><?=$totalBooksAvl?></b> From <b><?=$totalBooks?></b></p>
+                    <p class="bg-light p-3 font-weight-normal" style="font-size: 16px;">Total Available Books <b><?=$totalBooksAvl?></b> Of <b><?=$totalBooks?></b></p>
                   </div>
                   <?php
                     $sqlBooks = "SELECT * FROM books INNER JOIN authors ON books.author_id = authors.a_id";
@@ -43,7 +43,7 @@
                     while($rowBk = mysqli_fetch_assoc($resultBooks)){
                       ?>
                         <div class="col-lg-3 col-md-3 col-sm-4 mb-3">
-                            <div class="card">
+                            <div class="card" style="height: 450px;">
                                 <div class="card-body">
                                     <div class="mx-auto d-block">
                                         <?php
@@ -358,10 +358,14 @@
           else if($action == "Insert"){
             echo "<script>alert('FORM SUBMITTED')</script>";
             if ( $_SERVER['REQUEST_METHOD'] == 'POST' ){
-              $bk_name            = $_POST['bk_name'];
-              $category_id      = $_POST['category_id'];
-              $sub_cat          = $_POST['sub_id'];
-              if(!empty($_POST['bk_status'])){
+              $sub_cat = 0;
+              $status  = 0;
+              $bk_name      = $_POST['bk_name'];
+              $category_id  = $_POST['category_id'];
+              if(isset($_POST['sub_id'])){
+                $sub_cat    = $_POST['sub_id'];
+              }
+              if(isset($_POST['bk_status'])){
                 $status = $_POST['bk_status'];
               }
               else{
@@ -370,7 +374,7 @@
               $publisher        = $_POST['publisher'];
               $isbn             = $_POST['isbn'];
               $edition          = $_POST['edition'];
-              $country         = $_POST['country'];
+              $country          = $_POST['country'];
               $language         = $_POST['language'];
               $author_id        = $_POST['author_id'];
 
@@ -421,7 +425,7 @@
                     $addBook = mysqli_query($db, $sql);
 
                     if ( $addBook ){
-                      header("location: books.php?action=Manage");
+                      header("location: books.php");
                     }
                     else{
                       die("MySQLi Query Failed." . mysqli_error($db));

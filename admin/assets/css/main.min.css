@@ -3553,7 +3553,7 @@ a.text-danger:hover {
  * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-.header {
+.headers {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3568,7 +3568,7 @@ a.text-danger:hover {
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
-.header .page-brand {
+.headers .page-brand {
   width: 220px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -3586,22 +3586,22 @@ a.text-danger:hover {
   transition: all 0.2s ease-in-out;
   overflow: hidden;
 }
-.header .page-brand .brand {
+.headers .page-brand .brand {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
-.header .page-brand .brand-mini {
+.headers .page-brand .brand-mini {
   display: none;
 }
-.header .navbar-toolbar {
+.headers .navbar-toolbar {
   -webkit-box-align: center;
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
 }
-.header .navbar-toolbar > li > a {
+.headers .navbar-toolbar > li > a {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3613,7 +3613,7 @@ a.text-danger:hover {
   padding: 15px;
   color: #6d7c85;
 }
-.header .navbar-toolbar > li .notify-signal {
+.headers .navbar-toolbar > li .notify-signal {
   height: 6px;
   width: 6px;
   position: absolute;
@@ -3623,7 +3623,7 @@ a.text-danger:hover {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
-.header .navbar-toolbar > li .notify-signal::before {
+.headers .navbar-toolbar > li .notify-signal::before {
   display: none;
   content: "";
   position: absolute;
@@ -3639,27 +3639,27 @@ a.text-danger:hover {
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
-.header .navbar-toolbar > li.active .notify-signal::before {
+.headers .navbar-toolbar > li.active .notify-signal::before {
   display: block;
 }
-.header
+.headers
   .navbar-toolbar
   .dropdown-notification
   a.dropdown-toggle
   .notify-signal {
   background: #f75a5f;
 }
-.header
+.headers
   .navbar-toolbar
   .dropdown-notification
   a.dropdown-toggle
   .notify-signal::before {
   border-color: #f75a5f;
 }
-.header .navbar-search {
+.headers .navbar-search {
   padding: 0 15px;
 }
-.header .navbar-search .search-icon {
+.headers .navbar-search .search-icon {
   position: absolute;
   top: 0;
   height: 100%;
@@ -3678,7 +3678,7 @@ a.text-danger:hover {
   align-items: center;
   color: #6d7c85;
 }
-.header .navbar-search .form-control {
+.headers .navbar-search .form-control {
   border: 0;
   padding: 0.65rem 1.25rem 0.65rem 40px;
   -webkit-border-radius: 200px !important;
@@ -3687,32 +3687,32 @@ a.text-danger:hover {
   border-color: #f4f5f9;
   font-size: 13px;
 }
-.header .sidebar-toggler {
+.headers .sidebar-toggler {
   font-size: 18px;
 }
-.header .dropdown-user {
+.headers .dropdown-user {
   padding-right: 10px;
 }
-.header .dropdown-user a.dropdown-toggle {
+.headers .dropdown-user a.dropdown-toggle {
   padding: 0 15px;
 }
-.header .dropdown-user a.dropdown-toggle img {
+.headers .dropdown-user a.dropdown-toggle img {
   width: 30px;
   -webkit-border-radius: 50%;
   border-radius: 50%;
   margin-right: 10px;
 }
-.header .dropdown-user > .dropdown-menu .dropdown-item {
+.headers .dropdown-user > .dropdown-menu .dropdown-item {
   color: #6d7c85;
 }
-.header .dropdown-user > .dropdown-menu .dropdown-item i {
+.headers .dropdown-user > .dropdown-menu .dropdown-item i {
   margin-right: 10px;
 }
-.header .dropdown-inbox,
-.header .dropdown-notification {
+.headers .dropdown-inbox,
+.headers .dropdown-notification {
   font-size: 15px;
 }
-.header .dropdown-inbox img {
+.headers .dropdown-inbox img {
   width: 40px;
   height: 40px;
 }
@@ -3737,7 +3737,7 @@ a.text-danger:hover {
 }
 @media screen and (max-width: 580px) {
   .dropdown-user > a > span,
-  .header .search-toggler span {
+  .headers .search-toggler span {
     display: none;
   }
   .dropdown-user > a > img {
@@ -3973,8 +3973,8 @@ body.empty-layout .theme-config,
 body.empty-layout .to-top {
   display: none !important;
 }
-body.fixed-layout .header,
-body.fixed-navbar .header {
+body.fixed-layout .headers,
+body.fixed-navbar .headers {
   position: fixed;
   left: 0;
   right: 0;
@@ -3996,8 +3996,8 @@ body.boxed-layout {
   max-width: 1200px;
   margin: 0 auto;
 }
-body.boxed-layout.fixed-layout .header,
-body.boxed-layout.fixed-navbar .header {
+body.boxed-layout.fixed-layout .headers,
+body.boxed-layout.fixed-navbar .headers {
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -4220,7 +4220,7 @@ body.has-backdrop .backdrop {
 .sidebar-mini .side-menu > li:hover .nav-2-level {
   background-color: #253544;
 }
-.header .page-brand {
+.headers .page-brand {
   color: #fff;
   background-color: #374f65;
 }

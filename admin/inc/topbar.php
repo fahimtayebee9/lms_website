@@ -1,6 +1,6 @@
-<header class="header">
+<header class="headers">
   <div class="page-brand">
-      <a class="link" href="index.html">
+      <a class="link" href="dashboard.php">
           <span class="brand">Admin
               <span class="brand-tip">CAST</span>
           </span>

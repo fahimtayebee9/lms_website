@@ -2,11 +2,33 @@
   <nav class="page-sidebar" style="position: fixed!important;" id="sidebar">
             <div id="sidebar-collapse">
                 <div class="admin-block d-flex">
+                    <?php
+                        if ( !empty( $_SESSION['email'] ) || !empty( $_SESSION['password'] ) ){
+                            $sql = "SELECT * FROM users WHERE id = '{$_SESSION['user_id']}'";
+                            $res = mysqli_query($db,$sql);
+                            while($rw = mysqli_fetch_assoc($res)){
+                                $name = $rw['name'];
+                                $role = $rw['role'];
+                                $image = $rw['image'];
+                            }
+                        }
+                    ?>
                     <div>
-                        <img src="./assets/img/admin-avatar.png" width="45px" />
+                        <?php
+                            if(!empty($image)){
+                                ?>
+                                    <img class="rounded-circle mx-auto d-block" width="45px" src="img/users/<?=$image?>" alt="Card image cap">
+                                <?php
+                            }
+                            else{
+                                ?>
+                                    <img class="rounded-circle mx-auto d-block" style="width: 170px;" src="img/users/default.png" alt="Card image cap">
+                                <?php
+                            }
+                        ?>
                     </div>
                     <div class="admin-info">
-                        <div class="font-strong">James Brown</div><small>Administrator</small>
+                        <div class="font-strong"><?=$name?></div><small><?php if($role == 1){echo "Super Admin";}else{echo "User";}?></small>
                     </div>
                 </div>
                 <ul class="side-menu metismenu">
