@@ -31,39 +31,41 @@
             $action = isset($_GET['action']) ? $_GET['action'] : "Manage";
             if($action == "Manage"){
                 ?>
-                    <div class="container">
+                    <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-12">
-                                <table class="table">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col">SL#</th>
-                                            <th scope="col">IMAGE</th>
-                                            <th scope="col">NAME</th>
-                                            <th scope="col">EMAIL</th>
-                                            <th scope="col">ADDRESS</th>
-                                            <th scope="col">PHONE</th>
-                                            <th scope="col">STATUS</th>
-                                            <th scope="col">ACTION</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                            $sql = "SELECT * FROM users";
-                                            $result = mysqli_query($db,$sql);
-                                            $i = 0;
-                                            while($row = mysqli_fetch_assoc($result)){
-                                                ?>
-                                                    <tr>
-                                                        <th scope="row"><?=$i?></th>
-                                                        <td>
-                                                            <img src="img/users/<?=$row['image']?>" alt="User Image" class="table-img">
-                                                        </td>
-                                                        <td><?=$row['name']?></td>
-                                                        <td><?=$row['email']?></td>
-                                                        <td><?=$row['address']?></td>
-                                                        <td><?=$row['phone']?></td>
-                                                        <td>
+                            <?php
+                                $sql = "SELECT * FROM users";
+                                $result = mysqli_query($db,$sql);
+                                $i = 0;
+                                while($row = mysqli_fetch_assoc($result)){
+                                ?>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 mb-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="mx-auto d-block">
+                                                    <?php
+                                                        if(!empty($row['image'])){
+                                                            ?>
+                                                                <img class="rounded-circle mx-auto d-block" style="width: 170px;" src="img/users/<?=$row['image']?>" alt="Card image cap">
+                                                            <?php
+                                                        }
+                                                        else{
+                                                            ?>
+                                                                <img class="rounded-circle mx-auto d-block" style="width: 170px;" src="img/users/default.png" alt="Card image cap">
+                                                            <?php
+                                                        }
+                                                    ?>
+                                                    
+                                                    <h5 class="text-sm-center mt-2 mb-1"><?=$row['name']?></h5>
+                                                    <div class="location text-sm-center"><i class="fa fa-map-marker"></i> <?=$row['address']?> </div>
+                                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                        <li class="small mb-3"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: <?=$row['phone']?></li>
+                                                        <li class="small mb-3">
+                                                            <span class="fa-li">
+                                                            <i class="fas fa-clock"></i></span> 
+                                                            Join Date #: <?=$row['join_date']?>                                  
+                                                        </li>
+                                                        <li class="small mb-3"><span class="fa-li"><i class="fas fa-lg fa-user"></i></span> Status: 
                                                             <?php
                                                                 if($row['status'] == 0){
                                                                     ?>
@@ -76,21 +78,23 @@
                                                                     <?php
                                                                 }
                                                             ?>
-                                                        </td>
-                                                        <td>
-                                                            <a href="users.php?action=Edit" class="btn btn-info">Edit</a>
-                                                            <a href="users.php?action=Delete" class="btn btn-danger">Delete</a>
-                                                        </td>
-                                                    </tr>
-                                                <?php
-                                                $i++;
-                                            }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer m-auto">
+                                                <a href="users.php?action=Edit" class="btn btn-info">Edit</a>
+                                                <button class="btn btn-danger">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php
+                                    $i++;
+                                }
+                            ?>
                         </div>
                     </div>
+                    
                 <?php
             }
             else if($action == "Add"){

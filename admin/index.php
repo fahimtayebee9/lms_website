@@ -48,7 +48,7 @@
             <div class="card-body">
                 <form action="index.php?action=Login" method="POST">
                     <div class="form-group">
-                        <input class="form-control form-control-lg" name="username" id="username" type="text" placeholder="Username" autocomplete="off">
+                        <input class="form-control form-control-lg" aria-invalid="true" name="username" id="username" type="text" placeholder="Username" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <input class="form-control form-control-lg" name="password" id="password" type="password" placeholder="Password">

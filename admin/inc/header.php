@@ -1,42 +1,45 @@
 <?php
-     include "db_config.php";
+    include "db_config.php";
+    session_start();
+    // To check the User if Session Data found
+    if ( empty( $_SESSION['email'] ) || empty( $_SESSION['password'] ) ){
+        header("Location: index.php");
+    }
 ?>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
-  <!-- jvectormap -->
-  <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <title>Admincast bootstrap 4 &amp; angular 5 admin template, Шаблон админки | Dashboard</title>
+    <!-- GLOBAL MAINLY STYLES-->
+    <link href="./assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="./assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="./assets/vendors/themify-icons/css/themify-icons.css" rel="stylesheet" />
+    <!-- PLUGINS STYLES-->
+    <link href="./assets/vendors/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
+    <!-- THEME STYLES-->
+    <link href="assets/css/main.min.css" rel="stylesheet" />
+    <!-- PAGE LEVEL STYLES-->
+    <style>
+        .visitors-table tbody tr td:last-child {
+            display: flex;
+            align-items: center;
+        }
 
-  <!-- CUSTOM STYLE -->
-  <link rel="stylesheet" href="assets/css/custom_style.css">
+        .visitors-table .progress {
+            flex: 1;
+        }
 
-  <!-- BOOTSTRAP 4 CUSTIMZED -->
-  <!-- <link rel="stylesheet" href="assets/css/bootstrap4.min.css"> -->
-
-  <!-- BOOTSTRAP 4 -->
-  <!-- <link rel="stylesheet" href="assets/css/bootstrap.min.css"> -->
-
-  <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
-     
+        .visitors-table .progress-parcent {
+            text-align: right;
+            margin-left: 10px;
+        }
+    </style>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+
+<body class="fixed-navbar">
+    <div class="page-wrapper">
