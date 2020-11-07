@@ -47,60 +47,104 @@
 
 
     <!-- DELETE USER  -->
-  <script>
-    var Toast = Swal.mixin({
-        toast: true,
-        // position: 'top-end',
-        showConfirmButton: false,
-        timer: 3500
-      });
+    <script>
+      var Toast = Swal.mixin({
+          toast: true,
+          // position: 'top-end',
+          showConfirmButton: false,
+          timer: 3500
+        });
 
-    function deleteUser(user_id){
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!',
-        timer: 4000
-      }).then((result) => {
-        if (result.isConfirmed) {
-          var xhttp = new XMLHttpRequest();
-          xhttp.open('POST', 'controllers/user_controller.php', true);
-          xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-          xhttp.send('delete_id='+user_id);
-          xhttp.onreadystatechange = function (){
-            if(this.readyState == 4 && this.status == 200){
-              if(this.responseText != ""){
-                Toast.fire({
-                  position: 'top-end',
-                  icon: 'success',
-                  title: 'User has been deleted.',
-                  showConfirmButton: false,
-                  timer: 2500
-                })
-              }else{
-                Toast.fire({
-                  position: 'top-end',
-                  icon: 'error',
-                  title: 'User Not Deleted!',
-                  showConfirmButton: false,
-                  timer: 2500
-                })
-              }
-              setTimeout(loadPageUser, 2400);
-            }	
+      function deleteUser(user_id){
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!',
+          timer: 4000
+        }).then((result) => {
+          if (result.isConfirmed) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open('POST', 'controllers/user_controller.php', true);
+            xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhttp.send('delete_id='+user_id);
+            xhttp.onreadystatechange = function (){
+              if(this.readyState == 4 && this.status == 200){
+                if(this.responseText != ""){
+                  Toast.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'User has been deleted.',
+                    showConfirmButton: false,
+                    timer: 2500
+                  })
+                }else{
+                  Toast.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'User Not Deleted!',
+                    showConfirmButton: false,
+                    timer: 2500
+                  })
+                }
+                setTimeout(loadPageUser, 2400);
+              }	
+            }
           }
-        }
-      })
-    }
+        })
+      }
 
-    function loadPageUser(){
-      window.location = "users.php?action=Manage";
-    }
-  </script>
+      function loadPageUser(){
+        window.location = "users.php?action=Manage";
+      }
+    </script>
+
+
+    <!-- NOTIFICATION SHOW -->
+    <script>
+      var Toast = Swal.mixin({
+          toast: true,
+          // position: 'top-end',
+          showConfirmButton: false,
+          timer: 3500
+        });
+
+      <?php
+        if(isset($_SESSION['message'])){
+          if(isset($_SESSION['type'])){
+            ?>
+                  Toast.fire({
+                    position: 'top-end',
+                    icon: '<?=$_SESSION['type']?>',
+                    title: '<?=$_SESSION['message']?>',
+                    showConfirmButton: false,
+                    timer: 2500
+                  })
+            <?php
+          }
+          unset($_SESSION['message'],$_SESSION['type']);
+        }
+        else if(isset($_SESSION['message_arr'])){
+          if(isset($_SESSION['type'])){
+            foreach($_SESSION['message_arr'] as $msg){
+            ?>
+                  Toast.fire({
+                    position: 'top-end',
+                    icon: '<?=$_SESSION['type']?>',
+                    title: '<?=$msg?>',
+                    showConfirmButton: false,
+                    timer: 2500
+                  })
+            <?php
+            }
+          }
+          unset($_SESSION['message_arr'],$_SESSION['type']);
+        }
+      ?>
+    </script>
 
 <?php
   ob_end_flush();

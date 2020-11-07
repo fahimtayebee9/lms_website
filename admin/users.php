@@ -14,7 +14,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <section class="content-header pt-3">
       <ol class="breadcrumb d-flex">
         <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="pr-3 pl-3"> / </li>
@@ -29,12 +29,24 @@
             if($action == "Manage"){
                 ?>
                     <div class="container-fluid">
+                        <?php
+                            $total_rows = $db->query("SELECT * FROM users")->num_rows;
+
+                            $current_page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
+
+                            $rows_per_page = 8;
+
+                            if($statement = $db->prepare("SELECT * FROM users LIMIT ?,?") ){
+                                $cal_page = ($current_page - 1) * $rows_per_page;
+                                $statement->bind_param("ii",$cal_page,$rows_per_page);
+                                $statement->execute();
+                                $allUsers = $statement->get_result();
+                            }
+                        ?>
                         <div class="row">
                             <?php
-                                $sql = "SELECT * FROM users";
-                                $result = mysqli_query($db,$sql);
                                 $i = 0;
-                                while($row = mysqli_fetch_assoc($result)){
+                                while($row = mysqli_fetch_assoc($allUsers)){
                                 ?>
                                     <div class="col-lg-3 col-md-3 col-sm-6 mb-3">
                                         <div class="card">
@@ -89,6 +101,56 @@
                                     $i++;
                                 }
                             ?>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 m-auto">
+                                <?php if( ceil($total_rows / $rows_per_page) > 0) : ?>
+                                    <nav aria-label="Page navigation example vertical-align-bottom">
+                                        <ul class="pagination justify-content-center">
+
+                                            <!-- PREVIOUS BUTTON -->
+                                            <?php if($current_page > 1) : ?>
+                                                <li class="page-item ">
+                                                    <a class="page-link" href="users.php?page=<?=($current_page-1)?>" tabindex="-1" aria-disabled="true">&laquo;</a>
+                                                </li>
+                                            <?php else : ?>
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="" tabindex="-1" aria-disabled="true">&laquo;</a>
+                                                </li>
+                                            <?php endif;?>
+
+                                            <?php if($current_page - 2 > 0) : ?>
+                                                <li class="page-item"><a class="page-link" href="users.php?page=<?=($current_page - 2 )?>"><?=($current_page - 2 )?></a></li>
+                                            <?php endif;?>
+
+                                            <?php if($current_page - 1 > 0) : ?>
+                                                <li class="page-item"><a class="page-link" href="users.php?page=<?=($current_page - 1 )?>"><?=($current_page - 1 )?></a></li>
+                                            <?php endif;?>
+
+                                            <li class="page-item active"><a class="page-link" href="users.php?page=<?=$current_page?>"><?=$current_page?></a></li>
+
+                                            <?php if($current_page + 1 < ceil($total_rows / $rows_per_page) + 1 ) : ?>
+                                                <li class="page-item"><a class="page-link" href="users.php?page=<?=($current_page + 1 )?>"><?=($current_page + 1 )?></a></li>
+                                            <?php endif;?>
+
+                                            <?php if($current_page + 2 < ceil($total_rows / $rows_per_page) + 1 ) : ?>
+                                                <li class="page-item"><a class="page-link" href="users.php?page=<?=($current_page + 2 )?>"><?=($current_page + 2 )?></a></li>
+                                            <?php endif;?>
+                                            
+                                            <!-- NEXT BUTTON -->
+                                            <?php if($current_page < ceil($total_rows / $rows_per_page)) : ?>
+                                                <li class="page-item ">
+                                                    <a class="page-link" href="users.php?page=<?=($current_page + 1 )?>" tabindex="-1" aria-disabled="true">&raquo;</a>
+                                                </li>
+                                            <?php else : ?>
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="" tabindex="-1" aria-disabled="true">&raquo;</a>
+                                                </li>
+                                            <?php endif;?>
+                                        </ul>
+                                    </nav>
+                                <?php endif;?>
+                            </div>
                         </div>
                     </div>
                     
@@ -511,7 +573,7 @@
   <!-- /.content-wrapper -->
 
   <?php
-    include "inc/footer.php";
+    // include "inc/footer.php";
   ?>
 
   <!-- Control Sidebar -->
