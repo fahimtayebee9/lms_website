@@ -1,6 +1,7 @@
 <?php
     include "db_config.php";
     session_start();
+    ob_start();
     // To check the User if Session Data found
     if ( empty( $_SESSION['email'] ) || empty( $_SESSION['password'] ) ){
         header("Location: index.php");

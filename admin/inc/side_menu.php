@@ -39,24 +39,24 @@
                     </li>
                     <li>
                         <a href="javascript:;">
-                            <i class="sidebar-item-icon fa fa-dashboard"></i>
+                            <i class="sidebar-item-icon fa fa-users"></i>
                             <span class="nav-label">Manage Users</span>
                             <i class="fa fa-angle-left arrow"></i></a>
                         </a>
                         <ul class="nav-2-level collapse">
-                            <li><a href="users.php"><i class="fa fa-circle-o"></i>All users</a></li>
-                            <li class="active"><a href="users.php?action=Add"><i class="fa fa-circle-o"></i>Add New User</a></li>
+                            <li><a href="users.php"><i class="sidebar-item-icon fa fa-exclamation-circle"></i>All users</a></li>
+                            <li class="active"><a href="users.php?action=Add"><i class="sidebar-item-icon fa fa-exclamation-circle"></i>Add New User</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="javascript:;">
-                            <i class="sidebar-item-icon fa fa-dashboard"></i> 
+                            <i class="sidebar-item-icon fa fa-paragraph"></i> 
                             <span class="nav-label">Manage Authors</span>
                             <i class="fa fa-angle-left arrow"></i></a>
                         </a>
-                        <ul class="nav-2-level collapse">
-                            <li><a href="authors.php"><i class="fa fa-circle-o"></i>All Authors</a></li>
-                            <li class="active"><a href="authors.php?action=Add"><i class="fa fa-circle-o"></i>Add New Authors</a></li>
+                        <ul class="nav-2-level collapse"> 
+                            <li><a href="authors.php"><i class="sidebar-item-icon fa fa-exclamation-circle"></i>All Authors</a></li>
+                            <li class="active"><a href="authors.php?action=Add"><i class="sidebar-item-icon fa fa-exclamation-circle"></i>Add New Authors</a></li>
                         </ul>
                     </li>
                     <li>
@@ -66,8 +66,8 @@
                             <i class="fa fa-angle-left arrow"></i></a>
                         </a>
                         <ul class="nav-2-level collapse">
-                            <li><a href="books.php"><i class="fa fa-circle-o pl-3"></i>All Books</a></li>
-                            <li class="active"><a href="books.php?action=Add"><i class="fa fa-circle-o pl-3"></i>Add New Books</a></li>
+                            <li><a href="books.php"><i class="sidebar-item-icon fa fa-exclamation-circle"></i>All Books</a></li>
+                            <li class="active"><a href="books.php?action=Add"><i class="sidebar-item-icon fa fa-exclamation-circle"></i>Add New Books</a></li>
                         </ul>
                     </li>
                     <li>

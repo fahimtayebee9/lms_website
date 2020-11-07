@@ -2,14 +2,14 @@
   include "inc/header.php";
 ?>
 
-  <?php
-    include "inc/topbar.php";
-  ?>
+<?php
+  include "inc/topbar.php";
+?>
 
   <!-- Left side column. contains the logo and sidebar -->
-  <?php
-    include "inc/side_menu.php";
-  ?>
+<?php
+  include "inc/side_menu.php";
+?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -356,7 +356,6 @@
               <?php
           }
           else if($action == "Insert"){
-            echo "<script>alert('FORM SUBMITTED')</script>";
             if ( $_SERVER['REQUEST_METHOD'] == 'POST' ){
               $sub_cat = 0;
               $status  = 0;
@@ -443,7 +442,7 @@
                     $addBook = mysqli_query($db, $sql);
 
                     if ( $addBook ){
-                      header("Location: books.php?do=Manage");
+                      header("Location: books.php?action=Manage");
                     }
                     else{
                       die("MySQLi Query Failed." . mysqli_error($db));
@@ -454,18 +453,278 @@
             }
           }
           else if($action == "Edit"){
-              ?>
-                  <div class="alert alert-info">
-                      In Edit
+            if(isset($_SESSION['role']) && $_SESSION['role'] == 1){
+              if(isset($_GET['edit_id'])){
+                $bk_id = $_GET['edit_id'];
+                $sql = "SELECT * FROM books WHERE bk_id = '$bk_id'";
+                $res = mysqli_query($db,$sql);
+                while($rowBks = mysqli_fetch_assoc($res)){
+                ?>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title">Edit Book Information</h3>
+                        </div>
+                        <div class="card-body" style="display: block;">
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <form action="books.php?action=Update" method="POST" enctype="multipart/form-data">
+                                
+                                <div class="form-group">
+                                  <label class="font-weight-bold">Book Name</label>
+                                  <input type="text" name="bk_name" class="input-rounded form-control" value="<?=$rowBks['bk_name']?>">
+                                </div>
+
+                                <div class="form-group">
+                                  <label class="font-weight-bold">Book Status</label>
+                                  <select name="bk_status" class="form-control">
+                                    <option>Please Select Post Status</option>
+                                    <option value="1" <?php if($rowBks['bk_status'] == 1){echo "selected";}?>>Available</option>
+                                    <option value="0" <?php if($rowBks['bk_status'] == 0){echo "selected";}?>>Unavailable</option>
+                                  </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                  <label class="font-weight-bold">ISBN Number</label>
+                                  <input type="text" name="isbn" class="form-control" value="<?=$rowBks['ISBN']?>">
+                                </div>  
+
+                                <div class="form-group">
+                                  <label class="font-weight-bold">Publisher</label>
+                                  <input type="text" name="publisher" class="form-control"  value="<?=$rowBks['publisher']?>">
+                                </div>  
+
+                                <div class="form-group">
+                                  <label class="font-weight-bold">Language</label>
+                                  <input type="text" name="language" class="form-control" value="<?=$rowBks['language']?>">
+                                </div> 
+                            </div>
+
+                            <div class="col-lg-6">    
+                                <div class="form-group">
+                                  <label class="font-weight-bold">Category</label>
+                                  <select class="form-control" name="category_id" id="category_id" onchange="getSubCategory()">
+                                    <option>Please select the category</option>
+                                    <?php
+                                      $sql = "SELECT * FROM category WHERE status = 1 AND sub_category = 0 ORDER BY cat_name ASC";
+                                      $readCat = mysqli_query($db, $sql);
+                                      while( $row = mysqli_fetch_assoc($readCat) ){
+                                        $cat_id   = $row['cat_id'];
+                                        $cat_name = $row['cat_name'];
+                                    ?>
+                                        <option value="<?php echo $cat_id; ?>" <?php if($rowBks['bk_cat'] == $cat_id){echo "selected";}?>><?php echo $cat_name; ?></option>
+                                    <?php  }
+                                    ?>
+                                  </select>
+                                </div>
+
+                                <div class="form-group">
+                                  <label class="font-weight-bold">Sub Category</label>
+                                  <select class="form-control" name="sub_id" id="sub_id" disabled>
+                                    <option value="0">Please select the category</option>
+                                    
+                                  </select>
+                                </div>
+
+                                <div class="form-group">
+                                  <label class="font-weight-bold">Author</label>
+                                  <select name="author_id" class="form-control">
+                                    <option value="0">Please Select Author</option>
+                                    <?php
+                                      $sqlA = "SELECT * FROM authors";
+                                      $res = mysqli_query($db,$sqlA);
+                                      while($rw = mysqli_fetch_assoc($res)){
+                                        ?>
+                                          <option value="<?=$rw['a_id']?>" <?php if($rowBks['author_id'] == $rw['a_id']){echo "selected";}?>><?=$rw['a_name']?></option>
+                                        <?php
+                                      }
+                                    ?>
+                                  </select>
+                                </div>
+
+                                <div class="form-group">
+                                  <label class="font-weight-bold">Edition</label>
+                                  <input type="text" name="edition" class="form-control" value="<?=$rowBks['edition']?>">
+                                </div> 
+
+                                <div class="form-group">
+                                  <label class="font-weight-bold">Country</label>
+                                  <input type="text" name="country" class="form-control" value="<?=$rowBks['country']?>">
+                                </div> 
+                            </div>
+
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <?php
+                                  if(!empty($rowBks['bk_image'])){
+                                    ?>
+                                      <img class="mb-3 d-block" src="img/books/<?=$rowBks['bk_image']?>" style="height: 75px; width: 75px;" alt="">
+                                    <?php
+                                  }
+                                  else{
+                                    ?>
+                                      <p class="mb-3">No Image Uploaded..</p>
+                                    <?php
+                                  }
+                                ?>
+                                <label class="font-weight-bold">Upload Book Image</label>
+                                <input type="file" name="bk_image" class="form-control-file" >
+                              </div> 
+                            </div>
+                            
+                            <div class="col-md-3 m-auto">
+                                <div class="form-group">
+                                  <input type="hidden" name="bk_id" value="<?=$bk_id?>">
+                                  <input type="submit" name="editBook" class="btn btn-block btn-primary btn-flat pt-3 pb-3" value="Save Changes">
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
                   </div>
-              <?php
+                <?php
+                }
+              }
+              else{
+                $_SESSION['message'] = "Please Select A Book First...";
+                $_SESSION['type']    = "error";
+                header("location: books.php?action=Manage");
+                exit();
+              }
+            }
+            else{
+              $_SESSION['message'] = "Access Restricted...";
+              $_SESSION['type']    = "error";
+              header("location: books.php?action=Manage");
+              exit();
+            }
           }
           else if($action == "Update"){
-              ?>
-                  <div class="alert alert-danger">
-                      In Update
-                  </div>
-              <?php
+              if($_SERVER['REQUEST_METHOD'] == "POST"){
+                $bk_id        = $_POST['bk_id'];
+                $bk_name      = $_POST['bk_name'];
+                $bk_status    = $_POST['bk_status'];
+                $isbn         = $_POST['isbn'];
+                $publisher    = $_POST['publisher'];
+                $language     = $_POST['language'];
+                $category_id  = $_POST['category_id'];
+                $author_id    = $_POST['author_id'];
+                $edition      = $_POST['edition'];
+                $country      = $_POST['country'];
+
+                $sub_cat = 0;
+                $status  = 0;
+                if(isset($_POST['sub_id'])){
+                  $sub_cat    = $_POST['sub_id'];
+                }
+                if(isset($_POST['bk_status'])){
+                  $status = $_POST['bk_status'];
+                }
+                else{
+                  $status = 0;
+                }
+
+                // Preapre the Image
+                $imageName    = $_FILES['bk_image']['name'];
+                $imageSize    = $_FILES['bk_image']['size'];
+                $imageTmp     = $_FILES['bk_image']['tmp_name'];
+
+                $imageAllowedExtension = array("jpg", "jpeg", "png");
+                $exp_arr = explode('.', $imageName);
+                $imageExtension = strtolower( end( $exp_arr ) );
+                
+                $formErrors = [];
+
+                
+                if ( !empty($imageName) ){
+                  if ( !empty($imageName) && !in_array($imageExtension, $imageAllowedExtension) ){
+                    $formErrors[] = 'Invalid Image Format. Please Upload a JPG, JPEG or PNG image';
+                  }
+                  if ( !empty($imageSize) && $imageSize > 2097152 ){
+                    $formErrors[] = 'Image Size is Too Large! Allowed Image size Max is 2 MB.';
+                  }
+                }
+                if ( empty($formErrors) ){
+
+                  if ( !empty( $imageName ) ){
+
+                      // DELETE PREVIOUS IMAGE
+                      $sql = "SELECT * FROM books WHERE bk_id = '$bk_id'";
+                      $res = mysqli_query($db,$sql);
+                      while($rowBks = mysqli_fetch_assoc($res)){  
+                        $prev_image = $rowBks['bk_image'];
+                      }
+                      unlink("img/books/".$prev_image);
+
+                      // Change the Image Name
+                      $image = rand(0, 999999) . '_' .$imageName;
+                      // Upload the Image to its own Folder Location
+                      move_uploaded_file($imageTmp, "img\books\\" . $image );
+  
+                      if(!empty($sub_cat) || $sub_cat != 0){
+                        
+                        $sql = "UPDATE `books` SET `bk_name`='$bk_name',`publisher`='$publisher',`ISBN`='$isbn',
+                              `edition`='$edition',`bk_cat`='$sub_cat',`country`='$country',`language`='$language',`bk_image`='$image',
+                              `author_id`='$author_id',`bk_status`='$status' WHERE bk_id = '$bk_id';";
+                      }
+                      else{
+                        $sql = "UPDATE `books` SET `bk_name`='$bk_name',`publisher`='$publisher',`ISBN`='$isbn',
+                                `edition`='$edition',`bk_cat`='$category_id',`country`='$country',`language`='$language',`bk_image`='$image',
+                                `author_id`='$author_id',`bk_status`='$status' WHERE bk_id = '$bk_id';";
+                      }
+                      $addBook = mysqli_query($db, $sql);
+  
+                      if ( $addBook ){
+                        $_SESSION['message'] = "Book Information Updated...";
+                        $_SESSION['type']    = "success";
+                        header("location: books.php?action=Manage");
+                        exit();
+                      }
+                      else{
+                        $_SESSION['message'] = "Book Information Not Updated...";
+                        $_SESSION['type']    = "error";
+                        header("location: books.php?action=Manage");
+                        exit();
+                      }
+                  }
+                  else{
+                    if(!empty($sub_cat) || $sub_cat != 0){
+                      $sql = "UPDATE `books` SET `bk_name`='$bk_name',`publisher`='$publisher',`ISBN`='$isbn',
+                              `edition`='$edition',`bk_cat`='$sub_cat',`country`='$country',`language`='$language',
+                              `author_id`='$author_id',`bk_status`='$status' WHERE bk_id = '$bk_id';";
+                    }
+                    else{
+                      $sql = "UPDATE `books` SET `bk_name`='$bk_name',`publisher`='$publisher',`ISBN`='$isbn',
+                      `edition`='$edition',`bk_cat`='$category_id',`country`='$country',`language`='$language',
+                      `author_id`='$author_id',`bk_status`='$status' WHERE bk_id = '$bk_id';";
+                    }
+                    $addBook = mysqli_query($db, $sql);
+
+                    if ( $addBook ){
+                      $_SESSION['message'] = "Book Information Updated...";
+                      $_SESSION['type']    = "success";
+                      header('location: books.php?action=Manage');
+                      exit();
+                    }
+                    else{
+                      $_SESSION['message'] = "Book Information Not Updated...";
+                      $_SESSION['type']    = "error";
+                      header("location: books.php?action=Manage");
+                      exit();
+                    }
+                  } 
+                }
+                else{
+                  $_SESSION['message_arr'] = $formErrors;
+                  $_SESSION['type']    = "error";
+                  header("location: books.php?action=Manage");
+                  exit();
+                }
+              }
           }
           else if($action == "Delete"){
               ?>  
