@@ -24,6 +24,10 @@
     <link href="./assets/vendors/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
     <!-- THEME STYLES-->
     <link href="assets/css/main.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css"> 
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    
     <!-- PAGE LEVEL STYLES-->
     <style>
         .visitors-table tbody tr td:last-child {

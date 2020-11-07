@@ -14,6 +14,9 @@
 <!-- PAGE LEVEL SCRIPTS-->
 <script src="./assets/js/scripts/dashboard_1_demo.js" type="text/javascript"></script>
 
+<!-- sweetalert2 -->
+<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+
 <script>
     function getSubCategory(){
       var cat_id = document.getElementById(event.target.id).value;
@@ -39,6 +42,63 @@
               }
           }	
       }
+    }
+  </script>
+
+
+    <!-- DELETE USER  -->
+  <script>
+    var Toast = Swal.mixin({
+        toast: true,
+        // position: 'top-end',
+        showConfirmButton: false,
+        timer: 3500
+      });
+
+    function deleteUser(user_id){
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        timer: 4000
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var xhttp = new XMLHttpRequest();
+          xhttp.open('POST', 'controllers/user_controller.php', true);
+          xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+          xhttp.send('delete_id='+user_id);
+          xhttp.onreadystatechange = function (){
+            if(this.readyState == 4 && this.status == 200){
+              if(this.responseText != ""){
+                Toast.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'User has been deleted.',
+                  showConfirmButton: false,
+                  timer: 2500
+                })
+              }else{
+                Toast.fire({
+                  position: 'top-end',
+                  icon: 'error',
+                  title: 'User Not Deleted!',
+                  showConfirmButton: false,
+                  timer: 2500
+                })
+              }
+              setTimeout(loadPageUser, 2400);
+            }	
+          }
+        }
+      })
+    }
+
+    function loadPageUser(){
+      window.location = "users.php?action=Manage";
     }
   </script>
 
