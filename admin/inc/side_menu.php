@@ -71,6 +71,17 @@
                         </ul>
                     </li>
                     <li>
+                        <a href="javascript:;">
+                            <i class="sidebar-item-icon fa fa-book"></i> 
+                            <span class="nav-label">Manage Booking</span>
+                            <i class="fa fa-angle-left arrow"></i></a>
+                        </a>
+                        <ul class="nav-2-level collapse">
+                            <li><a href="bookings.php"><i class="sidebar-item-icon fa fa-exclamation-circle"></i>All Bookings</a></li>
+                            <li class="active"><a href="bookings.php?action=Add"><i class="sidebar-item-icon fa fa-exclamation-circle"></i>Add New Booking</a></li>
+                        </ul>
+                    </li>
+                    <li>
                         <a href="javascript:;" onclick="window.location='logout.php'"><i class="sidebar-item-icon fa fa-sign-out"></i>
                             <span class="nav-label">Logout</span>
                         </a>

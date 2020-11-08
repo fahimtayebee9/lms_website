@@ -102,6 +102,8 @@
                                 }
                             ?>
                         </div>
+
+                        <!-- PAGINATION START -->
                         <div class="row">
                             <div class="col-md-4 m-auto">
                                 <?php if( ceil($total_rows / $rows_per_page) > 0) : ?>
@@ -152,6 +154,7 @@
                                 <?php endif;?>
                             </div>
                         </div>
+                        <!-- PAGINATION END -->
                     </div>
                     
                 <?php

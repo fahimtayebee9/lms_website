@@ -28,6 +28,13 @@
     <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css"> 
     <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
 
+    <!-- Select2 -->
+    <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
+    <!-- DATE PICKER  -->
+    <link href="plugins/air-datepicker-master/dist/css/datepicker.css" rel="stylesheet">
+
     <!-- PAGE LEVEL STYLES-->
     <style>
         .visitors-table tbody tr td:last-child {
@@ -42,6 +49,12 @@
         .visitors-table .progress-parcent {
             text-align: right;
             margin-left: 10px;
+        }
+        .breadcrumb::after {
+            content: none!important;
+        }
+        .table tr th,td{
+            text-align: center!important;
         }
     </style>
 </head>

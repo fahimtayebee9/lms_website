@@ -14,11 +14,20 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header pt-3">
-      <ol class="breadcrumb d-flex justify-content-end">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="pl-3 pr-3"> / </li>
-        <li class="active">Manage Books</li>
+    <section class=" content-header pt-3 justify-content-between">
+      <ol class="breadcrumb d-flex justify-content-between">
+        <div class="start">
+          <?php
+            $totalBooks = $db->query("SELECT * FROM books")->num_rows;
+            $totalBooksAvl = $db->query("SELECT * FROM books WHERE bk_status = 1")->num_rows;
+          ?>
+          <li><p class="font-weight-normal m-0" style="font-size: 14px;">Total Available Books <b><?=$totalBooksAvl?></b> Of <b><?=$totalBooks?></b></p></li>
+        </div>
+        <div class="end d-flex">
+          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li class="pl-3 pr-3"> / </li>
+          <li class="active">Manage Books</li>
+        </div>
       </ol>
     </section>
 
@@ -30,17 +39,22 @@
           if($action == "Manage"){
             ?>
               <div class="row">
-                  <div class="col-md-12">
-                    <?php
-                      $totalBooks = $db->query("SELECT * FROM books")->num_rows;
-                      $totalBooksAvl = $db->query("SELECT * FROM books WHERE bk_status = 1")->num_rows;
-                    ?>
-                    <p class="bg-light p-3 font-weight-normal" style="font-size: 16px;">Total Available Books <b><?=$totalBooksAvl?></b> Of <b><?=$totalBooks?></b></p>
-                  </div>
                   <?php
-                    $sqlBooks = "SELECT * FROM books INNER JOIN authors ON books.author_id = authors.a_id";
-                    $resultBooks = mysqli_query($db,$sqlBooks);
-                    while($rowBk = mysqli_fetch_assoc($resultBooks)){
+                      $total_rows = $db->query("SELECT * FROM books")->num_rows;
+
+                      $current_page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
+
+                      $rows_per_page = 8;
+
+                      if($statement = $db->prepare("SELECT * FROM books INNER JOIN authors ON books.author_id = authors.a_id LIMIT ?,?") ){
+                          $cal_page = ($current_page - 1) * $rows_per_page;
+                          $statement->bind_param("ii",$cal_page,$rows_per_page);
+                          $statement->execute();
+                          $allbooks = $statement->get_result();
+                      }
+                  ?>
+                  <?php
+                    while($rowBk = mysqli_fetch_assoc($allbooks)){
                       ?>
                         <div class="col-lg-3 col-md-3 col-sm-4 mb-3">
                             <div class="card" style="height: 450px;">
@@ -90,6 +104,60 @@
                     }
                   ?>
               </div>
+
+              <!-- PAGINATION START -->
+              <div class="row">
+                  <div class="col-md-4 m-auto">
+                      <?php if( ceil($total_rows / $rows_per_page) > 0) : ?>
+                          <nav aria-label="Page navigation example vertical-align-bottom">
+                              <ul class="pagination justify-content-center">
+
+                                  <!-- PREVIOUS BUTTON -->
+                                  <?php if($current_page > 1) : ?>
+                                      <li class="page-item ">
+                                          <a class="page-link" href="users.php?page=<?=($current_page-1)?>" tabindex="-1" aria-disabled="true">&laquo;</a>
+                                      </li>
+                                  <?php else : ?>
+                                      <li class="page-item disabled">
+                                          <a class="page-link" href="" tabindex="-1" aria-disabled="true">&laquo;</a>
+                                      </li>
+                                  <?php endif;?>
+
+                                  <?php if($current_page - 2 > 0) : ?>
+                                      <li class="page-item"><a class="page-link" href="users.php?page=<?=($current_page - 2 )?>"><?=($current_page - 2 )?></a></li>
+                                  <?php endif;?>
+
+                                  <?php if($current_page - 1 > 0) : ?>
+                                      <li class="page-item"><a class="page-link" href="users.php?page=<?=($current_page - 1 )?>"><?=($current_page - 1 )?></a></li>
+                                  <?php endif;?>
+
+                                  <li class="page-item active"><a class="page-link" href="users.php?page=<?=$current_page?>"><?=$current_page?></a></li>
+
+                                  <?php if($current_page + 1 < ceil($total_rows / $rows_per_page) + 1 ) : ?>
+                                      <li class="page-item"><a class="page-link" href="users.php?page=<?=($current_page + 1 )?>"><?=($current_page + 1 )?></a></li>
+                                  <?php endif;?>
+
+                                  <?php if($current_page + 2 < ceil($total_rows / $rows_per_page) + 1 ) : ?>
+                                      <li class="page-item"><a class="page-link" href="users.php?page=<?=($current_page + 2 )?>"><?=($current_page + 2 )?></a></li>
+                                  <?php endif;?>
+                                  
+                                  <!-- NEXT BUTTON -->
+                                  <?php if($current_page < ceil($total_rows / $rows_per_page)) : ?>
+                                      <li class="page-item ">
+                                          <a class="page-link" href="users.php?page=<?=($current_page + 1 )?>" tabindex="-1" aria-disabled="true">&raquo;</a>
+                                      </li>
+                                  <?php else : ?>
+                                      <li class="page-item disabled">
+                                          <a class="page-link" href="" tabindex="-1" aria-disabled="true">&raquo;</a>
+                                      </li>
+                                  <?php endif;?>
+                              </ul>
+                          </nav>
+                      <?php endif;?>
+                  </div>
+              </div>
+              <!-- PAGINATION END -->
+
             <?php
           }
           else if($action == "View"){

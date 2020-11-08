@@ -3928,7 +3928,7 @@ body.fixed-layout.sidebar-mini .content-wrapper {
   -webkit-transition: margin 0.2s ease-in-out;
   -o-transition: margin 0.2s ease-in-out;
   transition: margin 0.2s ease-in-out;
-  min-height: 720px;
+  min-height: 100vh;
 }
 .page-header {
   padding-top: 35px;

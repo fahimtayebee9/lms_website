@@ -17,7 +17,14 @@
 <!-- sweetalert2 -->
 <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 
-<script>
+<!-- SELECT 2 PLUGIN -->
+<script src="plugins/select2/js/select2.full.min.js"></script>
+
+<!-- DATE PICKER  -->
+<script src="plugins/air-datepicker-master/dist/js/datepicker.js"></script>
+<script src="plugins/air-datepicker-master/dist/js/i18n/datepicker.en.js"></script>
+
+  <script>
     function getSubCategory(){
       var cat_id = document.getElementById(event.target.id).value;
       var xhttp = new XMLHttpRequest();
@@ -107,7 +114,7 @@
     <script>
       var Toast = Swal.mixin({
           toast: true,
-          // position: 'top-end',
+          position: 'top-end',
           showConfirmButton: false,
           timer: 3500
         });
@@ -145,6 +152,84 @@
         }
       ?>
     </script>
+
+  <!-- SELECT 2 PLUGIN installation -->
+  <script>
+    $(function () {
+      //Initialize Select2 Elements
+      $('#select2').select2()
+
+      //Initialize Select2 Elements
+      $('#select2').select2({
+        theme: 'bootstrap4',
+        placeholder: 'Select an option',
+        tags: true,
+        allowClear: true,
+        closeOnSelect: true
+      })
+    })
+
+    $(function () {
+      //Initialize Select2 Elements
+      $('#select2std').select2()
+
+      //Initialize Select2 Elements
+      $('#select2std').select2({
+        theme: 'bootstrap4',
+        placeholder: 'Select an option',
+        tags: true,
+        allowClear: true,
+        closeOnSelect: true
+        
+      })
+    })
+    $(function () {
+      //Initialize Select2 Elements
+      $('#select2status').select2()
+
+      //Initialize Select2 Elements
+      $('#select2status').select2({
+        theme: 'bootstrap4',
+        tags: false,
+        allowClear: true,
+        closeOnSelect: true
+      })
+    })
+  </script>
+
+  <!-- DATE PICKER -->
+  <script>
+      $('#book_from').datepicker({
+        language: 'en',
+        onSelect: function (fd, date) {
+          $('#book_to').data('datepicker')
+            .update('minDate', date)
+        },
+        dateFormat: 'yyyy-m-d',
+        minDate: new Date()
+      })
+      $('#book_to').datepicker({
+        language: 'en',
+        minDate: new Date(),
+        dateFormat: 'yyyy-m-d',
+        onSelect: function (fd, date) {
+          $('#book_from').data('datepicker')
+            .update('maxDate', date)
+        }
+      })
+
+    Datepicker.language['en'] = {
+        days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+        months: ['January','February','March','April','May','June', 'July','August','September','October','November','December'],
+        monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        today: 'Today',
+        clear: 'Clear',
+        dateFormat: 'mm/dd/yy',
+        firstDay: 0
+    };
+  </script>
 
 <?php
   ob_end_flush();
