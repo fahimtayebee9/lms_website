@@ -141,8 +141,8 @@
                             <div class="ibox-body">
                                 <ul class="media-list media-list-divider m-0">
                                     <?php
-                                        $sql = "SELECT book_reservations.book_ID,books.bk_name, books.bk_id,books.booking_count,authors.a_name,books.bk_image FROM `book_reservations` 
-                                                INNER JOIN books ON book_reservations.book_ID = books.bk_id INNER JOIN authors ON books.author_id = authors.a_id LIMIT 4";
+                                        $sql = "SELECT DISTINCT books.bk_id, book_reservations.book_ID,books.bk_name, books.booking_count,authors.a_name,books.bk_image FROM `book_reservations` 
+                                                INNER JOIN books ON book_reservations.book_ID = books.bk_id INNER JOIN authors ON books.author_id = authors.a_id ORDER BY books.booking_count DESC LIMIT 4 ";
                                         $list = mysqli_query($db,$sql);
                                         while($list_item = mysqli_fetch_assoc($list)){
                                             ?>
