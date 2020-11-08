@@ -1,5 +1,6 @@
 <?php
-  include "inc/header.php";
+    include "inc/header.php";
+    
 ?>
         <!-- START HEADER-->
         <?php
@@ -114,15 +115,6 @@
                                 <?php
                             }
                             else if($action == "Add"){
-                                $getBkId = "SELECT * from book_reservations ORDER BY rev_id DESC LIMIT 1";
-                                $result  = mysqli_query($db,$getBkId);
-                                while($rw = mysqli_fetch_assoc($result)){
-                                    $rev_customized = $rw['rev_customized'];
-                                }
-                                $id_arr = explode('-',$rev_customized);
-                                $serial = $id_arr[1];
-                                $serial += 1;
-                                $new_revCustomized = "LBK-" . $serial;
                                 ?>
                                     <div class="col-md-6  m-auto">
                                         <div class="ibox w-100">
@@ -135,7 +127,7 @@
                                                         <form action="bookings.php?action=Insert" method="POST">
                                                             <div class="form-group">
                                                                 <label for="name" class="font-weight-bold">Booking ID</label>
-                                                                <input type="text" class="input-rounded form-control" name="rev_customized" id="" value="<?=$new_revCustomized?>" disabled>
+                                                                <input type="text" class="input-rounded form-control" name="rev_customized" id="" value="<?=generateNewBookingID()?>" disabled>
                                                             </div>
 
                                                             <div class="form-group">
@@ -223,17 +215,8 @@
                             }
                             else if($action == "Insert"){
                                 if($_SERVER['REQUEST_METHOD'] == "POST"){
-                                    $getBkIdNew = "SELECT * from book_reservations ORDER BY rev_id DESC LIMIT 1";
-                                    $results  = mysqli_query($db,$getBkIdNew);
-                                    while($rws = mysqli_fetch_assoc($results)){
-                                        $rev_customized = $rws['rev_customized'];
-                                    }
-                                    $id_arrs = explode('-',$rev_customized);
-                                    $serials = $id_arrs[1];
-                                    $serials += 1;
-                                    $new_revCustomizeds = "LBK-" . $serials;
-
-                                    $rev_customizedId = $new_revCustomizeds;
+                                    
+                                    $rev_customizedId = generateNewBookingID();
                                     $book_id          = $_POST['book_id'];
                                     $student_id       = $_POST['std_id'];
                                     $book_from        = $_POST['book_from'];
@@ -283,3 +266,20 @@
     ?>
 </body>
 </html>
+
+<?php
+    function generateNewBookingID(){
+        $dbf = dbConnection();
+        $getBkIdNew = "SELECT * from book_reservations ORDER BY rev_id DESC LIMIT 1";
+        $results  = mysqli_query($dbf, $getBkIdNew);
+        while($rws = mysqli_fetch_assoc($results)){
+            $rev_customized = $rws['rev_customized'];
+        }
+        $id_arrs = explode('-',$rev_customized);
+        $serials = $id_arrs[1];
+        $serials += 1;
+        $new_revCustomizeds = "LBK-" . $serials;
+
+        return $new_revCustomizeds;
+    }
+?>

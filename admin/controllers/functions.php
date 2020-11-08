@@ -1,6 +1,4 @@
 <?php
-    include "inc/db_config.php";
-
     function login($email, $password){
 
         $db = dbConnection();
@@ -41,4 +39,6 @@
             exit();
         }
     }
+
+    
 ?>

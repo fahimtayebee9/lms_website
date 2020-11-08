@@ -56,6 +56,9 @@
         .table tr th,td{
             text-align: center!important;
         }
+        .dash-text{
+            text-align: left!important;
+        }
     </style>
 </head>
 
