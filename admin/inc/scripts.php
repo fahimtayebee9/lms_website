@@ -208,6 +208,7 @@
         dateFormat: 'yyyy-m-d',
         minDate: new Date()
       })
+      
       $('#book_to').datepicker({
         language: 'en',
         minDate: new Date(),
@@ -217,7 +218,28 @@
             .update('maxDate', date)
         }
       })
+      $('#actualDate').datepicker({
+        language: 'en',
+        minDate: new Date(),
+        dateFormat: 'yyyy-m-d',
+        onSelect: function (fd, date) {
+          $('#book_from').data('datepicker')
+            .update('maxDate', date)
+        }
+      })
 
+      <?php
+        if(isset($_SESSION['book_from'])){
+          ?>
+            $('#book_from').selectDate("<?=$_SESSION['book_from']?>");
+          <?php
+        }
+        if(isset($_SESSION['book_from'])){
+          ?>
+            $('#book_to').selectDate("<?=$_SESSION['book_to']?>");
+          <?php
+        }
+      ?>
     Datepicker.language['en'] = {
         days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],

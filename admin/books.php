@@ -52,8 +52,7 @@
                           $statement->execute();
                           $allbooks = $statement->get_result();
                       }
-                  ?>
-                  <?php
+                      
                     while($rowBk = mysqli_fetch_assoc($allbooks)){
                       ?>
                         <div class="col-lg-3 col-md-3 col-sm-4 mb-3">

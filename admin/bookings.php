@@ -256,17 +256,19 @@
                                 if(isset($_GET['edit_id'])){
                                     $edit_id = $_GET['edit_id'];
                                     $getAllData = "SELECT * FROM `book_reservations` INNER JOIN books ON books.bk_id = book_reservations.book_ID 
-                                            INNER JOIN authors ON books.author_id = authors.a_id WHERE book_reservations.rev_id = 1";
+                                                INNER JOIN authors ON books.author_id = authors.a_id WHERE book_reservations.rev_id = $edit_id";
                                     $resultData = mysqli_query($db,$getAllData);
                                     while($row = mysqli_fetch_assoc($resultData)){
-                                        $book_id = $row['book_ID'];
-                                        $issuedBY = $row['issued_by'];
-                                        $std_id   = $row['rev_user'];
-                                        $fromDate = $row['borrowed_From'];
-                                        $toDate   = $row['borrowed_To'];
+                                        $book_id    = $row['book_ID'];
+                                        $issuedBY   = $row['issued_by'];
+                                        $std_id     = $row['rev_user'];
+                                        $fromDate   = $row['borrowed_From'];
+                                        $toDate     = $row['borrowed_To'];
                                         $rev_status = $row['rev_status'];
                                         $revCus     = $row['rev_customized'];
                                         $rev_id     = $row['rev_id'];
+                                        $_SESSION['book_from'] = $fromDate;
+                                        $_SESSION['book_to'] = $toDate;
                                     }
                                     ?>
                                     <div class="col-md-6  m-auto">
@@ -280,12 +282,12 @@
                                                         <form action="bookings.php?action=Update" method="POST">
                                                             <div class="form-group">
                                                                 <label for="name" class="font-weight-bold">Booking ID</label>
-                                                                <input type="text" class="input-rounded form-control" name="rev_customized" id="" value="<?=$revCus?>" disabled>
+                                                                <input type="text" class="input-rounded form-control" name="rev_custom" id="" value="<?=$revCus?>" disabled>
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <label class="font-weight-bold">Book Name</label>
-                                                                <select class="form-control input-rounded w-100" id="select2" name="book_id" required>
+                                                                <select disabled class="form-control input-rounded w-100" id="select2" name="book_id" required>
                                                                     <option value="0">Please Select A Book</option>
                                                                     <?php
                                                                         $catSQL = "SELECT * FROM category ORDER BY cat_name ASC";
@@ -315,7 +317,7 @@
 
                                                             <div class="form-group">
                                                                 <label class="font-weight-bold">Student name</label>
-                                                                <select class="form-control w-100" id="select2std" name="std_id" required>
+                                                                <select disabled class="form-control w-100" id="select2std" name="std_id" required>
                                                                     <option value="0">Please Select A Student</option>
                                                                     <?php
                                                                         $stdSQL = "SELECT * FROM users WHERE role = 2 ORDER BY name ASC";
@@ -339,25 +341,27 @@
 
                                                             <div class="form-group">
                                                                 <label for="" class="font-weight-bold">Borrowed On</label>
-                                                                <input type='text' class='input-rounded form-control datepicker-here' required name="book_from" id="book_from" data-position='bottom center' value="<?=date("Y-m-d",$fromDate)?>">
+                                                                <input type='text' disabled class='input-rounded form-control datepicker-here' required name="book_from" id="book_from" data-position='bottom center' value="<?=$fromDate?>">
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <label for="" class="font-weight-bold">Borrowed To</label>
-                                                                <input type='text' class='input-rounded form-control datepicker-here' required id="book_to" name="book_to" data-position='bottom center' value="<?=date("Y-m-d",$toDate)?>">
+                                                                <input type='text' disabled class='input-rounded form-control datepicker-here' required id="book_to" name="book_to" data-position='bottom center' value="<?=$toDate?>">
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <label for="" class="font-weight-bold">Actual Return Date</label>
-                                                                <input type='text' class='input-rounded form-control datepicker-here' required id="actualDate" name="actualDate" data-position='bottom center' value="<?=date("Y-m-d",$toDate)?>">
+                                                                <input type='text' class='input-rounded form-control datepicker-here' required id="actualDate" name="actualDate" data-position='bottom center' value="">
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <label class="font-weight-bold">Booking Status</label>
                                                                 <select class="form-control w-100" id="select2status" name="rev_status" required>
-                                                                    <option value="1">Please Select Status</option>
+                                                                    <option value="0">Please Select Status</option>
                                                                     <option value="1" <?php if($rev_status == 1){echo "selected";}?>>Valid</option>
-                                                                    <option value="0" <?php if($rev_status == 0){echo "selected";}?>>Not Valid</option>
+                                                                    <option value="2" <?php if($rev_status == 0){echo "selected";}?>>Expired</option>
+                                                                    <option value="3" <?php if($rev_status == 0){echo "selected";}?>>Returned</option>
+                                                                    <option value="4" <?php if($rev_status == 0){echo "selected";}?>>Not Returned</option>
                                                                 </select>
                                                             </div>
                                                             <div class="form-group text-center">
@@ -376,35 +380,30 @@
                             else if($action == "Update"){
                                 if($_SERVER['REQUEST_METHOD'] == "POST"){
                                     
-                                    $rev_customizedId = $_POST['rev_customized'];
                                     $book_id          = $_POST['book_id'];
                                     $student_id       = $_POST['std_id'];
                                     $book_from        = $_POST['book_from'];
                                     $book_to          = $_POST['book_to'];
                                     $rev_status       = $_POST['rev_status'];
-                                    $issued_byId      = $_SESSION['user_id'];
+                                    $issued_byId      = $_POST['issued_by'];
+                                    $actualDate       = $_POST['actualDate'];
+                                    $rev_id           = $_POST['rev_id'];
 
-                                    $insert = "INSERT INTO `book_reservations`(`rev_customized`, `rev_user`, `issued_by`, `book_ID`, `borrowed_From`, `borrowed_To`, `actual_Return`, `rev_status`)
-                                                VALUES ('$rev_customizedId','$student_id','$issued_byId','$book_id','$book_from','$book_to',NULL,'$rev_status')";
+                                    $insert = "UPDATE `book_reservations` SET `actual_Return`='$actualDate',`rev_status`='$rev_status' WHERE rev_id = '$rev_id'";
                                     $insRes = mysqli_query($db,$insert);
                                     if($insRes){
-                                        $getBooksInfo = "SELECT * FROM books WHERE bk_id = $book_id";
-                                        $bkRes        = mysqli_query($db,$getBooksInfo);
-                                        while($rowInfo = mysqli_fetch_assoc($bkRes)){
-                                            $booking_count = $rowInfo['booking_count'];
-                                        }
-                                        $booking_count += 1;
-                                        $updateInfo = "UPDATE books SET booking_count = $booking_count, bk_status = 0 WHERE bk_id = $book_id";
+                                        $updateInfo = "UPDATE books SET bk_status = 1 WHERE bk_id = $book_id";
                                         $resUp      = mysqli_query($db,$updateInfo);
+                                        
                                         if($resUp){
-                                            $_SESSION['message'] = "BOOKING CONFIRMED... Booking Id is $rev_customizedId";
+                                            $_SESSION['message'] = "BOOKING INFORMATION UPDATED...";
                                             $_SESSION['type']    = "success";
                                             header("location: bookings.php?action=Manage");
                                             exit();
                                         }
                                     }
                                     else{
-                                        $_SESSION['message'] = "SOMETHING WENT WRONG...BOOKING NOT CONFIRMED...";
+                                        $_SESSION['message'] = "SOMETHING WENT WRONG...BOOKING NOT UPDATED...";
                                         $_SESSION['type']    = "error";
                                         header("location: bookings.php?action=Manage");
                                         exit();
@@ -412,7 +411,7 @@
                                     // echo $insert;
                                 }
                             }
-                            else if($action == "Delet"){
+                            else if($action == "Delete"){
 
                             }
                         ?>
