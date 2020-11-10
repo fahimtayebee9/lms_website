@@ -59,7 +59,7 @@
     <link rel="stylesheet" href="admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 
 	<?php
-		if(strpos($_SERVER['REQUEST_URI'],"checkout") == true || strpos($_SERVER['REQUEST_URI'],"shop-grid") == true || strpos($_SERVER['REQUEST_URI'],"single-product") == true){ 
+		if(strpos($_SERVER['REQUEST_URI'],"wishlist") == true || strpos($_SERVER['REQUEST_URI'],"checkout") == true || strpos($_SERVER['REQUEST_URI'],"shop-grid") == true || strpos($_SERVER['REQUEST_URI'],"single-product") == true){ 
 			?>
 				<style>
 					.oth-page .mainmenu__nav .meninmenu li a {

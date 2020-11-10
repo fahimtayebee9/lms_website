@@ -66,7 +66,7 @@
 				}
 				else{
 					?>
-						<button class="submit-btn disabled" onclick="infobox()">Check availability</button>
+						<button class="submit-btn disabled" onclick="infobox()">Confirm Booking</button>
 					<?php
 				}
 			?>
