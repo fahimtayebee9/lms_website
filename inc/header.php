@@ -1,5 +1,6 @@
 <?php
-    include "admin/inc/db_config.php";
+	include "admin/inc/db_config.php";
+	session_start();
     ob_start();
 ?>
 <!doctype html>
@@ -43,8 +44,22 @@
 	<!-- Modernizer js -->
 	<script src="assets/js/vendor/modernizr-3.5.0.min.js"></script>
 
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="assets/booking/css/style.css" />
+
+	<!-- SWEET ALERT 2 -->
+    <link rel="stylesheet" href="admin/plugins/sweetalert2/sweetalert2.min.css">
+
+	<!-- Google font -->
+	<link href="http://fonts.googleapis.com/css?family=Playfair+Display:900" rel="stylesheet" type="text/css" />
+	<link href="http://fonts.googleapis.com/css?family=Alice:400,700" rel="stylesheet" type="text/css" />
+
+	<!-- Select2 -->
+    <link rel="stylesheet" href="admin/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
 	<?php
-		if(strpos($_SERVER['REQUEST_URI'],"shop-grid") == true){
+		if(strpos($_SERVER['REQUEST_URI'],"checkout") == true || strpos($_SERVER['REQUEST_URI'],"shop-grid") == true || strpos($_SERVER['REQUEST_URI'],"single-product") == true){ 
 			?>
 				<style>
 					.oth-page .mainmenu__nav .meninmenu li a {

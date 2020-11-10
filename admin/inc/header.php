@@ -25,6 +25,7 @@
     <!-- THEME STYLES-->
     <link href="assets/css/main.min.css" rel="stylesheet" />
 
+    <!-- SWEET ALERT 2 -->
     <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css"> 
     <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
 

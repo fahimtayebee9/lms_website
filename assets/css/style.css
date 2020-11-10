@@ -3973,14 +3973,15 @@ h3.widget-title-modal {
     width: 100px;
     margin: 0 15px 15px 0; }
 .product__info__main .box-tocart .addtocart__actions .tocart {
-  background: #e59285 none repeat scroll 0 0;
+  background: #2e2e2e url(../images/icons/cart4.png) no-repeat scroll -30px center;
   border: 0 none;
+  border-radius: 25px;
   color: #fff;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 700;
   height: 40px;
   line-height: 40px;
-  padding: 0 25px;
+  padding: 0 20px 0 45px;
   text-transform: uppercase;
 }
 .product__info__main span.posted_in {

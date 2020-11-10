@@ -94,13 +94,13 @@
 													<div class="product product__style--3">
 														<div class="product__thumb">
 															<a class="first__img" href=""><img src="admin/img/books/<?=$bk_image?>" alt="product image"></a>
-															<a class="second__img animation1" href="single-product.html"><img src="admin/img/books/<?=$bk_image?>" alt="product image"></a>
+															<a class="second__img animation1" href="single-product.php?action=View&view_id=<?=$bk_id?>"><img src="admin/img/books/<?=$bk_image?>" alt="product image"></a>
 															<div class="hot__box">
 																<span class="hot-label">BEST SALLER</span>
 															</div>
 														</div>
 														<div class="product__content content--center">
-															<h4><a href="single-product.html"><?=$bk_name?></a></h4>
+															<h4><a href="single-product.php?action=View&view_id=<?=$bk_id?>"><?=$bk_name?></a></h4>
 															<ul class="prize d-block">
 																<li><?=$rowBk['a_name']?></li>
 																<li class="prize">

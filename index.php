@@ -12,6 +12,7 @@
 			include "inc/search_popup.php";
 		?>
 		<!-- End Search Popup -->
+		
         <!-- Start Slider area -->
         <div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
         	<!-- Start Single Slide -->

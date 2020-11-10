@@ -117,7 +117,7 @@
           position: 'top-end',
           showConfirmButton: false,
           timer: 3500
-        });
+      });
 
       <?php
         if(isset($_SESSION['message'])){
