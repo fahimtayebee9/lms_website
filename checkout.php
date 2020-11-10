@@ -134,7 +134,7 @@
 				if($_SERVER['REQUEST_METHOD'] == "POST"){
 					$email 		= $_POST['email'];
 					$password 	= sha1($_POST['password']);
-
+					$remember   = $_POST['rememberme'];
 					$sql = "SELECT * FROM `users` WHERE email = '$email' AND password = '$password'";
 					$result = mysqli_query($db ,$sql);
 
@@ -153,7 +153,8 @@
 							$_SESSION['join_date'] = $row['join_date'];
 
 							if(isset($remember)){
-								setcookie("username",$username,time() + (86400 * 30), "/");
+								setcookie("email",$email,time() + (86400 * 30), "/");
+								setcookie("password",$password,time() + (86400 * 30), "/");
 							}
 							else{
 								if($row['role'] == 2){

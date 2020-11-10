@@ -59,7 +59,7 @@
     <link rel="stylesheet" href="admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 
 	<?php
-		if(strpos($_SERVER['REQUEST_URI'],"wishlist") == true || strpos($_SERVER['REQUEST_URI'],"checkout") == true || strpos($_SERVER['REQUEST_URI'],"shop-grid") == true || strpos($_SERVER['REQUEST_URI'],"single-product") == true){ 
+		if( strpos($_SERVER['REQUEST_URI'],"my-account") == true || strpos($_SERVER['REQUEST_URI'],"wishlist") == true || strpos($_SERVER['REQUEST_URI'],"checkout") == true || strpos($_SERVER['REQUEST_URI'],"shop-grid") == true || strpos($_SERVER['REQUEST_URI'],"single-product") == true){ 
 			?>
 				<style>
 					.oth-page .mainmenu__nav .meninmenu li a {
@@ -86,6 +86,14 @@
 		.disabled-item{
 			pointer-events: none!important;
 			cursor: pointer;
+		}
+		.profileIMG{
+			border-radius: 50%;
+			border: 2px solid black;
+			height: 250px;
+			text-align: center;
+			padding: 10px;
+			box-shadow: 0px 0px 9px 2px #00000052;
 		}
 	</style>
 

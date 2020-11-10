@@ -25,7 +25,7 @@
 		            				<h2>Buy <span>your </span></h2>
 		            				<h2>favourite <span>Book </span></h2>
 		            				<h2>from <span>Here </span></h2>
-				                   	<a class="shopbtn" href="#">shop now</a>
+				                   	<a class="shopbtn" href="shop-grid.php">shop now</a>
 		            			</div>
 	            			</div>
 	            		</div>
@@ -52,7 +52,8 @@
             </div>
             <!-- End Single Slide -->
         </div>
-        <!-- End Slider area -->
+		<!-- End Slider area -->
+		
 		<!-- Start Available BOOKS Area -->
 		<section class="wn__product__area brown--color pt--80  pb--30">
 			<div class="container">
@@ -105,9 +106,9 @@
 											<div class="action">
 												<div class="actions_inner">
 													<ul class="add_to_links">
-														<li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a></li>
-														<li><a class="wishlist" href="wishlist.html"><i class="bi bi-shopping-cart-full"></i></a></li>
-														<li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
+														<li><a class="cart <?php if($bk_status == 0){echo "disabled-item";}?>" href="checkout.php?book_id=<?=$rowBk['bk_id']?>"><i class="bi bi-shopping-bag4"></i></a></li>
+														<li><a class="wishlist" href="wishlist.php?action=Insert&book_id=<?=$rowBook['bk_id']?>"><i class="bi bi-shopping-cart-full"></i></a></li>
+														<!-- <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li> -->
 														<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
 													</ul>
 												</div>
@@ -135,6 +136,8 @@
 			</div>
 		</section>
 		<!-- Start Available BOOKS Area -->
+
+		
 		<!-- Start NEwsletter Area -->
 		<section class="wn__newsletter__area bg-image--2">
 			<div class="container">
@@ -233,21 +236,12 @@
 													<div class="action">
 														<div class="actions_inner">
 															<ul class="add_to_links">
-																<li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a></li>
-																<li><a class="wishlist" href="wishlist.html"><i class="bi bi-shopping-cart-full"></i></a></li>
-																<li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
+																<li><a class="cart <?php if($bk_status == 0){echo "disabled-item";}?>" href="checkout.php?book_id=<?=$rowBk['bk_id']?>"><i class="bi bi-shopping-bag4"></i></a></li>
+																<li><a class="wishlist" href="wishlist.php?action=Insert&book_id=<?=$rowBook['bk_id']?>"><i class="bi bi-shopping-cart-full"></i></a></li>
+																<!-- <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li> -->
 																<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
 															</ul>
 														</div>
-													</div>
-													<div class="product__hover--content">
-														<ul class="rating d-flex">
-															<li class="on"><i class="fa fa-star-o"></i></li>
-															<li class="on"><i class="fa fa-star-o"></i></li>
-															<li class="on"><i class="fa fa-star-o"></i></li>
-															<li><i class="fa fa-star-o"></i></li>
-															<li><i class="fa fa-star-o"></i></li>
-														</ul>
 													</div>
 												</div>
 											</div>
@@ -281,6 +275,7 @@
 									$bk_name = $rowBook['bk_name'];
 									$bk_image = $rowBook['bk_image'];
 									$bk_status = $rowBook['bk_status'];
+									$bk_id = $rowBook['bk_id'];
 									?>
 										<div class="single__product">
 											<!-- Start Single Product -->
@@ -311,27 +306,20 @@
 														<div class="action">
 															<div class="actions_inner">
 																<ul class="add_to_links">
-																	<li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a></li>
-																	<li><a class="wishlist" href="wishlist.html"><i class="bi bi-shopping-cart-full"></i></a></li>
-																	<li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-																	<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+																	<li><a class="cart <?php if($bk_status == 0){echo "disabled-item";}?>" href="checkout.php?book_id=<?=$bk_id?>"><i class="bi bi-shopping-bag4"></i></a></li>
+																	<li><a class="wishlist" href="wishlist.php?action=Insert&book_id=<?=$rowBook['bk_id']?>"><i class="bi bi-shopping-cart-full"></i></a></li>
+																	<!-- <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li> -->
+																	<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal<?=$bk_id?>"><i class="bi bi-search"></i></a></li>
 																</ul>
 															</div>
-														</div>
-														<div class="product__hover--content">
-															<ul class="rating d-flex">
-																<li class="on"><i class="fa fa-star-o"></i></li>
-																<li class="on"><i class="fa fa-star-o"></i></li>
-																<li class="on"><i class="fa fa-star-o"></i></li>
-																<li><i class="fa fa-star-o"></i></li>
-																<li><i class="fa fa-star-o"></i></li>
-															</ul>
 														</div>
 													</div>
 												</div>
 											</div>
 											<!-- Start Single Product -->
 										</div>
+
+										
 									<?php
 								}
 								?>
@@ -349,7 +337,7 @@
 		</section>
 		<!-- END TAB CONTENT Area -->
 
-
+		
 		<!-- Start Recent Post Area -->
 		<section class="wn__recent__post bg--gray ptb--80">
 			<div class="container">
@@ -418,91 +406,17 @@
 		</section>
 		<!-- End Recent Post Area -->
 		
-		
+		<!-- QUICKVIEW PRODUCT -->
+		<?php
+			include "inc/quickview.php";
+		?>
+		<!-- END QUICKVIEW PRODUCT -->
+
+
+		<!-- FOOTER -->
 		<?php include "inc/footer.php";?>
 		
-		<!-- QUICKVIEW PRODUCT -->
-		<div id="quickview-wrapper">
-		    <!-- Modal -->
-		    <div class="modal fade" id="productmodal" tabindex="-1" role="dialog">
-		        <div class="modal-dialog modal__container" role="document">
-		            <div class="modal-content">
-		                <div class="modal-header modal__header">
-		                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		                </div>
-		                <div class="modal-body">
-		                    <div class="modal-product">
-		                        <!-- Start product images -->
-		                        <div class="product-images">
-		                            <div class="main-image images">
-		                                <img alt="big images" src="assets/images/product/big-img/1.jpg">
-		                            </div>
-		                        </div>
-		                        <!-- end product images -->
-		                        <div class="product-info">
-		                            <h1>Simple Fabric Bags</h1>
-		                            <div class="rating__and__review">
-		                                <ul class="rating">
-		                                    <li><span class="ti-star"></span></li>
-		                                    <li><span class="ti-star"></span></li>
-		                                    <li><span class="ti-star"></span></li>
-		                                    <li><span class="ti-star"></span></li>
-		                                    <li><span class="ti-star"></span></li>
-		                                </ul>
-		                                <div class="review">
-		                                    <a href="#">4 customer reviews</a>
-		                                </div>
-		                            </div>
-		                            <div class="price-box-3">
-		                                <div class="s-price-box">
-		                                    <span class="new-price">$17.20</span>
-		                                    <span class="old-price">$45.00</span>
-		                                </div>
-		                            </div>
-		                            <div class="quick-desc">
-		                                Designed for simplicity and made from high quality materials. Its sleek geometry and material combinations creates a modern look.
-		                            </div>
-		                            <div class="select__color">
-		                                <h2>Select color</h2>
-		                                <ul class="color__list">
-		                                    <li class="red"><a title="Red" href="#">Red</a></li>
-		                                    <li class="gold"><a title="Gold" href="#">Gold</a></li>
-		                                    <li class="orange"><a title="Orange" href="#">Orange</a></li>
-		                                    <li class="orange"><a title="Orange" href="#">Orange</a></li>
-		                                </ul>
-		                            </div>
-		                            <div class="select__size">
-		                                <h2>Select size</h2>
-		                                <ul class="color__list">
-		                                    <li class="l__size"><a title="L" href="#">L</a></li>
-		                                    <li class="m__size"><a title="M" href="#">M</a></li>
-		                                    <li class="s__size"><a title="S" href="#">S</a></li>
-		                                    <li class="xl__size"><a title="XL" href="#">XL</a></li>
-		                                    <li class="xxl__size"><a title="XXL" href="#">XXL</a></li>
-		                                </ul>
-		                            </div>
-		                            <div class="social-sharing">
-		                                <div class="widget widget_socialsharing_widget">
-		                                    <h3 class="widget-title-modal">Share this product</h3>
-		                                    <ul class="social__net social__net--2 d-flex justify-content-start">
-		                                        <li class="facebook"><a href="#" class="rss social-icon"><i class="zmdi zmdi-rss"></i></a></li>
-		                                        <li class="linkedin"><a href="#" class="linkedin social-icon"><i class="zmdi zmdi-linkedin"></i></a></li>
-		                                        <li class="pinterest"><a href="#" class="pinterest social-icon"><i class="zmdi zmdi-pinterest"></i></a></li>
-		                                        <li class="tumblr"><a href="#" class="tumblr social-icon"><i class="zmdi zmdi-tumblr"></i></a></li>
-		                                    </ul>
-		                                </div>
-		                            </div>
-		                            <div class="addtocart-btn">
-		                                <a href="#">Add to cart</a>
-		                            </div>
-		                        </div>
-		                    </div>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		</div>
-		<!-- END QUICKVIEW PRODUCT -->
+		
 
 
 	</div>

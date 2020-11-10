@@ -1,510 +1,445 @@
-﻿<!doctype html>
-<html class="no-js" lang="zxx">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>My Account | Bookshop Responsive Bootstrap4 Template</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<!-- Favicons -->
-	<link rel="shortcut icon" href="images/favicon.ico">
-	<link rel="apple-touch-icon" href="images/icon.png">
-
-	<!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,600,600i,700,700i,800" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
-
-	<!-- Stylesheets -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/plugins.css">
-	<link rel="stylesheet" href="style.css">
-
-	<!-- Cusom css -->
-   <link rel="stylesheet" href="css/custom.css">
-
-	<!-- Modernizer js -->
-	<script src="js/vendor/modernizr-3.5.0.min.js"></script>
-</head>
-<body>
-	<!--[if lte IE 9]>
-		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-	<![endif]-->
-
+﻿<?php include "inc/header.php";?>
+	
 	<!-- Main wrapper -->
 	<div class="wrapper" id="wrapper">
 		<!-- Header -->
-		<header id="wn__header" class="oth-page header__area header__absolute sticky__header">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-4 col-sm-4 col-7 col-lg-2">
-						<div class="logo">
-							<a href="index.html">
-								<img src="images/logo/logo.png" alt="logo images">
-							</a>
-						</div>
-					</div>
-					<div class="col-lg-8 d-none d-lg-block">
-						<nav class="mainmenu__nav">
-							<ul class="meninmenu d-flex justify-content-start">
-								<li class="drop with--one--item"><a href="index.html">Home</a></li>
-								<li class="drop"><a href="#">Shop</a>
-									<div class="megamenu mega03">
-										<ul class="item item03">
-											<li class="title">Shop Layout</li>
-											<li><a href="shop-grid.html">Shop Grid</a></li>
-											<li><a href="single-product.html">Single Product</a></li>
-										</ul>
-										<ul class="item item03">
-											<li class="title">Shop Page</li>
-											<li><a href="my-account.html">My Account</a></li>
-											<li><a href="cart.html">Cart Page</a></li>
-											<li><a href="checkout.html">Checkout Page</a></li>
-											<li><a href="wishlist.html">Wishlist Page</a></li>
-											<li><a href="error404.html">404 Page</a></li>
-											<li><a href="faq.html">Faq Page</a></li>
-										</ul>
-										<ul class="item item03">
-											<li class="title">Bargain Books</li>
-											<li><a href="shop-grid.html">Bargain Bestsellers</a></li>
-											<li><a href="shop-grid.html">Activity Kits</a></li>
-											<li><a href="shop-grid.html">B&N Classics</a></li>
-											<li><a href="shop-grid.html">Books Under $5</a></li>
-											<li><a href="shop-grid.html">Bargain Books</a></li>
-										</ul>
-									</div>
-								</li>
-								<li class="drop"><a href="shop-grid.html">Books</a>
-									<div class="megamenu mega03">
-										<ul class="item item03">
-											<li class="title">Categories</li>
-											<li><a href="shop-grid.html">Biography </a></li>
-											<li><a href="shop-grid.html">Business </a></li>
-											<li><a href="shop-grid.html">Cookbooks </a></li>
-											<li><a href="shop-grid.html">Health & Fitness </a></li>
-											<li><a href="shop-grid.html">History </a></li>
-										</ul>
-										<ul class="item item03">
-											<li class="title">Customer Favourite</li>
-											<li><a href="shop-grid.html">Mystery</a></li>
-											<li><a href="shop-grid.html">Religion & Inspiration</a></li>
-											<li><a href="shop-grid.html">Romance</a></li>
-											<li><a href="shop-grid.html">Fiction/Fantasy</a></li>
-											<li><a href="shop-grid.html">Sleeveless</a></li>
-										</ul>
-										<ul class="item item03">
-											<li class="title">Collections</li>
-											<li><a href="shop-grid.html">Science </a></li>
-											<li><a href="shop-grid.html">Fiction/Fantasy</a></li>
-											<li><a href="shop-grid.html">Self-Improvemen</a></li>
-											<li><a href="shop-grid.html">Home & Garden</a></li>
-											<li><a href="shop-grid.html">Humor Books</a></li>
-										</ul>
-									</div>
-								</li>
-								<li class="drop"><a href="shop-grid.html">Kids</a>
-									<div class="megamenu mega02">
-										<ul class="item item02">
-											<li class="title">Top Collections</li>
-											<li><a href="shop-grid.html">American Girl</a></li>
-											<li><a href="shop-grid.html">Diary Wimpy Kid</a></li>
-											<li><a href="shop-grid.html">Finding Dory</a></li>
-											<li><a href="shop-grid.html">Harry Potter</a></li>
-											<li><a href="shop-grid.html">Land of Stories</a></li>
-										</ul>
-										<ul class="item item02">
-											<li class="title">More For Kids</li>
-											<li><a href="shop-grid.html">B&N Educators</a></li>
-											<li><a href="shop-grid.html">B&N Kids' Club</a></li>
-											<li><a href="shop-grid.html">Kids' Music</a></li>
-											<li><a href="shop-grid.html">Toys & Games</a></li>
-											<li><a href="shop-grid.html">Hoodies</a></li>
-										</ul>
-									</div>
-								</li>
-								<li class="drop"><a href="#">Pages</a>
-									<div class="megamenu dropdown">
-										<ul class="item item01">
-											<li><a href="about.html">About Page</a></li>
-											<li class="label2"><a href="portfolio.html">Portfolio</a>
-												<ul>
-													<li><a href="portfolio.html">Portfolio</a></li>
-													<li><a href="portfolio-details.html">Portfolio Details</a></li>
-												</ul>
-											</li>
-											<li><a href="my-account.html">My Account</a></li>
-											<li><a href="cart.html">Cart Page</a></li>
-											<li><a href="checkout.html">Checkout Page</a></li>
-											<li><a href="wishlist.html">Wishlist Page</a></li>
-											<li><a href="error404.html">404 Page</a></li>
-											<li><a href="faq.html">Faq Page</a></li>
-											<li><a href="team.html">Team Page</a></li>
-										</ul>
-									</div>
-								</li>
-								<li class="drop"><a href="blog.html">Blog</a>
-									<div class="megamenu dropdown">
-										<ul class="item item01">
-											<li><a href="blog.html">Blog Page</a></li>
-											<li><a href="blog-details.html">Blog Details</a></li>
-										</ul>
-									</div>
-								</li>
-								<li><a href="contact.html">Contact</a></li>
-							</ul>
-						</nav>
-					</div>
-					<div class="col-md-8 col-sm-8 col-5 col-lg-2">
-						<ul class="header__sidebar__right d-flex justify-content-end align-items-center">
-							<li class="shop_search"><a class="search__active" href="#"></a></li>
-							<li class="wishlist"><a href="#"></a></li>
-							<li class="shopcart"><a class="cartbox_active" href="#"><span class="product_qun">3</span></a>
-								<!-- Start Shopping Cart -->
-								<div class="block-minicart minicart__active">
-									<div class="minicart-content-wrapper">
-										<div class="micart__close">
-											<span>close</span>
-										</div>
-										<div class="items-total d-flex justify-content-between">
-											<span>3 items</span>
-											<span>Cart Subtotal</span>
-										</div>
-										<div class="total_amount text-right">
-											<span>$66.00</span>
-										</div>
-										<div class="mini_action checkout">
-											<a class="checkout__btn" href="cart.html">Go to Checkout</a>
-										</div>
-										<div class="single__items">
-											<div class="miniproduct">
-												<div class="item01 d-flex">
-													<div class="thumb">
-														<a href="product-details.html"><img src="images/product/sm-img/1.jpg" alt="product images"></a>
-													</div>
-													<div class="content">
-														<h6><a href="product-details.html">Voyage Yoga Bag</a></h6>
-														<span class="prize">$30.00</span>
-														<div class="product_prize d-flex justify-content-between">
-															<span class="qun">Qty: 01</span>
-															<ul class="d-flex justify-content-end">
-																<li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>
-																<li><a href="#"><i class="zmdi zmdi-delete"></i></a></li>
-															</ul>
-														</div>
-													</div>
-												</div>
-												<div class="item01 d-flex mt--20">
-													<div class="thumb">
-														<a href="product-details.html"><img src="images/product/sm-img/3.jpg" alt="product images"></a>
-													</div>
-													<div class="content">
-														<h6><a href="product-details.html">Impulse Duffle</a></h6>
-														<span class="prize">$40.00</span>
-														<div class="product_prize d-flex justify-content-between">
-															<span class="qun">Qty: 03</span>
-															<ul class="d-flex justify-content-end">
-																<li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>
-																<li><a href="#"><i class="zmdi zmdi-delete"></i></a></li>
-															</ul>
-														</div>
-													</div>
-												</div>
-												<div class="item01 d-flex mt--20">
-													<div class="thumb">
-														<a href="product-details.html"><img src="images/product/sm-img/2.jpg" alt="product images"></a>
-													</div>
-													<div class="content">
-														<h6><a href="product-details.html">Compete Track Tote</a></h6>
-														<span class="prize">$40.00</span>
-														<div class="product_prize d-flex justify-content-between">
-															<span class="qun">Qty: 03</span>
-															<ul class="d-flex justify-content-end">
-																<li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>
-																<li><a href="#"><i class="zmdi zmdi-delete"></i></a></li>
-															</ul>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="mini_action cart">
-											<a class="cart__btn" href="cart.html">View and edit cart</a>
-										</div>
-									</div>
-								</div>
-								<!-- End Shopping Cart -->
-							</li>
-							<li class="setting__bar__icon"><a class="setting__active" href="#"></a>
-								<div class="searchbar__content setting__block">
-									<div class="content-inner">
-										<div class="switcher-currency">
-											<strong class="label switcher-label">
-												<span>Currency</span>
-											</strong>
-											<div class="switcher-options">
-												<div class="switcher-currency-trigger">
-													<span class="currency-trigger">USD - US Dollar</span>
-													<ul class="switcher-dropdown">
-														<li>GBP - British Pound Sterling</li>
-														<li>EUR - Euro</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-										<div class="switcher-currency">
-											<strong class="label switcher-label">
-												<span>Language</span>
-											</strong>
-											<div class="switcher-options">
-												<div class="switcher-currency-trigger">
-													<span class="currency-trigger">English01</span>
-													<ul class="switcher-dropdown">
-														<li>English02</li>
-														<li>English03</li>
-														<li>English04</li>
-														<li>English05</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-										<div class="switcher-currency">
-											<strong class="label switcher-label">
-												<span>Select Store</span>
-											</strong>
-											<div class="switcher-options">
-												<div class="switcher-currency-trigger">
-													<span class="currency-trigger">Fashion Store</span>
-													<ul class="switcher-dropdown">
-														<li>Furniture</li>
-														<li>Shoes</li>
-														<li>Speaker Store</li>
-														<li>Furniture</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-										<div class="switcher-currency">
-											<strong class="label switcher-label">
-												<span>My Account</span>
-											</strong>
-											<div class="switcher-options">
-												<div class="switcher-currency-trigger">
-													<div class="setting__menu">
-														<span><a href="#">Compare Product</a></span>
-														<span><a href="#">My Account</a></span>
-														<span><a href="#">My Wishlist</a></span>
-														<span><a href="#">Sign In</a></span>
-														<span><a href="#">Create An Account</a></span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<!-- Start Mobile Menu -->
-				<div class="row d-none">
-					<div class="col-lg-12 d-none">
-						<nav class="mobilemenu__nav">
-							<ul class="meninmenu">
-								<li><a href="index.html">Home</a></li>
-								<li><a href="#">Pages</a>
-									<ul>
-										<li><a href="about.html">About Page</a></li>
-										<li><a href="portfolio.html">Portfolio</a>
-											<ul>
-												<li><a href="portfolio.html">Portfolio</a></li>
-												<li><a href="portfolio-details.html">Portfolio Details</a></li>
-											</ul>
-										</li>
-										<li><a href="my-account.html">My Account</a></li>
-										<li><a href="cart.html">Cart Page</a></li>
-										<li><a href="checkout.html">Checkout Page</a></li>
-										<li><a href="wishlist.html">Wishlist Page</a></li>
-										<li><a href="error404.html">404 Page</a></li>
-										<li><a href="faq.html">Faq Page</a></li>
-										<li><a href="team.html">Team Page</a></li>
-									</ul>
-								</li>
-								<li><a href="shop-grid.html">Shop</a>
-									<ul>
-										<li><a href="shop-grid.html">Shop Grid</a></li>
-										<li><a href="single-product.html">Single Product</a></li>
-									</ul>
-								</li>
-								<li><a href="blog.html">Blog</a>
-									<ul>
-										<li><a href="blog.html">Blog Page</a></li>
-										<li><a href="blog-details.html">Blog Details</a></li>
-									</ul>
-								</li>
-								<li><a href="contact.html">Contact</a></li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-				<!-- End Mobile Menu -->
-	            <div class="mobile-menu d-block d-lg-none">
-	            </div>
-	            <!-- Mobile Menu -->	
-			</div>		
-		</header>
+		<?php 
+			include "inc/headerMain.php";
+		?>
 		<!-- //Header -->
+
 		<!-- Start Search Popup -->
-		<div class="box-search-content search_active block-bg close__top">
-			<form id="search_mini_form" class="minisearch" action="#">
-				<div class="field__search">
-					<input type="text" placeholder="Search entire store here...">
-					<div class="action">
-						<a href="#"><i class="zmdi zmdi-search"></i></a>
-					</div>
-				</div>
-			</form>
-			<div class="close__wrap">
-				<span>close</span>
-			</div>
-		</div>
+		<?php 
+			include "inc/search_popup.php";
+		?>
 		<!-- End Search Popup -->
-        <!-- Start Bradcaump area -->
-        <div class="ht__bradcaump__area bg-image--6">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="bradcaump__inner text-center">
-                        	<h2 class="bradcaump-title">My Account</h2>
-                            <nav class="bradcaump-content">
-                              <a class="breadcrumb_item" href="index.html">Home</a>
-                              <span class="brd-separetor">/</span>
-                              <span class="breadcrumb_item active">My Account</span>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Bradcaump area -->
-		<!-- Start My Account Area -->
-		<section class="my_account_area pt--80 pb--55 bg--white">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-6 col-12">
-						<div class="my__account__wrapper">
-							<h3 class="account__title">Login</h3>
-							<form action="#">
-								<div class="account__form">
-									<div class="input__box">
-										<label>Username or email address <span>*</span></label>
-										<input type="text">
-									</div>
-									<div class="input__box">
-										<label>Password<span>*</span></label>
-										<input type="text">
-									</div>
-									<div class="form__btn">
-										<button>Login</button>
-										<label class="label-for-checkbox">
-											<input id="rememberme" class="input-checkbox" name="rememberme" value="forever" type="checkbox">
-											<span>Remember me</span>
-										</label>
-									</div>
-									<a class="forget_pass" href="#">Lost your password?</a>
-								</div>
-							</form>
-						</div>
-					</div>
-					<div class="col-lg-6 col-12">
-						<div class="my__account__wrapper">
-							<h3 class="account__title">Register</h3>
-							<form action="#">
-								<div class="account__form">
-									<div class="input__box">
-										<label>Email address <span>*</span></label>
-										<input type="email">
-									</div>
-									<div class="input__box">
-										<label>Password<span>*</span></label>
-										<input type="password">
-									</div>
-									<div class="form__btn">
-										<button>Register</button>
+
+		<?php
+			if(isset($_SESSION['rev_user'])){
+				$rev_user = $_SESSION['rev_user'];
+				$sql = "SELECT * FROM users WHERE id = '$rev_user'";
+				$result = mysqli_query($db, $sql);
+				while($row = mysqli_fetch_assoc($result)){
+					$user_image = $row['image'];
+					$user_id    = $row['id'];
+					$name 		= $row['name'];
+					$email 		= $row['email'];
+					$phone      = $row['phone'];
+					$password   = $row['password'];
+					$role 		= $row['role'];
+					$status     = $row['status'];
+					$join_date  = $row['join_date']; 
+					$address    = $row['address'];
+				}
+				// TERNARY OPERATOR
+				$action = isset($_GET['action']) ? $_GET['action'] : "Manage";
+				if($action == "Manage"){
+					?>
+						<!-- Start Bradcaump area -->
+						<div class="ht__bradcaump__area bg-image--6">
+							<div class="container">
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="bradcaump__inner text-center">
+											<h2 class="bradcaump-title">My Account</h2>
+											<nav class="bradcaump-content">
+											<a class="breadcrumb_item" href="index.html">Home</a>
+											<span class="brd-separetor">/</span>
+											<span class="breadcrumb_item active">My Account</span>
+											</nav>
+										</div>
 									</div>
 								</div>
-							</form>
+							</div>
 						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		<!-- End My Account Area -->
+						<!-- End Bradcaump area -->
+						
+						<!-- Start My Account Area -->
+						<section class="my_account_area pt--80 pb--55 bg--white">
+							<div class="container">
+								<div class="row">
+									<div class="col-lg-6 m-auto col-12">
+										<div class="my__account__wrapper text-center">
+											<?php
+												if(!empty($user_image)){
+													?>
+														<img src="admin/img/users/<?=$user_image;?>" class="profileIMG" alt="">
+													<?php
+												}
+												else{
+													?>
+														<img src="admin/img/users/default.jpg" class="profileIMG" alt="">
+													<?php
+												}
+											?>
+										</div>
+									</div>
+									<div class="col-lg-10 pt-5 m-auto  col-12">
+										<div class="my__account__wrapper">
+											<table class="table table-striped">
+												<tbody>
+													<tr>
+														<th scope="row">Name</th>
+														<th> : </th>
+														<td><?=$name?></td>
+													</tr>
+													<tr>
+														<th scope="row">Email</th>
+														<th> : </th>
+														<td><?=$email?></td>
+													</tr>
+													<tr>
+														<th scope="row">Phone</th>
+														<th> : </th>
+														<td><?=$phone;?></td>
+													</tr>
+													<tr>
+														<th scope="row">Role</th>
+														<th> : </th>
+														<td>
+															<?php
+																if($role == 2){
+																	?>
+																		<p class="m-0 badge badge-info">STUDENT</p>
+																	<?php
+																}
+															?>
+														</td>
+													</tr>
+													<tr>
+														<th scope="row">Status</th>
+														<th> : </th>
+														<td>
+															<?php
+																if($status == 1){
+																	?>
+																		<p class="m-0 badge badge-info">ACTIVE</p>
+																	<?php
+																}
+																else{
+																	?>
+																		<p class="m-0 badge badge-danger">INACTIVE</p>
+																	<?php
+																}
+															?>
+														</td>
+													</tr>
+													<tr>
+														<th scope="row">Join Date</th>
+														<th> : </th>
+														<td><?=date("d M, Y",strtotime($join_date))?></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="col-lg-6 col-sm-8 col-md-8 text-center justify-content-between m-auto pt-3">
+										<a class="btn btn-info text-light" href="my-account.php?action=BorrowList">View Borrow List</a>
+										<a class="btn btn-warning text-light" href="my-account.php?action=ChangeInfo">Change Information</a>
+										<a class="btn btn-danger text-light" href="inc/logout.php">Sign Out</a>
+									</div>
+								</div>
+							</div>
+						</section>
+						<!-- End My Account Area -->
+					<?php
+				}
+				else if($action == "ChangeInfo"){
+					?>
+						<!-- Start Bradcaump area -->
+						<div class="ht__bradcaump__area bg-image--6">
+							<div class="container">
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="bradcaump__inner text-center">
+											<h2 class="bradcaump-title">Account Information</h2>
+											<nav class="bradcaump-content">
+											<a class="breadcrumb_item" href="index.html">Home</a>
+											<span class="brd-separetor">/</span>
+											<span class="breadcrumb_item active">Account Settings</span>
+											</nav>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- End Bradcaump area -->
+
+						<!-- Start My Account Area -->
+						<section class="my_account_area pt--80 pb--55 bg--white">
+							<div class="container">
+								<div class="row">
+									<div class="col-lg-10 m-auto col-12">
+										<div class="my__account__wrapper">
+											<form action="my-account.php?action=Update" method="POST">
+												<div class="account__form">
+													<div class="row">
+														<div class="col-md-6">
+															<div class="input__box">
+																<label class="font-weight-bold">Name</label>
+																<input type="text" name="name" value="<?=$name?>">
+															</div>
+															<div class="input__box">
+																<label class="font-weight-bold">Username or email address</label>
+																<input type="email" name="email" value="<?=$email?>">
+															</div>
+															<div class="input__box">
+																<label class="font-weight-bold">Password</label>
+																<input type="password" name="password" >
+															</div>
+															<div class="input__box">
+																<label class="font-weight-bold">Profile Picture</label>
+																<input type="file" name="picture" class="form-control-file border-none">
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="input__box">
+																<label class="font-weight-bold">Phone</label>
+																<input type="text" name="phone" value="<?=$phone?>">
+															</div>
+															<div class="input__box">
+																<label class="font-weight-bold">Address</label>
+																<input type="text" name="address" value="<?=$address?>">
+															</div>
+															<div class="input__box">
+																<label class="font-weight-bold">Confirm Password</label>
+																<input type="password" name="confrimPassword" >
+															</div>
+														</div>
+														<div class="col-md-6 m-auto text-center">
+															<div class="form__btn d-block">
+																<label class="label-for-checkbox mt-3 mb-3 align-items-center">
+																	<input id="rememberme" class="input-checkbox" name="rememberme" value="forever" type="checkbox">
+																	<span>Remember me</span>
+																</label>
+																<br>
+																<button class=" text-center">Login</button>
+															</div>
+														</div>
+													</div>
+													
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+						<!-- End My Account Area -->
+					<?php
+				}
+			}
+			else{
+				$action = isset($_GET['action']) ? $_GET['action'] : "Manage";
+				if($action == "SignIn"){
+					if(!isset($_SESSION['rev_user'])){
+						?>
+							<!-- Start Bradcaump area -->
+							<div class="ht__bradcaump__area bg-image--6">
+								<div class="container">
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="bradcaump__inner text-center">
+												<h2 class="bradcaump-title">Sign In</h2>
+												<nav class="bradcaump-content">
+												<a class="breadcrumb_item" href="index.html">Home</a>
+												<span class="brd-separetor">/</span>
+												<span class="breadcrumb_item active">Sign In</span>
+												</nav>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- End Bradcaump area -->
+	
+							<!-- Start My Account Area -->
+							<section class="my_account_area pt--80 pb--55 bg--white">
+								<div class="container">
+									<div class="row">
+										<div class="col-lg-7 m-auto col-12">
+											<div class="my__account__wrapper">
+												
+												<form action="my-account.php?action=Login" method="POST">
+													<div class="account__form">
+														<div class="input__box">
+															<label class="font-weight-bold">Username or email address <span>*</span></label>
+															<input type="text" name="email">
+														</div>
+														<div class="input__box">
+															<label class="font-weight-bold">Password<span>*</span></label>
+															<input type="password" name="password">
+														</div>
+														<div class="form__btn">
+															<button>Login</button>
+															<label class="label-for-checkbox">
+																<input id="rememberme" class="input-checkbox" name="rememberme" value="forever" type="checkbox">
+																<span>Remember me</span>
+															</label>
+														</div>
+														<a class="forget_pass" href="#">Lost your password?</a>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
+							<!-- End My Account Area -->
+						<?php
+					}
+					else{
+						$_SESSION['message'] = "Already Logged In";
+						$_SESSION['type']    = "warning";
+						header("location: index.php");
+						exit();
+					}
+				}
+				else if($action == "SignUp"){
+					if(!isset($_SESSION['rev_user'])){
+						?>
+							<!-- Start Bradcaump area -->
+							<div class="ht__bradcaump__area bg-image--6">
+								<div class="container">
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="bradcaump__inner text-center">
+												<h2 class="bradcaump-title">Sign Up</h2>
+												<nav class="bradcaump-content">
+												<a class="breadcrumb_item" href="index.html">Home</a>
+												<span class="brd-separetor">/</span>
+												<span class="breadcrumb_item active">Sign Up</span>
+												</nav>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- End Bradcaump area -->
+	
+							<!-- Start My Account Area -->
+							<section class="my_account_area pt--80 pb--55 bg--white">
+								<div class="container">
+									<div class="row">
+										<div class="col-lg-6 col-12">
+											<div class="my__account__wrapper">
+												<h3 class="account__title">Register</h3>
+												<form action="#">
+													<div class="account__form">
+														<div class="input__box">
+															<label>Email address <span>*</span></label>
+															<input type="email">
+														</div>
+														<div class="input__box">
+															<label>Password<span>*</span></label>
+															<input type="password">
+														</div>
+														<div class="form__btn">
+															<button>Register</button>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
+							<!-- End My Account Area -->
+						<?php
+					}
+					else{
+						$_SESSION['message'] = "Already Logged In";
+						$_SESSION['type']    = "warning";
+						header("location: index.php");
+						exit();
+					}
+				}
+				else if($action == "Login"){
+					if($_SERVER['REQUEST_METHOD'] == "POST"){
+						$email 		= $_POST['email'];
+						$password 	= sha1($_POST['password']);
+						$remember   = $_POST['rememberme'];
+						$sql = "SELECT * FROM `users` WHERE email = '$email' AND password = '$password'";
+						$result = mysqli_query($db ,$sql);
+	
+						if(mysqli_num_rows($result) > 0){
+							while($row = mysqli_fetch_assoc($result)){
+								$_SESSION['rev_user'] = $row['id'];
+								$_SESSION['name'] = $row['name'];
+								$_SESSION['email'] = $row['email'];
+								$_SESSION['phone'] = $row['phone'];
+								$_SESSION['address'] = $row['address'];
+								$_SESSION['password'] = $row['password'];
+								$_SESSION['image'] = $row['image'];
+								$_SESSION['role'] = $row['role'];
+								$_SESSION['status'] = $row['status'];
+								$_SESSION['new_status'] = $row['new_status'];
+								$_SESSION['join_date'] = $row['join_date'];
+	
+								if(isset($remember)){
+									setcookie("email",$email,time() + (86400 * 30), "/");
+									setcookie("password",$password,time() + (86400 * 30), "/");
+								}
+								else{
+									if($row['role'] == 2 && $row['status'] == 1){
+										$_SESSION['message'] = "LOGIN SUCCESS";
+										$_SESSION['type'] = "success";
+										$full_url    = $_SERVER['REQUEST_URI'];
+										$fullUrl_arr = explode('/',$full_url);
+										$main_url    = end($fullUrl_arr);
+										if(strpos($main_url,'Login')){
+											$newUrl_arr		 = explode("?",$main_url);
+											$newUrl      = $newUrl_arr[0];
+											$location    = "location: " . $newUrl;
+										}
+										else{
+											$location    = "location: " . $main_url;
+										}
+										header($location);
+										exit();
+									}
+									else {
+										$_SESSION['message'] = "USER NOT AVAILABLE..." ;
+										$_SESSION['type'] = "error";
+										header("location: index.php?error");
+										exit();
+									}
+								}
+							}
+						}
+						else {
+							$_SESSION['message'] = "Invalid Username or password..." ;
+							$_SESSION['type'] = "error";
+							header("location: index.php?error");
+							exit();
+						}
+					}
+				}
+				else{
+					$_SESSION['message'] = "Please Sign In To View Account..";
+					$_SESSION['type']    = "error";
+					header("location: my-account.php?action=SignIn");
+					exit();					
+				}
+			}
+		?>
+
+        
+		
+		
 		<!-- Footer Area -->
-		<footer id="wn__footer" class="footer__area bg__cat--8 brown--color">
-			<div class="footer-static-top">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="footer__widget footer__menu">
-								<div class="ft__logo">
-									<a href="index.html">
-										<img src="images/logo/3.png" alt="logo">
-									</a>
-									<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered duskam alteration variations of passages</p>
-								</div>
-								<div class="footer__content">
-									<ul class="social__net social__net--2 d-flex justify-content-center">
-										<li><a href="#"><i class="bi bi-facebook"></i></a></li>
-										<li><a href="#"><i class="bi bi-google"></i></a></li>
-										<li><a href="#"><i class="bi bi-twitter"></i></a></li>
-										<li><a href="#"><i class="bi bi-linkedin"></i></a></li>
-										<li><a href="#"><i class="bi bi-youtube"></i></a></li>
-									</ul>
-									<ul class="mainmenu d-flex justify-content-center">
-										<li><a href="index.html">Trending</a></li>
-										<li><a href="index.html">Best Seller</a></li>
-										<li><a href="index.html">All Product</a></li>
-										<li><a href="index.html">Wishlist</a></li>
-										<li><a href="index.html">Blog</a></li>
-										<li><a href="index.html">Contact</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="copyright__wrapper">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6 col-md-6 col-sm-12">
-							<div class="copyright">
-								<div class="copy__right__inner text-left">
-									<p>Copyright <i class="fa fa-copyright"></i> <a href="https://freethemescloud.com/">Free themes Cloud.</a> All Rights Reserved</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12">
-							<div class="payment text-right">
-								<img src="images/icons/payment.png" alt="" />
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
+		<?php
+			include "inc/footer.php";
+		?>
 		<!-- //Footer Area -->
 		
 	</div>
 	<!-- //Main wrapper -->
 
 	<!-- JS Files -->
-	<script src="js/vendor/jquery-3.2.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/plugins.js"></script>
-	<script src="js/active.js"></script>
+	<?php
+		include "inc/scripts.php";
+	?>
 	
 </body>
 </html>

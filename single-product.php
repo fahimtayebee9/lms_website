@@ -52,6 +52,7 @@
 											$bk_name 	= $rowData['bk_name'];
 											$bk_author 	= $rowData['author_id'];
 											$bk_image 	= $rowData['bk_image'];
+											$bk_status  = $rowData['bk_status'];
 											$cat_id     = $rowData['bk_cat'];
 											$cat_name   = $rowData['cat_name'];
 											$publisher  = $rowData['publisher'];
@@ -87,7 +88,7 @@
         								</div>
         								<div class="box-tocart d-flex">
         									<div class="addtocart__actions">
-        										<a href="checkout.php?book_id=<?=$bk_id?>" class="tocart" type="submit" title="Borrow Book">Borrow Book</a>
+        										<a  href="checkout.php?book_id=<?=$bk_id?>" class="tocart <?php if($bk_status == 0){echo "disabled-item";}?>" type="submit" title="Borrow Book">Borrow Book</a>
         									</div>
 											<div class="product-addto-links clearfix">
 												<a class="wishlist" href="#"></a>
