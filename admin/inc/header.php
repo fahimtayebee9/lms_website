@@ -60,6 +60,12 @@
         .dash-text{
             text-align: left!important;
         }
+        .preview{
+            height: 60px;
+            width: 60px;
+            border: 1px solid black;
+            display: block;
+        }
     </style>
 </head>
 
