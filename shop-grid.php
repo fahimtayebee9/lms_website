@@ -97,8 +97,8 @@
 															<div class="col-lg-3 col-md-4 col-sm-6 col-12">
 																<div class="product product__style--3">
 																	<div class="product__thumb">
-																		<a class="first__img" href=""><img src="admin/img/books/<?=$bk_image?>" alt="product image"></a>
-																		<a class="second__img animation1" href="single-product.php?action=View&view_id=<?=$bk_id?>"><img src="admin/img/books/<?=$bk_image?>" alt="product image"></a>
+																		<a class="first__img" href=""><img src="admin/img/books/<?=$bk_image?>" class=" book-image" alt="product image"></a>
+																		<a class="second__img animation1" href="single-product.php?action=View&view_id=<?=$bk_id?>"><img class=" book-image" src="admin/img/books/<?=$bk_image?>" alt="product image"></a>
 																		<div class="hot__box">
 																			<span class="hot-label">BEST SALLER</span>
 																		</div>
@@ -221,8 +221,8 @@
 															<!-- Start Single Product -->
 															<div class="list__view mt--40">
 																<div class="thumb">
-																	<a class="first__img" href="single-product.php?action=View&view_id=<?=$bk_id?>"><img src="admin/img/books/<?=$bk_image?>" alt="product images"></a>
-																	<a class="second__img animation1" href="single-product.html"><img src="images/product/4.jpg" alt="product images"></a>
+																	<a class="first__img" href="single-product.php?action=View&view_id=<?=$bk_id?>"><img class=" book-image" src="admin/img/books/<?=$bk_image?>" alt="product images"></a>
+																	<a class="second__img animation1" href="single-product.html"><img class=" book-image" src="images/product/4.jpg" alt="product images"></a>
 																</div>
 																<div class="content">
 																	<h2><a href="single-product.html"><?=$bk_name?></a></h2>
@@ -253,9 +253,9 @@
 																	</ul>
 																	<p><?=substr($rowBks['a_desc'],0,150)?></p>
 																	<ul class="cart__action d-flex">
-																		<li class="cart"><a href="cart.php">Borrow Book</a></li>
+																		<li class="cart"><a class="<?php if($bk_status == 0){echo "disabled-item";}?>" href="checkout.php?book_id=<?=$bk_id?>">Borrow Book</a></li>
 																		<li class="wishlist"><a href="wishlist.php?action=Insert&book_id=<?=$rowBook['bk_id']?>"></a></li>
-																		<li class="compare"><a href="cart.html"></a></li>
+																		<li class="compare"><a href="checkout.php?book_id=<?=$bk_id?>"></a></li>
 																	</ul>
 
 																</div>
@@ -629,7 +629,7 @@
 																		<ul class="cart__action d-flex">
 																			<li class="cart"><a href="cart.php">Borrow Book</a></li>
 																			<li class="wishlist"><a href="wishlist.php?action=Insert&book_id=<?=$rowBook['bk_id']?>"></a></li>
-																			<li class="compare"><a href="cart.html"></a></li>
+																			<li class="compare"><a href="checkout.php?book_id=<?=$bk_id?>"></a></li>
 																		</ul>
 
 																	</div>

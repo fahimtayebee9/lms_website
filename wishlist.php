@@ -115,18 +115,24 @@
 						<?php
 					}
 					else if($action == "Insert"){
-						if(isset($_GET['book_id'])){
+						if(isset($_GET['book_id']) && isset($_SESSION['rev_user'])){
 							$book_id = $_GET['book_id'];
 							$std_id  = $_SESSION['rev_user'];
 							$insSql  = "INSERT INTO `wishlists`(`wish_id`, `std_id`, `wbk_id`) 
 										VALUES ('','$std_id','$book_id')";
 							$insRes  = mysqli_query($db,$insSql);
 							if($insRes){
-								$_SESSION['message'] = "Added to Wishlist..";
+								$_SESSION['message'] = "Book Added to Wishlist..";
 								$_SESSION['type'] = "success";
 								header("location: shop-grid.php");
 								exit();
 							}
+						}
+						else{
+							$_SESSION['message'] = "Please Login First to Add Book in Wishlist..";
+							$_SESSION['type'] = "warning";
+							header("location: shop-grid.php");
+							exit();
 						}
 					}
 				?>

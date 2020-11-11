@@ -95,6 +95,10 @@
 			padding: 10px;
 			box-shadow: 0px 0px 9px 2px #00000052;
 		}
+		.book-image{
+			height: 250px!important;
+			width: fit-content;
+		}
 	</style>
 
 </head>

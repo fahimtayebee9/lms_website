@@ -74,9 +74,10 @@
 						$res_books = mysqli_query($db,$bookSql);
 						$cn = 0;
 						while($rowBk = mysqli_fetch_assoc($res_books)){
-							$bk_name = $rowBk['bk_name'];
-							$bk_image = $rowBk['bk_image'];
-							$bk_status = $rowBk['bk_status'];
+								$bk_name = $rowBk['bk_name'];
+								$bk_image = $rowBk['bk_image'];
+								$bk_status = $rowBk['bk_status'];
+								$bk_id     = $rowBk['bk_id'];
 							?>
 								<!-- Start Single Product -->
 								<div class="col-lg-3 col-md-4 col-sm-6 col-12">
@@ -109,7 +110,7 @@
 														<li><a class="cart <?php if($bk_status == 0){echo "disabled-item";}?>" href="checkout.php?book_id=<?=$rowBk['bk_id']?>"><i class="bi bi-shopping-bag4"></i></a></li>
 														<li><a class="wishlist" href="wishlist.php?action=Insert&book_id=<?=$rowBook['bk_id']?>"><i class="bi bi-shopping-cart-full"></i></a></li>
 														<!-- <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li> -->
-														<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+														<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal<?=$bk_id?>"><i class="bi bi-search"></i></a></li>
 													</ul>
 												</div>
 											</div>
@@ -203,9 +204,10 @@
 								$res_books = mysqli_query($db,$bookSql);
 								$cn = 0;
 								while($rowBk = mysqli_fetch_assoc($res_books)){
-									$bk_name = $rowBk['bk_name'];
-									$bk_image = $rowBk['bk_image'];
-									$bk_status = $rowBk['bk_status'];
+										$bk_name = $rowBk['bk_name'];
+										$bk_image = $rowBk['bk_image'];
+										$bk_status = $rowBk['bk_status'];
+										$bk_id     = $rowBk['bk_id'];
 									?>
 									<div class="single__product">
 										<!-- Start Single Product -->
@@ -239,7 +241,7 @@
 																<li><a class="cart <?php if($bk_status == 0){echo "disabled-item";}?>" href="checkout.php?book_id=<?=$rowBk['bk_id']?>"><i class="bi bi-shopping-bag4"></i></a></li>
 																<li><a class="wishlist" href="wishlist.php?action=Insert&book_id=<?=$rowBook['bk_id']?>"><i class="bi bi-shopping-cart-full"></i></a></li>
 																<!-- <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li> -->
-																<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+																<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal<?=$bk_id?>"><i class="bi bi-search"></i></a></li>
 															</ul>
 														</div>
 													</div>

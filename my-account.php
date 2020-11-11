@@ -228,6 +228,97 @@
 						<!-- End My Account Area -->
 					<?php
 				}
+				else if($action == "BorrowList"){
+					?>
+						<!-- Start Bradcaump area -->
+						<div class="ht__bradcaump__area bg-image--6">
+							<div class="container">
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="bradcaump__inner text-center">
+											<h2 class="bradcaump-title">My Borrowings</h2>
+											<nav class="bradcaump-content">
+											<a class="breadcrumb_item" href="index.html">Home</a>
+											<span class="brd-separetor">/</span>
+											<span class="breadcrumb_item active">My Borrowings</span>
+											</nav>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- End Bradcaump area -->
+						
+						<!-- Start My Account Area -->
+						<section class="my_account_area pt--80 pb--55 bg--white">
+							<div class="container">
+								<div class="row">
+									<div class="col-lg-10 pt-5 m-auto  col-12">
+										<div class="my__account__wrapper">
+											<table class="table table-striped">
+												<thead>
+													<tr>
+														<th scope="col">SL#</th>
+														<th scope="col">Book Name</th>
+														<th scope="col">Author Name</th>
+														<th scope="col">Borrowed On</th>
+														<th scope="col">Returned On</th>
+														<th scope="col">Status</th>
+													</tr>
+												</thead>
+												<tbody>
+													<?php
+														$bookingsSQL = "SELECT * FROM book_reservations INNER JOIN books ON books.bk_id = book_reservations.book_id
+																		INNER JOIN authors ON authors.a_id = books.author_id WHERE book_reservations.rev_user = $rev_user";
+														$resBookings = mysqli_query($db,$bookingsSQL);
+														while($rowBooking = mysqli_fetch_assoc($resBookings)){
+															?>
+																<tr>
+																	<th scope="row"><?=$rowBooking['rev_customized']?></th>
+																	<td><?=$rowBooking['bk_name']?></td>
+																	<td><?=$rowBooking['a_name']?></td>
+																	<td><?=date("d M, Y", strtotime($rowBooking['borrowed_From']))?></td>
+																	<td>
+																		<?php
+																			if(!empty($rowBooking['actual_Return'])){
+																				echo date("d M, Y", strtotime($rowBooking['actual_Return']));
+																			}
+																			else{
+																				echo "-";
+																			}
+																		?>
+																	</td>
+																	<td>
+																		<?php
+																			if($rowBooking['rev_status'] == 0){
+																				?>
+																					<p class="m-0 badge badge-success">RETURNED</p>
+																				<?php
+																			}
+																			else{
+																				?>
+																					<p class="m-0 badge badge-warning">NOT RETURNED</p>
+																				<?php
+																			}		
+																		?>
+																	</td>
+																</tr>
+															<?php
+														}
+													?>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="col-lg-6 col-sm-8 col-md-8 text-center justify-content-between m-auto pt-3">
+										<a class="btn btn-info text-light" href="my-account.php?action=Manage">Go Back</a>
+									</div>
+								</div>
+							</div>
+						</section>
+						<!-- End My Account Area -->
+					<?php
+				}
 			}
 			else{
 				$action = isset($_GET['action']) ? $_GET['action'] : "Manage";
@@ -321,22 +412,55 @@
 							<section class="my_account_area pt--80 pb--55 bg--white">
 								<div class="container">
 									<div class="row">
-										<div class="col-lg-6 col-12">
+										<div class="col-lg-10 m-auto col-12">
 											<div class="my__account__wrapper">
-												<h3 class="account__title">Register</h3>
-												<form action="#">
+												<form action="my-account.php?action=InsertUser" method="POST" enctype="multipart/form-data">
 													<div class="account__form">
-														<div class="input__box">
-															<label>Email address <span>*</span></label>
-															<input type="email">
+														<div class="row">
+															<div class="col-md-6">
+																<div class="input__box">
+																	<label class="font-weight-bold">Name</label>
+																	<input type="text" name="name" >
+																</div>
+																<div class="input__box">
+																	<label class="font-weight-bold">Username or email address</label>
+																	<input type="email" name="email" >
+																</div>
+																<div class="input__box">
+																	<label class="font-weight-bold">Password</label>
+																	<input type="password" name="password" >
+																</div>
+																<div class="input__box">
+																	<label class="font-weight-bold">Profile Picture</label>
+																	<input type="file" name="picture" class="form-control-file border-none">
+																</div>
+															</div>
+															<div class="col-md-6">
+																<div class="input__box">
+																	<label class="font-weight-bold">Phone</label>
+																	<input type="text" name="phone" >
+																</div>
+																<div class="input__box">
+																	<label class="font-weight-bold">Address</label>
+																	<input type="text" name="address" >
+																</div>
+																<div class="input__box">
+																	<label class="font-weight-bold">Confirm Password</label>
+																	<input type="password" name="repassword" >
+																</div>
+															</div>
+															<div class="col-md-6 m-auto text-center">
+																<div class="form__btn d-block">
+																	<label class="label-for-checkbox mt-3 mb-3 align-items-center">
+																		<input id="rememberme" class="input-checkbox" name="rememberme" value="forever" type="checkbox">
+																		<span>I accept the term & policies of the library</span>
+																	</label>
+																	<br>
+																	<button type="submit" name="signup" class="text-center">Sign Up</button>
+																</div>
+															</div>
 														</div>
-														<div class="input__box">
-															<label>Password<span>*</span></label>
-															<input type="password">
-														</div>
-														<div class="form__btn">
-															<button>Register</button>
-														</div>
+														
 													</div>
 												</form>
 											</div>
@@ -364,24 +488,31 @@
 	
 						if(mysqli_num_rows($result) > 0){
 							while($row = mysqli_fetch_assoc($result)){
-								$_SESSION['rev_user'] = $row['id'];
-								$_SESSION['name'] = $row['name'];
-								$_SESSION['email'] = $row['email'];
-								$_SESSION['phone'] = $row['phone'];
-								$_SESSION['address'] = $row['address'];
-								$_SESSION['password'] = $row['password'];
-								$_SESSION['image'] = $row['image'];
-								$_SESSION['role'] = $row['role'];
-								$_SESSION['status'] = $row['status'];
-								$_SESSION['new_status'] = $row['new_status'];
-								$_SESSION['join_date'] = $row['join_date'];
-	
 								if(isset($remember)){
 									setcookie("email",$email,time() + (86400 * 30), "/");
 									setcookie("password",$password,time() + (86400 * 30), "/");
 								}
 								else{
-									if($row['role'] == 2 && $row['status'] == 1){
+									if($row['status'] == 0){
+										$_SESSION['message'] = "USER NOT AVAILABLE..." ;
+										$_SESSION['type'] = "error";
+										header("location: my-account.php?action=SignIn");
+										exit();
+										break;
+									}
+									else if($row['role'] == 2 && $row['status'] == 1){
+										$_SESSION['rev_user'] = $row['id'];
+										$_SESSION['name'] = $row['name'];
+										$_SESSION['email'] = $row['email'];
+										$_SESSION['phone'] = $row['phone'];
+										$_SESSION['address'] = $row['address'];
+										$_SESSION['password'] = $row['password'];
+										$_SESSION['image'] = $row['image'];
+										$_SESSION['role'] = $row['role'];
+										$_SESSION['status'] = $row['status'];
+										$_SESSION['new_status'] = $row['new_status'];
+										$_SESSION['join_date'] = $row['join_date'];
+										
 										$_SESSION['message'] = "LOGIN SUCCESS";
 										$_SESSION['type'] = "success";
 										$full_url    = $_SERVER['REQUEST_URI'];
@@ -398,12 +529,6 @@
 										header($location);
 										exit();
 									}
-									else {
-										$_SESSION['message'] = "USER NOT AVAILABLE..." ;
-										$_SESSION['type'] = "error";
-										header("location: index.php?error");
-										exit();
-									}
 								}
 							}
 						}
@@ -411,6 +536,106 @@
 							$_SESSION['message'] = "Invalid Username or password..." ;
 							$_SESSION['type'] = "error";
 							header("location: index.php?error");
+							exit();
+						}
+					}
+				}
+				else if($action == "InsertUser"){
+					if($_SERVER['REQUEST_METHOD'] == "POST"){
+						if(isset($_POST['rememberme'])){
+							$name         = $_POST['name'];
+							$email        = $_POST['email'];
+							$password     = $_POST['password'];
+							$repassword   = $_POST['repassword'];
+							$address      = $_POST['address'];
+							$phone        = $_POST['phone'];
+							$role         = 2;
+							$status       = 0;
+
+							// Preapre the Image
+							$imageName    = $_FILES['picture']['name'];
+							$imageSize    = $_FILES['picture']['size'];
+							$imageTmp     = $_FILES['picture']['tmp_name'];
+
+							$imageAllowedExtension = array("jpg", "jpeg", "png");
+							$ext_arr = explode('.', $imageName);
+							$imageExtension = strtolower( end( $ext_arr ) );
+							
+							$formErrors = array();
+
+							if ( strlen($name) < 3 ){
+								$formErrors[] = 'Username is too short!!!';
+							}
+							if ( $password != $repassword ){
+								$formErrors[] = 'Password Doesn\'t match!!!';
+							}
+							if ( !empty($imageName) ){
+								if ( !empty($imageName) && !in_array($imageExtension, $imageAllowedExtension) ){
+									$formErrors[] = 'Invalid Image Format. Please Upload a JPG, JPEG or PNG image';
+								}
+								if ( !empty($imageSize) && $imageSize > 2097152 ){
+									$formErrors[] = 'Image Size is Too Large! Allowed Image size Max is 2 MB.';
+								}
+							}
+
+							// Print the Errors 
+							foreach( $formErrors as $error ){
+								echo '<div class="alert alert-warning">' . $error . '</div>';
+							}
+
+							if ( empty($formErrors) ){
+								// Encrypted Password
+								$hassedPass = sha1($password);
+
+								if ( !empty( $imageName ) ){
+									// Change the Image Name
+									$image = rand(0, 999999) . '_' .$imageName;
+									// Upload the Image to its own Folder Location
+									move_uploaded_file($imageTmp, "admin/img/users/" . $image );
+
+									$sql = "INSERT INTO users ( name, email, password, address, phone, role, status, image, join_date ) VALUES ('$name', '$email', '$hassedPass', '$address', '$phone', '$role', '$status', '$image', now() )";
+
+									$addUser = mysqli_query($db, $sql);
+
+									if ( $addUser ){
+										$_SESSION['message'] = "Registration Successfull. Please Wait For Verification..";
+										$_SESSION['type']    = "success";
+										header("location: my-account.php?action=SignIn");
+										exit();
+									}
+									else{
+										die("MySQLi Query Failed." . mysqli_error($db));
+									}
+								}
+								else{
+									$sql = "INSERT INTO users ( name, email, password, address, phone, role, status, join_date ) VALUES ('$name', '$email', '$hassedPass', '$address', '$phone', '$role', '$status', now() )";
+
+									$addUser = mysqli_query($db, $sql);
+
+									if ( $addUser ){
+										$_SESSION['message'] = "Registration Successfull. Please Wait For Verification..";
+										$_SESSION['type']    = "success";
+										header("location: my-account.php?action=SignIn");
+										exit();
+									}
+									else{
+										die("MySQLi Query Failed." . mysqli_error($db));
+									}
+
+								}
+								
+							}
+							else{
+								$_SESSION['message_arr'] = $formErrors;
+								$_SESSION['type']    = "error";
+								header("location: my-account.php?action=SignUp");
+								exit();
+							}
+						}
+						else{
+							$_SESSION['message'] = "Terms And Policies Not Accepted..";
+							$_SESSION['type']    = "error";
+							header("location: my-account.php?action=SignUp");
 							exit();
 						}
 					}
