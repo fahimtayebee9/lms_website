@@ -92,7 +92,7 @@
                                     <tbody>
                                         <?php
                                             $sql = "SELECT * FROM `book_reservations` 
-                                                    INNER JOIN books ON books.bk_id = book_reservations.book_ID ORDER BY rev_id DESC";
+                                                    INNER JOIN books ON books.bk_id = book_reservations.book_ID ORDER BY rev_id DESC LIMIT 10";
                                             $result = mysqli_query($db,$sql);
                                             while($row = mysqli_fetch_assoc($result)){
                                                 ?>
@@ -130,6 +130,9 @@
                                         ?>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="ibox-footer text-center">
+                                <a href="bookings.php?action=Manage">View All Bookings</a>
                             </div>
                         </div>
                     </div>
@@ -208,15 +211,10 @@
     </div>
 
     
-    <!-- BEGIN PAGA BACKDROPS-->
-    <!-- <div class="sidenav-backdrop backdrop"></div>
-    <div class="preloader-backdrop">
-        <div class="page-preloader">Loading</div>
-    </div> -->
-    <!-- END PAGA BACKDROPS-->
     <?php
         include "inc/scripts.php";
     ?>
+
 </body>
 
 </html>

@@ -105,8 +105,20 @@
                                                                             ?>
                                                                         </td>
                                                                         <td>
-                                                                            <a href="bookings.php?action=Edit&edit_id=<?=$row['rev_id']?>" class="btn btn-info">Edit</a>
-                                                                            <button class="btn btn-danger" onclick="suspendReservation(<?=$row['rev_id']?>)">Suspend</button>
+                                                                            <?php
+                                                                                if($row['rev_status'] == 0){
+                                                                                    ?>
+                                                                                        <a href="bookings.php?action=Edit&edit_id=<?=$row['rev_id']?>" class="disabled btn btn-info">Edit</a>
+                                                                                        <button class="btn btn-danger" onclick="suspendReservation(<?=$row['rev_id']?>)">Delete</button>
+                                                                                    <?php
+                                                                                }
+                                                                                else{
+                                                                                    ?>
+                                                                                        <a href="bookings.php?action=Edit&edit_id=<?=$row['rev_id']?>" class="btn btn-info">Edit</a>
+                                                                                        <button class="btn btn-danger" onclick="suspendReservation(<?=$row['rev_id']?>)">Suspend</button>
+                                                                                    <?php
+                                                                                }
+                                                                            ?>
                                                                         </td>
                                                                     </tr>
                                                                 <?php
