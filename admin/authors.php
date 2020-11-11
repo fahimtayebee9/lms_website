@@ -57,12 +57,12 @@
                                                 <ul class="ml-4 mb-0 mt-3 fa-ul text-muted">
                                                     <li class="small mb-3">
                                                         <span class="fa-li">
-                                                        <i class="fas fa-clock"></i></span> 
+                                                        <i class="fa fa-clock"></i></span> 
                                                         Date Of Birth# : <?=date("d M, Y",strtotime($row['a_dob']))?>                                  
                                                     </li>
                                                     <li class="small mb-3">
                                                         <span class="fa-li">
-                                                        <i class="fas fa-clock"></i></span> 
+                                                        <i class="fa fa-clock"></i></span> 
                                                         Date Of Death# : <?=date("d M, Y",strtotime($row['a_dod']))?>                                  
                                                     </li>
                                                     <li class="small mb-3"><span class="fa-li mr-3"><i class="fas fa-lg fa-user"></i></span> Status: 

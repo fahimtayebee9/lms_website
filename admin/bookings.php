@@ -92,9 +92,14 @@
                                                                                         <p class="m-0 badge badge-success">Returned</p>
                                                                                     <?php
                                                                                 }
+                                                                                else if(strtotime(date("Y-m-d")) > strtotime(date("Y-m-d",strtotime($row['borrowed_To']))) && empty($row['actual_Return'])){
+                                                                                    ?>
+                                                                                        <p class="m-0 badge badge-warning">Date Expired</p>
+                                                                                    <?php
+                                                                                }
                                                                                 else{
                                                                                     ?>
-                                                                                        <p class="m-0 badge badge-warning">Not returned</p>
+                                                                                        <p class="m-0 badge badge-secondary">Not returned</p>
                                                                                     <?php
                                                                                 }
                                                                             ?>

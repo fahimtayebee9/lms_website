@@ -1,7 +1,7 @@
 <!-- CORE PLUGINS-->
-<script src="plugins/jquery/jquery.min.js" type="text/javascript"></script>
-<script src="plugins/popper/popper.min.js" type="text/javascript"></script>
-<script src="plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script> 
+<script src="./assets/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script>
+<script src="./assets/vendors/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>
+<script src="./assets/vendors/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="./assets/vendors/metisMenu/dist/metisMenu.min.js" type="text/javascript"></script>
 <script src="./assets/vendors/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 <!-- PAGE LEVEL PLUGINS-->
@@ -270,6 +270,61 @@
         dateFormat: 'mm/dd/yy',
         firstDay: 0
     };
+</script>
+
+<!-- SUSPEND RESERVATION -->
+<script>
+  var Toast = Swal.mixin({
+      toast: true,
+      // position: 'top-end',
+      showConfirmButton: false,
+      timer: 3500
+    });
+  function suspendReservation(booking_id){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      timer: 4000
+    }).then((result) => {
+      if (result.isConfirmed) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open('POST', 'controllers/booking_controller.php', true);
+        xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhttp.send('delete_id='+ booking_id);
+        xhttp.onreadystatechange = function (){
+          if(this.readyState == 4 && this.status == 200){
+            if(this.responseText != ""){
+              Toast.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Booking has been deleted.',
+                showConfirmButton: false,
+                timer: 2500
+              })
+            }else{
+              Toast.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Booking Not Deleted!',
+                showConfirmButton: false,
+                timer: 2500
+              })
+            }
+            setTimeout(loadPageBooking, 2550);
+          }	
+        }
+      }
+    })
+  }
+
+  function loadPageBooking(){
+    window.location = "bookings.php?action=Manage";
+  }
 </script>
 
 <?php
