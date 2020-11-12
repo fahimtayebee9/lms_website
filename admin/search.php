@@ -11,14 +11,29 @@
     include "inc/side_menu.php";
   ?>
 
-
+    <?php
+        if(isset($_GET['action']) && $_GET['action'] == "Search"){
+            if($_SERVER['REQUEST_METHOD'] == "POST"){
+                $text     = $_POST['search'];
+                $text_2   = $_POST['search'];
+                $text_3   = $_POST['search'];
+                $text_4   = $_POST['search'];
+                $text_5   = $_POST['search'];
+        }
+        $total_count  = 0;
+        $cat_count = $db->query("SELECT * FROM category WHERE cat_name LIKE '%$text%'")->num_rows;
+        $user_count = $db->query("SELECT * FROM users WHERE name LIKE '%$text_2%'")->num_rows;
+        $bkRev_count = $db->query("SELECT * FROM book_reservations WHERE rev_customized LIKE '%$text%'")->num_rows;
+        $bk_count    = $db->query("SELECT * FROM books WHERE bk_name LIKE '%$text_4%'")->num_rows;
+        $total_count = $cat_count + $user_count + $bkRev_count + $bk_count;
+    ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header pt-3">
         <ol class="breadcrumb d-flex justify-content-between">
             <div class="start ">
-                <li><i class="ti-search mr-2"></i>Search Results Found : <b>120</b></li>
+                <li><i class="ti-search mr-2"></i>Search Results Found : <b><?=$total_count?></b></li>
             </div>
             <div class="d-flex justify-content-end">
                 <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -34,22 +49,7 @@
         <div class="container-fluid">
             <div class="row">
                     <?php
-                        if(isset($_GET['action']) && $_GET['action'] == "Search"){
-                            if($_SERVER['REQUEST_METHOD'] == "POST"){
-                                $text     = $_POST['search'];
-                                $text_2   = $_POST['search'];
-                                $text_3   = $_POST['search'];
-                                $text_4   = $_POST['search'];
-                                $text_5   = $_POST['search'];
-                                
                                 if(!empty($text)){
-                                    $total_count  = 0;
-                                    $cat_count = $db->query("SELECT * FROM category WHERE cat_name LIKE '%$text%'")->num_rows;
-                                    $user_count = $db->query("SELECT * FROM users WHERE name LIKE '%$text_2%'")->num_rows;
-                                    $bkRev_count = $db->query("SELECT * FROM book_reservations WHERE rev_customized LIKE '%$text%'")->num_rows;
-                                    $bk_count    = $db->query("SELECT * FROM books WHERE bk_name LIKE '%$text_4%'")->num_rows;
-                                    $total_count = $cat_count + $user_count + $bkRev_count + $bk_count;
-
                                     if($total_count > 0){
                                         // CATGEORY DATA
                                         $cat_sql = "SELECT * FROM category WHERE cat_name LIKE '%$text%'";
@@ -178,7 +178,7 @@
                                         $res_user = mysqli_query($db,$user_sql);
                                         if(mysqli_num_rows($res_user) > 0){
                                             ?>
-                                                <div class="col-lg-12">
+                                                <div class="col-lg-12 mt-5">
                                                     <div class="card">
                                                         <div class="card-header">
                                                             <h3 class="card-title font-weight-bold text-center float-none">Manage All Users</h3>
@@ -316,11 +316,11 @@
                                         }
 
                                         // POST DATA
-                                        $sql = "SELECT * FROM book_reservations WHERE rev_customized LIKE '%$text%'";
+                                        $sql = "SELECT * FROM book_reservations INNER JOIN books ON books.bk_id = book_reservations.book_id INNER JOIN category ON books.bk_cat = category.cat_id INNER JOIN authors ON books.author_id = authors.a_id INNER JOIN users ON users.id = book_reservations.rev_user WHERE book_reservations.rev_customized LIKE '%$text%'";
                                         $res_post = mysqli_query($db,$sql);
                                         if(mysqli_num_rows($res_post) > 0){
                                             ?>
-                                                <div class="col-lg-12">
+                                                <div class="col-lg-12 mt-5">
                                                     <div class="card">
                                                         <div class="card-header">
                                                             <h3 class="card-title font-weight-bold text-center float-none">Manage All Posts</h3>
@@ -331,12 +331,12 @@
                                                             <thead class="thead-dark">
                                                                 <tr>
                                                                     <th scope="col">#Sl.</th>
-                                                                    <th scope="col">Image</th>
-                                                                    <th scope="col">Title</th>                                
+                                                                    <th scope="col">Student Name</th>
+                                                                    <th scope="col">Book Name</th>                                
                                                                     <th scope="col">Category</th>
-                                                                    <th scope="col">Author</th>
+                                                                    <th scope="col">Issued BY</th>
+                                                                    <th scope="col">Borrow Date</th>
                                                                     <th scope="col">Status</th>
-                                                                    <th scope="col">Post Date</th>
                                                                     <th scope="col">Action</th>
                                                                 </tr>
                                                             </thead>
@@ -345,80 +345,49 @@
                                                             <?php
                                                                 $i = 0;
                                                                 while( $row = mysqli_fetch_assoc($res_post) ){
-                                                                    $post_id        = $row['post_id'];
-                                                                    $title          = $row['title'];
-                                                                    $description    = $row['description'];
-                                                                    $image          = $row['image'];
-                                                                    $category_id    = $row['category_id'];
-                                                                    $author_id      = $row['author_id'];
+                                                                    $rev_id         = $row['rev_id'];
+                                                                    $rev_customized = $row['rev_customized'];
+                                                                    $bk_name    = $row['bk_name'];
+                                                                    $std_name          = $row['name'];
+                                                                    $cat_name    = $row['cat_name'];
+                                                                    $issued_by      = $row['issued_by'];
                                                                     $status         = $row['status'];
-                                                                    $meta           = $row['meta'];
-                                                                    $post_date      = $row['post_date'];
+                                                                    $borrowed_From      = $row['borrowed_From'];
                                                                     $i++;
+
+                                                                    $getAth = "SELECT * FROM users WHERE id = $issued_by";
+                                                                    $rsIsd  = mysqli_query($db,$getAth);
+                                                                    while($rowIsd = mysqli_fetch_assoc($rsIsd)){
+                                                                        $isd_name = $rowIsd['name'];
+                                                                    }
                                                                 ?>
 
                                                             <tr>
-                                                                <th scope="row"><?php echo $i; ?></th>
-                                                                <td>
-                                                                <?php
-                                                                    if ( !empty($image) ){ ?>
-                                                                    <img src="img/post/<?php echo $image; ?>" class="table-img">
-                                                                    <?php }
-                                                                    else{ ?>
-                                                                    <img src="img/post/default.png" class="table-img">
-                                                                    <?php }
-                                                                ?>
-
-                                                                
-                                                                </td>
-                                                                <td><?php echo $title; ?></td>
-                                                                <td>
-                                                                <?php
-                                                                    $sql = "SELECT * FROM category WHERE cat_id = '$category_id'";
-                                                                    $readCat = mysqli_query($db, $sql);
-                                                                    while( $row = mysqli_fetch_assoc($readCat) ){
-                                                                    $cat_id   = $row['cat_id'];
-                                                                    $cat_name = $row['cat_name'];
-                                                                    }
-                                                                    echo $cat_name;
-                                                                ?>
-                                                                </td>
-                                                                <td>
-                                                                <?php
-                                                                    $sql = "SELECT * FROM users WHERE id = '$author_id'";
-                                                                    $readUser = mysqli_query($db, $sql);
-                                                                    while( $row = mysqli_fetch_assoc($readUser) ){
-                                                                    $id   = $row['id'];
-                                                                    $name = $row['name'];
-                                                                    }
-                                                                    echo $name;
-                                                                ?>
-                                                                </td>
+                                                                <th scope="row"><?php echo $rev_customized; ?></th>
+                                                                <td><?=$std_name?></td>
+                                                                <td><?php echo $bk_name; ?></td>
+                                                                <td><?=$cat_name?></td>
+                                                                <td><?=$isd_name?></td>
                                                                 <td>
                                                                 <?php
                                                                     if ( $status == 0 ){ ?>
-                                                                    <span class="badge badge-danger">Draft</span>
+                                                                        <span class="badge badge-success">Returned</span>
                                                                     <?php }
                                                                     else if ( $status == 1 ){ ?>
-                                                                    <span class="badge badge-success">Published</span>
+                                                                        <span class="badge badge-default">Pending</span>
                                                                     <?php }
                                                                 ?>
                                                                 </td>
-                                                                <td><?php echo $post_date; ?></td>
+                                                                <td><?php echo date("d M, Y",strtotime($borrowed_From)); ?></td>
 
                                                                 <td>
-                                                                <a class="btn btn-info btn-sm" href="post.php?do=Edit&edit=<?php echo $post_id; ?>">
-                                                                    <i class="fas fa-pencil-alt">
-                                                                    </i>
-                                                                    Edit
-                                                                </a>
-                                                                <a class="btn btn-danger btn-sm" href="" data-toggle="modal" data-target="#delete<?php echo $post_id; ?>">
-                                                                    <i class="fas fa-trash">
-                                                                    </i>
-                                                                    Delete
-                                                                </a>
-
-
+                                                                    <a class="btn btn-info btn-sm" href="post.php?do=Edit&edit=<?php echo $post_id; ?>">
+                                                                        <i class="fas fa-pencil-alt">
+                                                                        </i>
+                                                                    </a>
+                                                                    <a class="btn btn-danger btn-sm" href="" data-toggle="modal" data-target="#delete<?php echo $post_id; ?>">
+                                                                        <i class="ti-trash"></i>
+                                                                    </a>
                                                                 </td>
                                                             </tr>
                                                             <!-- Delete Modal -->
@@ -456,14 +425,14 @@
                                         }
 
                                         // VISITOR DATA
-                                        $vis_sql = "SELECT * FROM books WHERE bk_name LIKE '%$text_4%'";
+                                        $vis_sql = "SELECT * FROM books INNER JOIN category ON books.bk_cat = category.cat_id INNER JOIN authors ON books.author_id = authors.a_id WHERE books.bk_name LIKE '%$text_4%'";
                                         $res_vis = mysqli_query($db,$vis_sql);
                                         if(mysqli_num_rows($res_vis) > 0){
                                             ?>
-                                                <div class="col-lg-12">
+                                                <div class="col-lg-12 mt-5">
                                                     <div class="card">
                                                         <div class="card-header">
-                                                            <h3 class="card-title font-weight-bold text-center float-none">Manage All Visitors</h3>
+                                                            <h3 class="card-title font-weight-bold text-center float-none">Manage All Books</h3>
                                                         </div>
                                                         <div class="card-body" style="display: block;">
                                                             
@@ -472,11 +441,10 @@
                                                                     <tr>
                                                                         <th scope="col">#Sl.</th>
                                                                         <th scope="col">Image</th>
-                                                                        <th scope="col">Name</th>
-                                                                        <th scope="col">Email</th>
+                                                                        <th scope="col">Book Name</th>
+                                                                        <th scope="col">Author</th>
+                                                                        <th scope="col">Category</th>
                                                                         <th scope="col">Status</th>
-                                                                        <th scope="col">ID Status</th>
-                                                                        <th scope="col">Join Date</th>
                                                                         <th scope="col">Action</th>
                                                                     </tr>
                                                                 </thead>
@@ -485,14 +453,12 @@
                                                             <?php
                                                                 $i = 0;
                                                                 while( $row = mysqli_fetch_assoc($res_vis) ){
-                                                                    $id         = $row['visitor_id'];
-                                                                    $name       = $row['name'];
-                                                                    $email      = $row['email'];
-                                                                    $password   = $row['password'];
-                                                                    $status     = $row['status'];
-                                                                    $id_status  = $row['id_status'];
-                                                                    $image      = $row['image'];
-                                                                    $join_date  = $row['join_date'];
+                                                                    // $id         = $row['visitor_id'];
+                                                                    $a_name       = $row['a_name'];
+                                                                    $bk_name      = $row['bk_name'];
+                                                                    $bk_image   = $row['bk_image'];
+                                                                    $bk_status     = $row['bk_status'];
+                                                                    $cat_name  = $row['cat_name'];
                                                                     $i++;
                                                                 ?>
 
@@ -501,40 +467,28 @@
                                                                     <td>
                                                                     <?php
                                                                         if ( !empty($image) ){ ?>
-                                                                            <img src="img/visitors/<?php echo $image; ?>" class="table-img">
+                                                                            <img src="img/books/<?php echo $bk_image; ?>"  class="book_img">
                                                                         <?php }
                                                                         else{ ?>
-                                                                            <img src="img/visitors/temp_image.jpg" class="table-img">
+                                                                            <img src="img/books/temp_image.jpg" class="book_img">
                                                                         <?php }
                                                                     ?>
 
                                                                     
                                                                     </td>
-                                                                    <td><?php echo $name; ?></td>
-                                                                    <td><?php echo $email; ?></td>
+                                                                    <td><?php echo $bk_name; ?></td>
+                                                                    <td><?php echo $a_name; ?></td>
+                                                                    <td><?=$cat_name?></td>
                                                                     <td>
                                                                         <?php
-                                                                            if ( $status == 0 ){ ?>
-                                                                                <span class="badge badge-danger">Inactive</span>
+                                                                            if ( $bk_status == 0 ){ ?>
+                                                                                <span class="badge badge-danger">Not Available</span>
                                                                             <?php }
-                                                                            else if ( $status == 1 ){ ?>
-                                                                                <span class="badge badge-success">Active</span>
+                                                                            else if ( $bk_status == 1 ){ ?>
+                                                                                <span class="badge badge-success">Available</span>
                                                                             <?php }
                                                                         ?>
                                                                     </td>
-                                                                    <td>
-                                                                        <?php
-                                                                            if ( $id_status == "1" ){ ?>
-                                                                                <span class="badge badge-warning">New</span>
-                                                                            <?php 
-                                                                            }
-                                                                            else if ( $id_status == "2" ){ ?>
-                                                                                <span class="badge badge-info">Old</span>
-                                                                            <?php 
-                                                                            }
-                                                                        ?>
-                                                                    </td>
-                                                                    <td><?php echo $join_date; ?></td>
                                                                     <td>
                                                                         <a class="btn btn-info btn-sm" href="visitor.php?do=Edit&edit=<?php echo $id; ?>">
                                                                             <i class="fas fa-pencil-alt">
@@ -598,7 +552,7 @@
                                     exit();
                                 }
                             }
-                        }
+                        
                     ?>
             </div>
         </div>

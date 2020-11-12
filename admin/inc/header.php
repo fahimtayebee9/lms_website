@@ -98,6 +98,17 @@
             min-width: 11rem!important;
             margin-top: 5px!important;
         }
+        .table-img {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+        }
+        .book_img{
+            width: 60px;
+            height: 80px;
+            border: 1px solid #ddd;
+        }
     </style>
 </head>
 

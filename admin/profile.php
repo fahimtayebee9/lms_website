@@ -362,70 +362,34 @@
                                             <div class="tab-content">
                                                 <div class="tab-pane fade show active" id="tab-1">
                                                     <h4 class="text-info m-b-20 m-t-20"><i class="fa fa-shopping-basket"></i>Personal Details</h4>
-                                                    <table class="table table-striped table-hover">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Order ID</th>
-                                                                <th>Customer</th>
-                                                                <th>Amount</th>
-                                                                <th>Status</th>
-                                                                <th width="91px">Date</th>
-                                                            </tr>
-                                                        </thead>
+                                                    <table class="table table-striped">
                                                         <tbody>
                                                             <tr>
-                                                                <td>11</td>
-                                                                <td>@Jack</td>
-                                                                <td>$564.00</td>
-                                                                <td>
-                                                                    <span class="badge badge-success">Shipped</span>
-                                                                </td>
-                                                                <td>10/07/2017</td>
+                                                                <td class="text-left">Full Name </td>
+                                                                <td class="text-left"> : </td>
+                                                                <td class="text-left"><?=$name?></td>
                                                             </tr>
                                                             <tr>
-                                                                <td>12</td>
-                                                                <td>@Amalia</td>
-                                                                <td>$220.60</td>
-                                                                <td>
-                                                                    <span class="badge badge-success">Shipped</span>
-                                                                </td>
-                                                                <td>10/07/2017</td>
+                                                                <td class="text-left">Email </td>
+                                                                <td class="text-left"> : </td>
+                                                                <td class="text-left"><?=$email?></td>
                                                             </tr>
                                                             <tr>
-                                                                <td>13</td>
-                                                                <td>@Emma</td>
-                                                                <td>$760.00</td>
-                                                                <td>
-                                                                    <span class="badge badge-default">Pending</span>
-                                                                </td>
-                                                                <td>10/07/2017</td>
+                                                                <td class="text-left">Phone </td>
+                                                                <td class="text-left"> : </td>
+                                                                <td class="text-left"><?=$phone?></td>
                                                             </tr>
                                                             <tr>
-                                                                <td>14</td>
-                                                                <td>@James</td>
-                                                                <td>$87.60</td>
-                                                                <td>
-                                                                    <span class="badge badge-warning">Expired</span>
-                                                                </td>
-                                                                <td>10/07/2017</td>
+                                                                <td class="text-left">Address</td>
+                                                                <td class="text-left"> : </td>
+                                                                <td class="text-left"><?=$address?></td>
                                                             </tr>
                                                             <tr>
-                                                                <td>15</td>
-                                                                <td>@Ava</td>
-                                                                <td>$430.50</td>
-                                                                <td>
-                                                                    <span class="badge badge-default">Pending</span>
+                                                                <td class="text-left">Password</td>
+                                                                <td class="text-left"> : </td>
+                                                                <td class="text-left">
+                                                                    <?php echo $password;?>
                                                                 </td>
-                                                                <td>10/07/2017</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>16</td>
-                                                                <td>@Noah</td>
-                                                                <td>$64.00</td>
-                                                                <td>
-                                                                    <span class="badge badge-success">Shipped</span>
-                                                                </td>
-                                                                <td>10/07/2017</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
