@@ -158,6 +158,18 @@
       }
       unset($_SESSION['message_arr'],$_SESSION['type']);
     }
+    else if(isset($_SESSION['search_warn'])){
+      ?>
+              Toast.fire({
+                position: 'top-end',
+                icon: 'warning',
+                title: '<?=$_SESSION['search_warn']?>',
+                showConfirmButton: false,
+                timer: 2500
+              })
+        <?php
+        unset($_SESSION['search_warn']);
+    }
   ?>
 </script>
 
@@ -326,6 +338,48 @@
     window.location = "bookings.php?action=Manage";
   }
 </script>
+
+<!-- SEARCH DATA USING AJAX -->
+<script>
+  function get_allBooking(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('POST', 'controllers/search_controller.php', true);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send("typeAllData=AllData");
+    xhttp.onreadystatechange = function (){
+        if(this.readyState == 4 && this.status == 200){
+            if(this.responseText != ""){
+                document.getElementById('search_result').innerHTML = this.responseText;
+            }else{
+                document.getElementById('search_result').innerHTML = "";
+            }
+        }	
+    }
+  }
+  function search_data(){
+      var value =  document.getElementById('search_box').value;
+      if(value != "" && value.length > 2){
+          var xhttp = new XMLHttpRequest();
+          xhttp.open('POST', 'controllers/search_controller.php', true);
+          xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+          xhttp.send('value='+value+"&type=All");
+
+          xhttp.onreadystatechange = function (){
+              if(this.readyState == 4 && this.status == 200){
+                  if(this.responseText != ""){
+                      document.getElementById('search_result').innerHTML = this.responseText;
+                  }else{
+                      document.getElementById('search_result').innerHTML = "";
+                  }
+              }	
+          }
+      }
+      else{
+          get_allBooking();
+      }
+  }
+</script>
+
 
 <?php
   ob_end_flush();

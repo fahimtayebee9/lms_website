@@ -66,15 +66,15 @@
                                                     ?>
                                                     
                                                     <h5 class="text-sm-center mt-2 mb-1"><?=$row['name']?></h5>
-                                                    <div class="location text-sm-center"><i class="fa fa-map-marker"></i> <?=$row['address']?> </div>
+                                                    <div class="location text-sm-center mb-3"><i class="fa fa-map-marker"></i> <?=$row['address']?> </div>
                                                     <ul class="ml-4 mb-0 fa-ul text-muted">
-                                                        <li class="small mb-3"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: <?=$row['phone']?></li>
+                                                        <li class="small mb-3"><span class="fa-li"><i class="ti-mobile"></i></span> Phone #: <?=$row['phone']?></li>
                                                         <li class="small mb-3">
                                                             <span class="fa-li">
-                                                            <i class="fas fa-clock"></i></span> 
+                                                            <i class="ti-alarm-clock"></i></span> 
                                                             Join Date #: <?=$row['join_date']?>                                  
                                                         </li>
-                                                        <li class="small mb-3"><span class="fa-li"><i class="fas fa-lg fa-user"></i></span> Status: 
+                                                        <li class="small mb-3"><span class="fa-li"><i class="ti-info-alt"></i></span> Status: 
                                                             <?php
                                                                 if($row['status'] == 0){
                                                                     ?>
@@ -92,8 +92,9 @@
                                                 </div>
                                             </div>
                                             <div class="card-footer m-auto">
-                                                <a href="users.php?action=Edit&edit=<?=$row['id']?>" class="btn btn-info">Edit</a>
-                                                <button class="btn btn-danger" onclick="deleteUser(<?=$row['id']?>)">Delete</button>
+                                                <a href="profile.php?action=View&view_id=<?=$row['id']?>" class="btn btn-outline-secondary">View</a>
+                                                <a href="users.php?action=Edit&edit=<?=$row['id']?>" class="btn btn-outline-info">Edit</a>
+                                                <button class="btn btn-outline-danger" onclick="deleteUser(<?=$row['id']?>)">Delete</button>
                                             </div>
                                         </div>
                                     </div>

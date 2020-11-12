@@ -23,8 +23,16 @@
                                 ?>
                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                         <div class="ibox">
-                                            <div class="ibox-head">
+                                            <div class="ibox-head justify-content-between">
                                                 <div class="ibox-title">All Bookings</div>
+                                                <div class="ibox-desc">
+                                                    <form class="navbar-search d-flex" method="POST">
+                                                        <div class="rel">
+                                                            <span class="search-icon"><i class="ti-search"></i></span>
+                                                            <input type="search" name="search" id="search_box" class="form-control" placeholder="Search here..." onkeyup="search_data()"  onblur="hide()" onreset="hide()">
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                             <div class="ibox-body">
                                                 <table class="table">
@@ -41,89 +49,8 @@
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
-                                                        <?php
-                                                            $sql = "SELECT * FROM `book_reservations` 
-                                                                    INNER JOIN books ON books.bk_id = book_reservations.book_ID";
-                                                            $result = mysqli_query($db,$sql);
-                                                            while($row = mysqli_fetch_assoc($result)){
-                                                                ?>
-                                                                    <tr>
-                                                                        <th><?=$row['rev_customized']?></th>
-                                                                        <td><?=$row['bk_name']?></td>
-                                                                        <td>
-                                                                            <?php
-                                                                                $std_id = $row['rev_user'];
-                                                                                $sql_std = "SELECT * FROM users WHERE id = $std_id";
-                                                                                $result_std = mysqli_query($db,$sql_std);
-                                                                                while($rowStd = mysqli_fetch_assoc($result_std)){
-                                                                                    $STDname = $rowStd['name'];
-                                                                                }
-                                                                                echo $STDname;
-                                                                            ?>
-                                                                        </td>
-                                                                        <td><?=date("d M, Y", strtotime($row['borrowed_From']))?></td>
-                                                                        <td><?=date("d M, Y", strtotime($row['borrowed_To']))?></td>
-                                                                        <td>
-                                                                            <?php
-                                                                                if(!empty($row['actual_Return'])){
-                                                                                    echo date("d M, Y", strtotime($row['actual_Return']));
-                                                                                }
-                                                                                else{
-                                                                                    echo "-";
-                                                                                }
-                                                                            ?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <?php
-                                                                                $issued_id = $row['issued_by'];
-                                                                                $sql_user = "SELECT * FROM users WHERE id = $issued_id";
-                                                                                $result_user = mysqli_query($db,$sql_user);
-                                                                                while($rowUser = mysqli_fetch_assoc($result_user)){
-                                                                                    $name = $rowUser['name'];
-                                                                                }
-                                                                                echo $name;
-                                                                            ?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <?php
-                                                                                if($row['rev_status'] == 0){
-                                                                                    ?>
-                                                                                        <p class="m-0 badge badge-success">Returned</p>
-                                                                                    <?php
-                                                                                }
-                                                                                else if(strtotime(date("Y-m-d")) > strtotime(date("Y-m-d",strtotime($row['borrowed_To']))) && empty($row['actual_Return'])){
-                                                                                    ?>
-                                                                                        <p class="m-0 badge badge-warning">Date Expired</p>
-                                                                                    <?php
-                                                                                }
-                                                                                else{
-                                                                                    ?>
-                                                                                        <p class="m-0 badge badge-secondary">Not returned</p>
-                                                                                    <?php
-                                                                                }
-                                                                            ?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <?php
-                                                                                if($row['rev_status'] == 0){
-                                                                                    ?>
-                                                                                        <a href="bookings.php?action=Edit&edit_id=<?=$row['rev_id']?>" class="disabled btn btn-info">Edit</a>
-                                                                                        <button class="btn btn-danger" onclick="suspendReservation(<?=$row['rev_id']?>)">Delete</button>
-                                                                                    <?php
-                                                                                }
-                                                                                else{
-                                                                                    ?>
-                                                                                        <a href="bookings.php?action=Edit&edit_id=<?=$row['rev_id']?>" class="btn btn-info">Edit</a>
-                                                                                        <button class="btn btn-danger" onclick="suspendReservation(<?=$row['rev_id']?>)">Suspend</button>
-                                                                                    <?php
-                                                                                }
-                                                                            ?>
-                                                                        </td>
-                                                                    </tr>
-                                                                <?php
-                                                            }
-                                                        ?>
+                                                    <tbody id="search_result">
+                                                        
                                                     </tbody>
                                                 </table>
                                             </div>

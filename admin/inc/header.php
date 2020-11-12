@@ -66,8 +66,40 @@
             border: 1px solid black;
             display: block;
         }
+        .ibox-desc .form-control {
+            border: 0;
+            padding: 0.65rem 1.25rem 0.65rem 40px;
+            /* -webkit-border-radius: 200px !important; */
+            /* border-radius: 200px !important; */
+            background-color: #f4f5f9;
+            border-color: #f4f5f9;
+            font-size: 13px;
+        }
+        .ibox-desc .search-icon {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 40px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -ms-flex-align: center;
+            align-items: center;
+            color: #6d7c85;
+        }
+        .ibox-desc .dropdown-menu{
+            min-width: 11rem!important;
+            margin-top: 5px!important;
+        }
     </style>
 </head>
 
-<body class="fixed-navbar">
+<body class="fixed-navbar" onload="get_allBooking()">
     <div class="page-wrapper">

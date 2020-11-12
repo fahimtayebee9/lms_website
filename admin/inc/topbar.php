@@ -14,15 +14,16 @@
                     <a class="nav-link sidebar-toggler js-sidebar-toggler"><i class="ti-menu"></i></a>
                 </li>
                 <li>
-                    <form class="navbar-search" action="javascript:;">
+                    <form class="navbar-search" action="search.php?action=Search" method="POST">
                         <div class="rel">
                             <span class="search-icon"><i class="ti-search"></i></span>
-                            <input class="form-control" placeholder="Search here...">
+                            <input type="search" name="search" class="form-control" placeholder="Search here...">
                         </div>
                     </form>
                 </li>
             </ul>
             <!-- END TOP-LEFT TOOLBAR-->
+
             <!-- START TOP-RIGHT TOOLBAR-->
             <ul class="nav navbar-toolbar">
                 <li class="dropdown dropdown-inbox">
@@ -138,9 +139,38 @@
                         </ul>
                     </li>
                     <li class="dropdown dropdown-user">
+                        <?php
+                            if(isset($_SESSION['user_id'])){
+                                $user_id = $_SESSION['user_id'];
+                                $getData = "SELECT * FROM users WHERE id = '$user_id'";
+                                $result = mysqli_query($db,$getData);
+                                while($row = mysqli_fetch_assoc($result)){
+                                    $image = $row['image'];
+                                    $role = $row['role'];
+                                }
+                            }
+                        ?>
                         <a class="nav-link dropdown-toggle link" data-toggle="dropdown">
-                            <img src="./assets/img/admin-avatar.png" />
-                            <span></span>Super Admin<i class="fa fa-angle-down m-l-5"></i>
+                            <?php
+                                if(!empty($image)){
+                                    ?>
+                                        <img src="img/users/<?=$image?>" />
+                                    <?php
+                                }
+                                else{
+                                    ?>
+                                        <img src="img/users/admin-avatar.png" />
+                                    <?php
+                                }
+                            ?>
+                            
+                            <span></span>
+                                <?php
+                                    if($role == 1){
+                                        echo "Super Admin";
+                                    }
+                                ?>
+                                <i class="fa fa-angle-down m-l-5"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="profile.php"><i class="fa fa-user"></i>Profile</a>
@@ -149,7 +179,7 @@
                             <a class="dropdown-item" href="logout.php"><i class="fa fa-power-off"></i>Logout</a>
                         </ul>
                     </li>
-                </ul>
+            </ul>
             <!-- END TOP-RIGHT TOOLBAR-->
         </div>
     </section>
