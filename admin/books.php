@@ -56,13 +56,13 @@
                     while($rowBk = mysqli_fetch_assoc($allbooks)){
                       ?>
                         <div class="col-lg-3 col-md-3 col-sm-4 mb-3">
-                            <div class="card" style="height: 450px;">
+                            <div class="card" style="height: 415px;">
                                 <div class="card-body">
                                     <div class="mx-auto d-block">
                                         <?php
                                             if(!empty($rowBk['bk_image'])){
                                                 ?>
-                                                    <img class="rounded-circle mx-auto d-block" style="width: 170px; border-radius: 0%!important;" src="img/books/<?=$rowBk['bk_image']?>" alt="Card image cap">
+                                                    <img class="rounded-circle mx-auto d-block mb-3" style="width: 170px; height: 200px; border-radius: 0%!important;" src="img/books/<?=$rowBk['bk_image']?>" alt="Card image cap">
                                                 <?php
                                             }
                                             else{
@@ -93,9 +93,9 @@
                                     </div>
                                 </div>
                                 <div class="card-footer m-auto">
-                                    <a href="books.php?action=View&view_id=<?=$rowBk['bk_id']?>" class="btn btn-info">View</a>
-                                    <a href="books.php?action=Edit&edit_id=<?=$rowBk['bk_id']?>" class="btn btn-info">Edit</a>
-                                    <button class="btn btn-danger">Delete</button>
+                                    <a href="books.php?action=View&view_id=<?=$rowBk['bk_id']?>" class="btn btn-outline-secondary">View</a>
+                                    <a href="books.php?action=Edit&edit_id=<?=$rowBk['bk_id']?>" class="btn btn-outline-info">Edit</a>
+                                    <button class="btn btn-outline-danger" onclick="deleteBook(<?=$rowBk['bk_id']?>)">Delete</button>
                                 </div>
                             </div>
                         </div>

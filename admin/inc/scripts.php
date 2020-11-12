@@ -381,6 +381,71 @@
 </script>
 
 
+<!-- DELETE BOOK USING AJAX -->
+<script>
+  var Toast = Swal.mixin({
+      toast: true,
+      // position: 'top-end',
+      showConfirmButton: false,
+      timer: 3500
+    });
+  function deleteBook(delete_book){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      timer: 4000
+    }).then((result) => {
+      if (result.isConfirmed) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open('POST', 'controllers/booking_controller.php', true);
+        xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhttp.send('delete_book='+ delete_book);
+        xhttp.onreadystatechange = function (){
+          if(this.readyState == 4 && this.status == 200){
+            if(this.responseText != ""){
+              Toast.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Book has been deleted.',
+                showConfirmButton: false,
+                timer: 2500
+              })
+            }else{
+              Toast.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Book Not Deleted!',
+                showConfirmButton: false,
+                timer: 3500
+              })
+            }
+          }	
+        }
+      }
+      else{
+        Toast.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Canceled.. Book Not Deleted!',
+          showConfirmButton: false,
+          timer: 3500
+        })
+      }
+      setTimeout(loadPageBooks, 3450);
+    })
+  }
+
+  function loadPageBooks(){
+    window.location = "books.php?action=Manage";
+  }
+</script>
+
+
 <?php
   ob_end_flush();
 ?>

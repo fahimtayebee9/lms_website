@@ -84,26 +84,33 @@
 
                 if(mysqli_num_rows($result) > 0){
                     while($row = mysqli_fetch_assoc($result)){
-                        $_SESSION['user_id'] = $row['id'];
-                        $_SESSION['name'] = $row['name'];
-                        $_SESSION['email'] = $row['email'];
-                        $_SESSION['phone'] = $row['phone'];
-                        $_SESSION['address'] = $row['address'];
-                        $_SESSION['password'] = $row['password'];
-                        $_SESSION['image'] = $row['image'];
-                        $_SESSION['role'] = $row['role'];
-                        $_SESSION['status'] = $row['status'];
-                        $_SESSION['new_status'] = $row['new_status'];
-                        $_SESSION['join_date'] = $row['join_date'];
-
+                        
                         if(isset($remember)){
                             setcookie("username",$username,time() + (86400 * 30), "/");
                         }
                         else{
                             if($row['role'] == 1){
+                                $_SESSION['user_id'] = $row['id'];
+                                $_SESSION['name'] = $row['name'];
+                                $_SESSION['email'] = $row['email'];
+                                $_SESSION['phone'] = $row['phone'];
+                                $_SESSION['address'] = $row['address'];
+                                $_SESSION['password'] = $row['password'];
+                                $_SESSION['image'] = $row['image'];
+                                $_SESSION['role'] = $row['role'];
+                                $_SESSION['status'] = $row['status'];
+                                $_SESSION['new_status'] = $row['new_status'];
+                                $_SESSION['join_date'] = $row['join_date'];
+
                                 $_SESSION['message'] = "LOGIN SUCCESS";
                                 $_SESSION['type'] = "success";
                                 header("location: dashboard.php");
+                                exit();
+                            }
+                            else {
+                                $_SESSION['message'] = "You are not an Administrative User.";
+                                $_SESSION['type'] = "error";
+                                header("location: ../my-account.php?action=SignIn");
                                 exit();
                             }
                         }
