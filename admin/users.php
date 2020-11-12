@@ -47,58 +47,60 @@
                             <?php
                                 $i = 0;
                                 while($row = mysqli_fetch_assoc($allUsers)){
-                                ?>
-                                    <div class="col-lg-3 col-md-3 col-sm-6 mb-3">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="mx-auto d-block">
-                                                    <?php
-                                                        if(!empty($row['image'])){
-                                                            ?>
-                                                                <img class="rounded-circle mx-auto d-block" style="width: 170px;" src="img/users/<?=$row['image']?>" alt="Card image cap">
-                                                            <?php
-                                                        }
-                                                        else{
-                                                            ?>
-                                                                <img class="rounded-circle mx-auto d-block" style="width: 170px;" src="img/users/default.png" alt="Card image cap">
-                                                            <?php
-                                                        }
-                                                    ?>
-                                                    
-                                                    <h5 class="text-sm-center mt-2 mb-1"><?=$row['name']?></h5>
-                                                    <div class="location text-sm-center mb-3"><i class="fa fa-map-marker"></i> <?=$row['address']?> </div>
-                                                    <ul class="ml-4 mb-0 fa-ul text-muted">
-                                                        <li class="small mb-3"><span class="fa-li"><i class="ti-mobile"></i></span> Phone #: <?=$row['phone']?></li>
-                                                        <li class="small mb-3">
-                                                            <span class="fa-li">
-                                                            <i class="ti-alarm-clock"></i></span> 
-                                                            Join Date #: <?=$row['join_date']?>                                  
-                                                        </li>
-                                                        <li class="small mb-3"><span class="fa-li"><i class="ti-info-alt"></i></span> Status: 
-                                                            <?php
-                                                                if($row['status'] == 0){
-                                                                    ?>
-                                                                        <div class="badge badge-danger">Inactive</div>
-                                                                    <?php
-                                                                }
-                                                                else if($row['status'] == 1){
-                                                                    ?>
-                                                                        <div class="badge badge-success">Active</div>
-                                                                    <?php
-                                                                }
-                                                            ?>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="card-footer m-auto">
-                                                <a href="profile.php?action=View&view_id=<?=$row['id']?>" class="btn btn-outline-secondary">View</a>
-                                                <a href="users.php?action=Edit&edit=<?=$row['id']?>" class="btn btn-outline-info">Edit</a>
-                                                <button class="btn btn-outline-danger" onclick="deleteUser(<?=$row['id']?>)">Delete</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php
+                                  if($row['role'] != $_SESSION['role']){
+                                      ?>
+                                      <div class="col-lg-3 col-md-3 col-sm-6 mb-3">
+                                          <div class="card">
+                                              <div class="card-body">
+                                                  <div class="mx-auto d-block">
+                                                      <?php
+                                                          if(!empty($row['image'])){
+                                                              ?>
+                                                                  <img class="rounded-circle mx-auto d-block" style="width: 170px;" src="img/users/<?=$row['image']?>" alt="Card image cap">
+                                                              <?php
+                                                          }
+                                                          else{
+                                                              ?>
+                                                                  <img class="rounded-circle mx-auto d-block" style="width: 170px;" src="img/users/default.png" alt="Card image cap">
+                                                              <?php
+                                                          }
+                                                      ?>
+                                                      
+                                                      <h5 class="text-sm-center mt-2 mb-1"><?=$row['name']?></h5>
+                                                      <div class="location text-sm-center mb-3"><i class="fa fa-map-marker"></i> <?=$row['address']?> </div>
+                                                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                          <li class="small mb-3"><span class="fa-li"><i class="ti-mobile"></i></span> Phone #: <?=$row['phone']?></li>
+                                                          <li class="small mb-3">
+                                                              <span class="fa-li">
+                                                              <i class="ti-alarm-clock"></i></span> 
+                                                              Join Date #: <?=$row['join_date']?>                                  
+                                                          </li>
+                                                          <li class="small mb-3"><span class="fa-li"><i class="ti-info-alt"></i></span> Status: 
+                                                              <?php
+                                                                  if($row['status'] == 0){
+                                                                      ?>
+                                                                          <div class="badge badge-danger">Inactive</div>
+                                                                      <?php
+                                                                  }
+                                                                  else if($row['status'] == 1){
+                                                                      ?>
+                                                                          <div class="badge badge-success">Active</div>
+                                                                      <?php
+                                                                  }
+                                                              ?>
+                                                          </li>
+                                                      </ul>
+                                                  </div>
+                                              </div>
+                                              <div class="card-footer m-auto">
+                                                  <a href="profile.php?action=View&view_id=<?=$row['id']?>" class="btn btn-outline-secondary">View</a>
+                                                  <a href="users.php?action=Edit&edit=<?=$row['id']?>" class="btn btn-outline-info">Edit</a>
+                                                  <button class="btn btn-outline-danger" onclick="deleteUser(<?=$row['id']?>)">Delete</button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <?php
+                                  }
                                     $i++;
                                 }
                             ?>
@@ -498,9 +500,13 @@
                         $addUser = mysqli_query($db, $sql);
 
                         if ( $addUser ){
+                          $_SESSION['message'] = "Profile Updated..";
+                          $_SESSION['type'] = "success";
                           header("Location: users.php?do=Manage");
+                          exit();
                         }
                         else{
+                          
                           die("MySQLi Query Failed." . mysqli_error($db));
                         }
                       }
@@ -525,7 +531,10 @@
                         $addUser = mysqli_query($db, $sql);
 
                         if ( $addUser ){
+                          $_SESSION['message'] = "Profile Updated..";
+                          $_SESSION['type'] = "success";
                           header("Location: users.php?do=Manage");
+                          exit();
                         }
                         else{
                           die("MySQLi Query Failed." . mysqli_error($db));
@@ -541,7 +550,10 @@
                         $addUser = mysqli_query($db, $sql);
 
                         if ( $addUser ){
+                          $_SESSION['message'] = "Profile Updated..";
+                          $_SESSION['type'] = "success";
                           header("Location: users.php?do=Manage");
+                          exit();
                         }
                         else{
                           die("MySQLi Query Failed." . mysqli_error($db));
@@ -554,7 +566,10 @@
                         $addUser = mysqli_query($db, $sql);
 
                         if ( $addUser ){
+                          $_SESSION['message'] = "Profile Updated..";
+                          $_SESSION['type'] = "success";
                           header("Location: users.php?do=Manage");
+                          exit();
                         }
                         else{
                           die("MySQLi Query Failed." . mysqli_error($db));
