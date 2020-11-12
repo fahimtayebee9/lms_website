@@ -362,6 +362,142 @@
                     </div>
                 </div>
             </div>
+
+
+            <div id="quickview-wrapper">
+                <?php
+                    $bookSql = "SELECT * FROM `book_reservations` 
+                                INNER JOIN books ON books.bk_id = book_reservations.book_ID 
+                                INNER JOIN users ON users.id = book_reservations.rev_user
+                                INNER JOIN authors ON books.author_id = authors.a_id";
+                    $res_books = mysqli_query($db,$bookSql);
+                    while($rowBook = mysqli_fetch_assoc($res_books)){
+                            $bk_name = $rowBook['bk_name'];
+                            $bk_image = $rowBook['bk_image'];
+                            $bk_status = $rowBook['bk_status'];
+                            $bk_id = $rowBook['bk_id'];
+
+                            // Authority Name
+                            $authority_name = "";
+                            $issued_id = $rowBook['issued_by'];
+                            $sql_user = "SELECT * FROM users WHERE id = $issued_id";
+                            $result_user = mysqli_query($db,$sql_user);
+                            while($rowUser = mysqli_fetch_assoc($result_user)){
+                                $authority_name = $rowUser['name'];
+                            }
+                        ?>
+                        
+                            <!-- Modal -->
+                            <div class="modal bd-example-modal-lg fade" id="productmodal<?=$bk_id?>" tabindex="-1" role="dialog">
+                                <div class="modal-dialog  modal-lg modal__container" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header modal__header justify-content-between">
+                                            <p class="m-0 font-weight-bold">BOOKING ID : <?=$rowBook['rev_customized']?></p>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="modal-product">
+                                                <div class="row">
+                                                    <div class="col-md-5">
+                                                        <!-- Start product images -->
+                                                        <div class="product-images">
+                                                            <div class="main-image images">
+                                                                <img src="img/books/<?=$bk_image?>" class="w-100" alt="product image">
+                                                            </div>
+                                                        </div>
+                                                        <!-- end product images -->
+                                                    </div>
+
+                                                    <div class="col-md-7">
+                                                        <div class="product-info">
+                                                            <h4><?=$bk_name?></h4>
+                                                            <p class="mb-2">
+                                                                Author : <?=$rowBook['a_name']?>
+                                                            </p>
+                                                            <div class="price-box-3 mb-2">
+                                                                <div class="s-price-box">
+                                                                    Booking Status : 
+                                                                    <?php
+                                                                        if($bk_status == 1){
+                                                                            ?>
+                                                                                <span class="new-price">Returned</span>
+                                                                            <?php
+                                                                        }
+                                                                        else{
+                                                                            ?>
+                                                                                <span class="old-price">Not Returned</span>
+                                                                            <?php
+                                                                        }
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                            <div class="quick-desc">
+                                                                <table>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td class="text-left font-weight-bold">Student Name</td>
+                                                                            <td class="text-left pl-2 pr-2"> : </td>
+                                                                            <td class="text-left"><?=$rowBook['name']?></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-left font-weight-bold">Issued By</td>
+                                                                            <td class="text-left pl-2 pr-2"> : </td>
+                                                                            <td class="text-left"><?=$authority_name?></td>
+                                                                        </tr>
+                                                                        <tr class="">
+                                                                            <td class="text-left font-weight-bold">Borrowed Date</td>
+                                                                            <td class="text-left pl-2 pr-2"> : </td>
+                                                                            <td class="text-left"><?=date("d M, Y", strtotime($rowBook['borrowed_From']))?></td>
+                                                                        </tr>
+                                                                        <tr c>
+                                                                            <td class=" text-left font-weight-bold">Borrowed To</td>
+                                                                            <td class="text-left pl-2 pr-2"> : </td>
+                                                                            <td class="text-left"><?=date("d M, Y", strtotime($rowBook['borrowed_To']))?></td>
+                                                                        </tr>
+                                                                        <tr class="text-left">
+                                                                            <td class="text-left font-weight-bold">Actual Return Date</td>
+                                                                            <td class="text-left pl-2 pr-2"> : </td>
+                                                                            <td class="text-left"><?=date("d M, Y", strtotime($rowBook['actual_Return']))?></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="btn-area pt-5">
+                                                                <?php
+                                                                    // BUTTON LIST
+                                                                    $btn_list = "";
+                                                                    if($rowBook['rev_status'] == 0){
+                                                                        $btn_list .=
+                                                                            // "<a data-toggle='modal' title='Quick View' href='#productmodal{$rowBook['rev_id']}' class='btn btn-outline-secondary quickview modal-view detail-link mr-2'><i class='ti-eye'></i></a>" .
+                                                                            "<a href='bookings.php?action=Edit&edit_id={$rowBook['rev_id']}' class='disabled btn btn-outline-info mr-2'><i class='ti-pencil-alt'></i></a>".
+                                                                            "<button class='btn btn-outline-danger' onclick='suspendReservation({$rowBook['rev_id']})'><i class='ti-trash'></i></button>";
+                                                                        
+                                                                    }
+                                                                    else{
+                                                                        $btn_list .=
+                                                                            // "<a data-toggle='modal' title='Quick View' href='#productmodal{$rowBook['rev_id']}' class='btn btn-outline-secondary quickview modal-view detail-link mr-2'><i class='ti-eye'></i></a>" .
+                                                                            "<a href='bookings.php?action=Edit&edit_id={$rowBook['rev_id']}' class='btn btn-outline-info mr-2'><i class='ti-pencil-alt'></i></a>".
+                                                                            "<button class='btn btn-outline-danger' onclick='suspendReservation({$rowBook['rev_id']})'><i class='ti-trash'></i></button>";
+                                                                    }
+                                                                    echo $btn_list;
+                                                                ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        <?php
+                    }
+                ?>
+            </div>
+
             <!-- END PAGE CONTENT-->
             <?php include "inc/footer.php";?>
         </div>

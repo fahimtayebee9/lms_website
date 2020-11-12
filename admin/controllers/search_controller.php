@@ -118,14 +118,14 @@
             $btn_list = "";
             if($row['rev_status'] == 0){
                 $btn_list .=
-                    "<a href='bookings.php?action=View&view_id={$row['rev_id']}' class=' btn btn-outline-secondary mr-2'><i class='ti-eye'></i></a>" .
+                "<a data-toggle='modal' title='Quick View' href='#productmodal{$row['rev_id']}' class='btn btn-outline-secondary quickview modal-view detail-link mr-2'><i class='ti-eye'></i></a>" .
                     "<a href='bookings.php?action=Edit&edit_id={$row['rev_id']}' class='disabled btn btn-outline-info mr-2'><i class='ti-pencil-alt'></i></a>".
                     "<button class='btn btn-outline-danger' onclick='suspendReservation({$row['rev_id']})'><i class='ti-trash'></i></button>";
                 
             }
             else{
                 $btn_list .=
-                    "<a href='bookings.php?action=View&view_id={$row['rev_id']}' class=' btn btn-outline-secondary mr-2'><i class='ti-eye'></i></a>" .
+                    "<a data-toggle='modal' title='Quick View' href='#productmodal{$row['rev_id']}' class='btn btn-outline-secondary quickview modal-view detail-link mr-2'><i class='ti-eye'></i></a>" .
                     "<a href='bookings.php?action=Edit&edit_id={$row['rev_id']}' class='btn btn-outline-info mr-2'><i class='ti-pencil-alt'></i></a>".
                     "<button class='btn btn-outline-danger' onclick='suspendReservation({$row['rev_id']})'><i class='ti-trash'></i></button>";
             }
