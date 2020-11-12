@@ -1,10 +1,10 @@
     <section class="headers">
         <div class="page-brand">
             <a class="link" href="dashboard.php">
-                <span class="brand">Admin
-                    <span class="brand-tip">CAST</span>
+                <span class="brand">Library
+                    <span class="brand-tip">MS</span>
                 </span>
-                <span class="brand-mini">AC</span>
+                <span class="brand-mini">LM</span>
             </a>
         </div>
         <div class="flexbox flex-1">

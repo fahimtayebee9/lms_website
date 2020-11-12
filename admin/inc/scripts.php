@@ -219,7 +219,7 @@
 
 <!-- DATE PICKER -->
 <script>
-    $('#book_from').datepicker({
+    var from = $('#book_from').datepicker({
       language: 'en',
       onSelect: function (fd, date) {
         $('#book_to').data('datepicker')
@@ -227,6 +227,7 @@
       },
       dateFormat: 'yyyy-m-d',
       minDate: new Date()
+      
     })
     
     $('#book_to').datepicker({
@@ -238,6 +239,9 @@
           .update('maxDate', date)
       }
     })
+    
+    $('#book_from').data('datepicker').selectDate(new Date("<?=$_SESSION['book_from']?>"));;
+    $('#book_to').data('datepicker').selectDate(new Date("<?=$_SESSION['book_to']?>"));;
 
     $('#actualDate').datepicker({
       language: 'en',
@@ -247,7 +251,7 @@
         $('#book_from').data('datepicker')
           .update('maxDate', date)
       }
-    })
+    });
 
     $('#dod').datepicker({
       language: 'en',

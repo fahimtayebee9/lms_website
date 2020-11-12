@@ -134,9 +134,9 @@
 										</div>
 									</div>
 									<div class="col-lg-6 col-sm-8 col-md-8 text-center justify-content-between m-auto pt-3">
-										<a class="btn btn-info text-light" href="my-account.php?action=BorrowList">View Borrow List</a>
-										<a class="btn btn-warning text-light" href="my-account.php?action=ChangeInfo">Change Information</a>
-										<a class="btn btn-danger text-light" href="inc/logout.php">Sign Out</a>
+										<a class="btn btn-outline-info " href="my-account.php?action=BorrowList">View Borrow List</a>
+										<a class="btn btn-outline-warning " href="my-account.php?action=ChangeInfo">Change Information</a>
+										<a class="btn btn-outline-danger" href="inc/logout.php">Sign Out</a>
 									</div>
 								</div>
 							</div>
@@ -203,17 +203,13 @@
 															</div>
 															<div class="input__box">
 																<label class="font-weight-bold">Confirm Password</label>
-																<input type="password" name="confrimPassword" >
+																<input type="password" name="repassword" >
 															</div>
 														</div>
 														<div class="col-md-6 m-auto text-center">
 															<div class="form__btn d-block">
-																<label class="label-for-checkbox mt-3 mb-3 align-items-center">
-																	<input id="rememberme" class="input-checkbox" name="rememberme" value="forever" type="checkbox">
-																	<span>Remember me</span>
-																</label>
-																<br>
-																<button class=" text-center">Login</button>
+																<input type="hidden" name="updateUserID" id="updateUserID" value="<?=$user_id?>">
+																<button type="submit" class="text-center">Save Changes</button>
 															</div>
 														</div>
 													</div>
@@ -290,14 +286,14 @@
 																	</td>
 																	<td>
 																		<?php
-																			if($rowBooking['rev_status'] == 0){
+																			if($rowBooking['rev_status'] == 1){
 																				?>
 																					<p class="m-0 badge badge-success">RETURNED</p>
 																				<?php
 																			}
 																			else{
 																				?>
-																					<p class="m-0 badge badge-warning">NOT RETURNED</p>
+																					<p class="m-0 badge badge-warning">Pending</p>
 																				<?php
 																			}		
 																		?>
@@ -318,6 +314,154 @@
 						</section>
 						<!-- End My Account Area -->
 					<?php
+				}
+				else if($action == "Update"){
+					if ( $_SERVER['REQUEST_METHOD'] == 'POST' ){
+						$updateUserID = $_POST['updateUserID'];
+						$name         = $_POST['name'];
+						$email        = $_POST['email'];
+						$password     = $_POST['password'];
+						$repassword   = $_POST['repassword'];
+						$address      = $_POST['address'];
+						$phone        = $_POST['phone'];
+						$imageName    = $_FILES['image']['name'];
+	
+					  if ( !empty($imageName) ){
+						// $imageName    = $_FILES['image']['name'];
+						$imageSize    = $_FILES['image']['size'];
+						$imageTmp     = $_FILES['image']['tmp_name'];
+	
+						$imageAllowedExtension = array("jpg", "jpeg", "png");
+						$imageExtension = strtolower( end( explode('.', $imageName) ) );
+						
+						$formErrors = array();
+	
+						if ( strlen($name) < 3 ){
+						  $formErrors = 'Username is too short!!!';
+						}
+						if ( $password != $repassword ){
+						  $formErrors = 'Password Doesn\'t match!!!';
+						}
+						if ( !empty($imageName) ){
+						  if ( !empty($imageName) && !in_array($imageExtension, $imageAllowedExtension) ){
+							$formErrors = 'Invalid Image Format. Please Upload a JPG, JPEG or PNG image';
+						  }
+						  if ( !empty($imageSize) && $imageSize > 2097152 ){
+							$formErrors = 'Image Size is Too Large! Allowed Image size Max is 2 MB.';
+						  }
+						}
+					  }
+	
+						// Print the Errors 
+						foreach( $formErrors as $error ){
+						  echo '<div class="alert alert-warning">' . $error . '</div>';
+						}
+	
+						if ( empty($formErrors) ){
+	
+	
+						  // Upload Image and Change the Password
+						  if ( !empty($password) && !empty($imageName) ){
+							// Encrypted Password
+							$hassedPass = sha1($password);
+	
+							// Delete the Existing Image while update the new image
+							$deleteImageSQL = "SELECT * FROM users WHERE id = '$updateUserID'";
+							$data = mysqli_query($db, $deleteImageSQL);
+							while( $row = mysqli_fetch_assoc($data) ){
+							  $existingImage = $row['image'];
+							}
+							unlink('img/users/'. $existingImage);
+							
+							// Change the Image Name
+							$image = rand(0, 999999) . '_' .$imageName;
+							// Upload the Image to its own Folder Location
+							move_uploaded_file($imageTmp, "img\users\\" . $image );
+	
+							$sql = "UPDATE users SET name='$name', email='$email', password='$hassedPass', address='$address', phone='$phone', image='$image',new_user = '2' WHERE id = '$updateUserID' ";
+	
+							$addUser = mysqli_query($db, $sql);
+	
+							if ( $addUser ){
+							  $_SESSION['message'] = "Profile Updated..";
+							  $_SESSION['type'] = "success";
+							  header("Location: users.php?do=Manage");
+							  exit();
+							}
+							else{
+							  
+							  die("MySQLi Query Failed." . mysqli_error($db));
+							}
+						  }
+	
+						  // Change the Image Only
+						  else if ( !empty($imageName) && empty($password) ){
+							// Delete the Existing Image while update the new image
+							$deleteImageSQL = "SELECT * FROM users WHERE id = '$updateUserID'";
+							$data = mysqli_query($db, $deleteImageSQL);
+							while( $row = mysqli_fetch_assoc($data) ){
+							  $existingImage = $row['image'];
+							}
+							unlink('img/users/'. $existingImage);
+							
+							// Change the Image Name
+							$image = rand(0, 999999) . '_' .$imageName;
+							// Upload the Image to its own Folder Location
+							move_uploaded_file($imageTmp, "img\users\\" . $image );
+	
+							$sql = "UPDATE users SET name='$name', email='$email', address='$address', phone='$phone', image='$image' WHERE id = '$updateUserID' ";
+	
+							$addUser = mysqli_query($db, $sql);
+	
+							if ( $addUser ){
+							  $_SESSION['message'] = "Profile Updated..";
+							  $_SESSION['type'] = "success";
+							  header("Location: my-account.php?action=Manage");
+							  exit();
+							}
+							else{
+							  die("MySQLi Query Failed." . mysqli_error($db));
+							}
+						  }
+						  // Change the Password Only
+						  else if ( !empty($password) && empty($imageName) ){
+							// Encrypted Password
+							$hassedPass = sha1($password);
+	
+							$sql = "UPDATE users SET name='$name', email='$email', password='$hassedPass', address='$address', phone='$phone' WHERE id = '$updateUserID' ";
+	
+							$addUser = mysqli_query($db, $sql);
+	
+							if ( $addUser ){
+							  $_SESSION['message'] = "Profile Updated..";
+							  $_SESSION['type'] = "success";
+							  header("Location: my-account.php?action=Manage");
+							  exit();
+							}
+							else{
+							  die("MySQLi Query Failed." . mysqli_error($db));
+							}
+						  }
+						  // No Password and Image Update
+						  else{
+							$sql = "UPDATE users SET name='$name', email='$email', address='$address', phone='$phone' WHERE id = '$updateUserID' ";
+	
+							$addUser = mysqli_query($db, $sql);
+	
+							if ( $addUser ){
+							  $_SESSION['message'] = "Profile Updated..";
+							  $_SESSION['type'] = "success";
+							  header("Location: my-account.php?action=Manage");
+							  exit();
+							}
+							else{
+							  die("MySQLi Query Failed." . mysqli_error($db));
+							}
+						  }
+						  
+						}
+	
+					}
 				}
 			}
 			else{

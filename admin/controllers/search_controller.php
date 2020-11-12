@@ -107,6 +107,9 @@
             if($row['rev_status'] == 0){
                 $status_ch =  "Returned";
             }
+            else if($row['rev_status'] == 2){
+                $status_ch =  "Returned";
+            }
             else if(strtotime(date("Y-m-d")) > strtotime(date("Y-m-d",strtotime($row['borrowed_To']))) && empty($row['actual_Return'])){
                 $status_ch = "Date Expired";
             }

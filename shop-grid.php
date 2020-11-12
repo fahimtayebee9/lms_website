@@ -124,7 +124,7 @@
 																					<li><a class="cart <?php if($bk_status == 0){echo "disabled-item";}?>" href="checkout.php?book_id=<?=$bk_id?>"><i class="bi bi-shopping-bag4"></i></a></li>
 																					<li><a class="wishlist" href="wishlist.php?action=Insert&book_id=<?=$bk_id?>"><i class="bi bi-shopping-cart-full"></i></a></li>
 																					<!-- <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li> -->
-																					<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+																					<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal<?=$bk_id?>"><i class="bi bi-search"></i></a></li>
 																				</ul>
 																			</div>
 																		</div>
@@ -408,7 +408,7 @@
 																									<li><a class="cart" href="checkout.php?book_id=<?=$bk_id?>"><i class="bi bi-shopping-bag4"></i></a></li>
 																									<li><a class="wishlist" href="wishlist.php?action=Insert&book_id=<?=$bk_id?>"><i class="bi bi-shopping-cart-full"></i></a></li>
 																									<!-- <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li> -->
-																									<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+																									<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal<?=$bk_id?>"><i class="bi bi-search"></i></a></li>
 																								</ul>
 																							</div>
 																						</div>
@@ -484,7 +484,7 @@
 																							<li><a class="cart" href="checkout.php?book_id=<?=$bk_id?>"><i class="bi bi-shopping-bag4"></i></a></li>
 																							<li><a class="wishlist" href="wishlist.php?action=Insert&book_id=<?=$bk_id?>"><i class="bi bi-shopping-cart-full"></i></a></li>
 																							<!-- <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li> -->
-																							<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+																							<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal<?=$bk_id?>"><i class="bi bi-search"></i></a></li>
 																						</ul>
 																					</div>
 																				</div>

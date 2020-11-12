@@ -285,17 +285,17 @@
 
                                                             <div class="form-group">
                                                                 <label for="" class="font-weight-bold">Borrowed On</label>
-                                                                <input type='text' disabled class='input-rounded form-control datepicker-here' required name="book_from" id="book_from" data-position='bottom center' value="<?=$fromDate?>">
+                                                                <input type='text' disabled class='input-rounded form-control datepicker-here' name="book_from" id="book_from" data-position='bottom center'>
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <label for="" class="font-weight-bold">Borrowed To</label>
-                                                                <input type='text' disabled class='input-rounded form-control datepicker-here' required id="book_to" name="book_to" data-position='bottom center' value="<?=$toDate?>">
+                                                                <input type='text' disabled class='input-rounded form-control datepicker-here' id="book_to" name="book_to" data-position='bottom center'>
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <label for="" class="font-weight-bold">Actual Return Date</label>
-                                                                <input type='text' class='input-rounded form-control datepicker-here' required id="actualDate" name="actualDate" data-position='bottom center' value="">
+                                                                <input type='text' class='input-rounded form-control datepicker-here' id="actualDate" name="actualDate" data-position='bottom center'>
                                                             </div>
 
                                                             <div class="form-group">
@@ -310,6 +310,7 @@
                                                             </div>
                                                             <div class="form-group text-center">
                                                                 <input type="hidden" name="rev_id" value="<?=$rev_id?>">
+                                                                <input type="hidden" name="book_id" value="<?=$book_id?>">
                                                                 <input type="submit" class="btn btn-success " value="Confirm Booking" name="confirm">
                                                             </div>
                                                         </form>
@@ -324,16 +325,19 @@
                             else if($action == "Update"){
                                 if($_SERVER['REQUEST_METHOD'] == "POST"){
                                     
-                                    $book_id          = $_POST['book_id'];
-                                    $student_id       = $_POST['std_id'];
-                                    $book_from        = $_POST['book_from'];
-                                    $book_to          = $_POST['book_to'];
                                     $rev_status       = $_POST['rev_status'];
-                                    $issued_byId      = $_POST['issued_by'];
+                                    $issued_byId      = $_SESSION['user_id'];
                                     $actualDate       = $_POST['actualDate'];
                                     $rev_id           = $_POST['rev_id'];
+                                    $book_id          = $_POST['book_id'];
 
-                                    $insert = "UPDATE `book_reservations` SET `actual_Return`='$actualDate',`rev_status`='$rev_status' WHERE rev_id = '$rev_id'";
+                                    if(!empty($_POST['actualDate'])){
+                                        $insert = "UPDATE `book_reservations` SET  issued_by = '$issued_byId',`actual_Return`='$actualDate',`rev_status`='$rev_status' WHERE rev_id = '$rev_id'";
+                                    }
+                                    else{
+                                        $insert = "UPDATE `book_reservations` SET issued_by = '$issued_byId',`actual_Return`=NULL,`rev_status`='$rev_status' WHERE rev_id = '$rev_id'";
+                                    
+                                    }
                                     $insRes = mysqli_query($db,$insert);
                                     if($insRes){
                                         $updateInfo = "UPDATE books SET bk_status = 1 WHERE bk_id = $book_id";
