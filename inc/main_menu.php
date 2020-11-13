@@ -17,7 +17,7 @@
                                 ?>
                                     
                                     <li <?php if($countRow > 0){echo "class='label2'";}?> >
-                                        <a class="d-block" href="shop-grid.php?cat_id=<?=$rowCAT['cat_id']?>"><?=$rowCAT['cat_name']?></a>
+                                        <a class="d-block" href="shop-grid.php?action=Category&cat_id=<?=$rowCAT['cat_id']?>"><?=$rowCAT['cat_name']?></a>
                                         <?php
                                             
                                             if(mysqli_num_rows($res_subCat) > 0){
@@ -27,7 +27,7 @@
                                                 while($rowSUB = mysqli_fetch_assoc($res_subCat)){
                                                     ?>
                                                         <li>
-                                                            <a href="shop-grid.php?cat_id=<?=$rowSUB['cat_id']?>"><?=$rowSUB['cat_name']?></a>
+                                                            <a href="shop-grid.php?action=Category&cat_id=<?=$rowSUB['cat_id']?>"><?=$rowSUB['cat_name']?></a>
                                                         </li>
                                                     <?php
                                                 }

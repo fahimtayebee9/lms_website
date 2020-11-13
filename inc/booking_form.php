@@ -13,13 +13,13 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<span class="form-label">Borrow Date</span>
-					<input class="form-control" type="date" name="book_from" required>
+					<input class="form-control" type="date" name="book_from" <?php if(!empty($_SESSION['rev_user'])){ echo "required";}?>>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-group">
 					<span class="form-label">Return Date</span>
-					<input class="form-control" type="date" name="book_to" required>
+					<input class="form-control" type="date" name="book_to" <?php if(!empty($_SESSION['rev_user'])){ echo "required";}?>>
 				</div>
 			</div>
 		</div>
@@ -66,7 +66,10 @@
 				}
 				else{
 					?>
-						<button class="submit-btn disabled" onclick="infobox()">Confirm Booking</button>
+						<div class="alert alert-danger">
+							Please Sign In to Confirm Book Borrowing.
+						</div>
+						<!-- <button class="submit-btn disabled" onclick="infobox()">Confirm Booking</button> -->
 					<?php
 				}
 			?>

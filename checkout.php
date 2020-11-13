@@ -29,9 +29,9 @@
 										<div class="bradcaump__inner text-center">
 											<h2 class="bradcaump-title">Borrow Book</h2>
 											<nav class="bradcaump-content">
-											<a class="breadcrumb_item" href="index.html">Home</a>
-											<span class="brd-separetor">/</span>
-											<span class="breadcrumb_item active">Booking Information</span>
+												<a class="breadcrumb_item" href="index.html">Home</a>
+												<span class="brd-separetor">/</span>
+												<span class="breadcrumb_item active">Booking Information</span>
 											</nav>
 										</div>
 									</div>
@@ -186,42 +186,49 @@
 				}
 			}
 			else if($action == "Insert"){
-				if($_SERVER['REQUEST_METHOD'] == "POST"){
-                                    
-					$rev_customizedId = generateNewBookingID();
-					$book_id          = $_POST['book_id'];
-					$student_id       = $_SESSION['rev_user'];
-					$book_from        = $_POST['book_from'];
-					$book_to          = $_POST['book_to'];
-					$rev_status       = 0;
-					$issued_byId      = 0;
+				if(isset($_SESSION['rev_user'])){
+					if($_SERVER['REQUEST_METHOD'] == "POST"){
+						$rev_customizedId = generateNewBookingID();
+						$book_id          = $_POST['book_id'];
+						$student_id       = $_SESSION['rev_user'];
+						$book_from        = $_POST['book_from'];
+						$book_to          = $_POST['book_to'];
+						$rev_status       = 0;
+						$issued_byId      = 0;
 
-					$insert = "INSERT INTO `book_reservations`(`rev_customized`, `rev_user`, `issued_by`, `book_ID`, `borrowed_From`, `borrowed_To`, `actual_Return`, `rev_status`)
-								VALUES ('$rev_customizedId','$student_id','$issued_byId','$book_id','$book_from','$book_to',NULL,'$rev_status')";
-					$insRes = mysqli_query($db,$insert);
-					if($insRes){
-						$getBooksInfo = "SELECT * FROM books WHERE bk_id = $book_id";
-						$bkRes        = mysqli_query($db,$getBooksInfo);
-						while($rowInfo = mysqli_fetch_assoc($bkRes)){
-							$booking_count = $rowInfo['booking_count'];
+						$insert = "INSERT INTO `book_reservations`(`rev_customized`, `rev_user`, `issued_by`, `book_ID`, `borrowed_From`, `borrowed_To`, `actual_Return`, `rev_status`)
+									VALUES ('$rev_customizedId','$student_id','$issued_byId','$book_id','$book_from','$book_to',NULL,'$rev_status')";
+						$insRes = mysqli_query($db,$insert);
+						if($insRes){
+							$getBooksInfo = "SELECT * FROM books WHERE bk_id = $book_id";
+							$bkRes        = mysqli_query($db,$getBooksInfo);
+							while($rowInfo = mysqli_fetch_assoc($bkRes)){
+								$booking_count = $rowInfo['booking_count'];
+							}
+							$booking_count += 1;
+							$updateInfo = "UPDATE books SET booking_count = $booking_count, bk_status = 0 WHERE bk_id = $book_id";
+							$resUp      = mysqli_query($db,$updateInfo);
+							if($resUp){
+								$_SESSION['message'] = "BOOKING CONFIRMED... Booking Id is $rev_customizedId";
+								$_SESSION['type']    = "success";
+								header("location: shop-grid.php");
+								exit();
+							}
 						}
-						$booking_count += 1;
-						$updateInfo = "UPDATE books SET booking_count = $booking_count, bk_status = 0 WHERE bk_id = $book_id";
-						$resUp      = mysqli_query($db,$updateInfo);
-						if($resUp){
-							$_SESSION['message'] = "BOOKING CONFIRMED... Booking Id is $rev_customizedId";
-							$_SESSION['type']    = "success";
+						else{
+							$_SESSION['message'] = "SOMETHING WENT WRONG...BOOKING NOT CONFIRMED...";
+							$_SESSION['type']    = "error";
 							header("location: shop-grid.php");
 							exit();
 						}
 					}
-					else{
-						$_SESSION['message'] = "SOMETHING WENT WRONG...BOOKING NOT CONFIRMED...";
-						$_SESSION['type']    = "error";
-						header("location: shop-grid.php");
-						exit();
-					}
 					// echo $insert;
+				}
+				else{
+					// $_SESSION['message'] = "SOMETHING WENT WRONG...BOOKING NOT CONFIRMED...";
+					// $_SESSION['type']    = "error";
+					header("location: shop-grid.php");
+					exit();
 				}
 			}
 		?>

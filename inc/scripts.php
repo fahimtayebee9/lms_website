@@ -23,8 +23,8 @@
         });
 		function infobox(){
 			Swal.fire({
-			title: 'Are you sure?',
-			text: "You won't be able to revert this!",
+			title: 'ERROR 404',
+			text: "You are not logged in...",
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
